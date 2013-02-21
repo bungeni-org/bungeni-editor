@@ -24,8 +24,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -56,22 +58,35 @@ import org.jdom.xpath.XPath;
 public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ActMainMetadata.class.getName());
-    private ActMainMetadataModel docMetaModel = new ActMainMetadataModel();
+    private static ActMainMetadataModel docMetaModel = new ActMainMetadataModel();
     private ArrayList<PublicationType> PublicationTypesList = new ArrayList<PublicationType>();
     private ArrayList<HistoricalPeriod> actHistoricalPeriodsList = new ArrayList<HistoricalPeriod>();
     private ArrayList<Family> actFamiliesList = new ArrayList<Family>();
+    private ArrayList<Family> actSubFamiliesList = new ArrayList<Family>();
     private ArrayList<Family> actPossibleFamiliesList = new ArrayList<Family>();
+    private ArrayList<Family> actSubPossibleFamiliesList = new ArrayList<Family>();
     private ArrayList<Area> actScopeList = new ArrayList<Area>();
     private ArrayList<Category> actCategoriesList = new ArrayList<Category>();
     private ArrayList<Category_Basic> actCategoriesBasicList = new ArrayList<Category_Basic>();
+    private final SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+    private String dbName = "Muqtafi_test";
+    private Connection con = CommonConnectorFunctions.ConnectMMSM(dbName);
+    private Statement conStmt;
 
     /**
      * Creates new customizer ActMainMetadata
      */
     public ActMainMetadata() {
         super();
+        try {
+            conStmt = con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
         CommonUIFunctions.compOrientation(this);
+
+
     }
 
     public static void setBungeniActEffectiveDate(Date effectiveDate) {
@@ -83,6 +98,8 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         super.initialize();
         this.docMetaModel.setup();
         initControls();
+       
+        cboActPossibleFamily.setSelectedIndex(21);
         loadActInfo();
         if (theMode == SelectorDialogModes.TEXT_EDIT) {
             //retrieve metadata... and set in controls....
@@ -160,6 +177,10 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         }
     }
 
+    public static ActMainMetadataModel getDocMetaModel() {
+        return docMetaModel;
+    }
+
     private void initControls() {
         // String popupDlgBackColor = BungeniEditorProperties.getEditorProperty("popupDialogBackColor");
         // this.setBackground(Color.decode(popupDlgBackColor));
@@ -167,6 +188,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         //set Default selections
         this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(Locale.getDefault().getLanguage()));
+
     }
 
     public Component getPanelComponent() {
@@ -211,11 +233,12 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     }
 
     private ComboBoxModel setActTypesModel() {
+
         DefaultComboBoxModel publicationTypesNamesModel = null;
 
         try {
             String sqlStm = "SELECT [LG_Type_ID], [LG_Type_Name], [LG_Type_Name_E], [LG_Type_Name_AN] FROM LG_Type";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 PublicationType ptObj = new PublicationType(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
@@ -265,9 +288,8 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         DefaultComboBoxModel actScopesModel = null;
 
         try {
-
-            String sqlStm = "SELECT [AreaID], [AreaName] FROM [LG_Area] ";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            String sqlStm = "SELECT [AreaID], [AreaName] FROM LG_Area";
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 Area actScObj = new Area(rs.getString(1), rs.getString(2));
@@ -318,7 +340,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         try {
 
             String sqlStm = "SELECT [LG_HisPer_ID], [LG_HisPer_Name], [LG_HisPer_Name_E] FROM LG_HisPer ORDER BY [LG_HisPer_Order] DESC";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 HistoricalPeriod ptObj = new HistoricalPeriod(rs.getString(1), rs.getString(2), rs.getString(3));
@@ -368,8 +390,8 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         try {
 
-            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) = 0 AND LG_Family_ID != 0 ";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 2) = 00 AND LG_Family_ID != 0 ";
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
@@ -383,6 +405,9 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         String[] families = new String[actFamiliesList.size()];
         for (int i = 0; i < actFamiliesList.size(); i++) {
             families[i] = actFamiliesList.get(i).toString();
+            if (families[i].length() > 30) {
+                families[i] = actFamiliesList.get(i).toString().substring(0, 30) + " ...";
+            }
         }
         // create the default acts Names mode
         actFamiliesModel = new DefaultComboBoxModel(families);
@@ -417,26 +442,28 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         DefaultComboBoxModel subFamiliesModel = null;
 
         Family currActFamily = actFamiliesList.get(selectedActFamilyIndex);
-
-        ArrayList<Family> subFamiliesList = new ArrayList<Family>();
+        actSubFamiliesList.clear();
         try {
             String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) != 0 AND LEFT(LG_Family_ID, 1) = "
                     + currActFamily.getFamilyID().charAt(0)
                     + " AND LEN(LG_Family_ID) = " + currActFamily.getFamilyID().length();
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
-                subFamiliesList.add(fmObj);
+                actSubFamiliesList.add(fmObj);
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String[] subFamilies = new String[subFamiliesList.size()];
-        for (int i = 0; i < subFamiliesList.size(); i++) {
-            subFamilies[i] = subFamiliesList.get(i).toString();
+        String[] subFamilies = new String[actSubFamiliesList.size()];
+        for (int i = 0; i < actSubFamiliesList.size(); i++) {
+            subFamilies[i] = actSubFamiliesList.get(i).toString();
+            if (subFamilies[i].length() > 30) {
+                subFamilies[i] = actSubFamiliesList.get(i).toString().substring(0, 30) + " ...";
+            }
         }
 
         // create the default sub families model
@@ -448,12 +475,14 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
     private ComboBoxModel setActPossibleFamiliesModel() {
         DefaultComboBoxModel actPossibleFamiliesModel = null;
+        Family fmObj = new Family("", "", "");
 
         try {
 
-            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) = 0 AND LG_Family_ID != 0 ";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 2) = 00 AND LG_Family_ID != 0 ";
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
+            
             while (rs.next()) {
                 Family pfmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
                 actPossibleFamiliesList.add(pfmObj);
@@ -462,10 +491,14 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         } catch (SQLException ex) {
             Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        actPossibleFamiliesList.add(fmObj);
         String[] possibleFamilies = new String[actPossibleFamiliesList.size()];
-        for (int i = 0; i < actFamiliesList.size(); i++) {
-            possibleFamilies[i] = actFamiliesList.get(i).toString();
+
+        for (int i = 0; i < actPossibleFamiliesList.size(); i++) {
+            possibleFamilies[i] = actPossibleFamiliesList.get(i).toString();
+            if (possibleFamilies[i].length() > 30) {
+                possibleFamilies[i] = actPossibleFamiliesList.get(i).toString().substring(0, 30) + " ...";
+            }
         }
         // create the default acts Names mode
         actPossibleFamiliesModel = new DefaultComboBoxModel(possibleFamilies);
@@ -500,30 +533,36 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         DefaultComboBoxModel subPossibleFamiliesModel = null;
 
         Family currActPFamily = actPossibleFamiliesList.get(selectedActPFamilyIndex);
+        actSubPossibleFamiliesList.clear();
+        if (currActPFamily.getFamilyID() != "") {
+            try {
+                String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) != 0 AND LEFT(LG_Family_ID, 1) = "
+                        + currActPFamily.getFamilyID().charAt(0)
+                        + " AND LEN(LG_Family_ID) = " + currActPFamily.getFamilyID().length();;
+                ResultSet rs = conStmt.executeQuery(sqlStm);
 
-        ArrayList<Family> subPFamiliesList = new ArrayList<Family>();
-        try {
-            String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) != 0 AND LEFT(LG_Family_ID, 1) = "
-                    + currActPFamily.getFamilyID().charAt(0)
-                    + " AND LEN(LG_Family_ID) = " + currActPFamily.getFamilyID().length();;
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
-
-            while (rs.next()) {
-                Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
-                subPFamiliesList.add(fmObj);
-
+                while (rs.next()) {
+                    Family fmObj = new Family(rs.getString(1), rs.getString(2), rs.getString(3));
+                    actSubPossibleFamiliesList.add(fmObj);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String[] subFamilies = new String[subPFamiliesList.size()];
-        for (int i = 0; i < subPFamiliesList.size(); i++) {
-            subFamilies[i] = subPFamiliesList.get(i).toString();
-        }
+        String[] subFamilies = new String[actSubPossibleFamiliesList.size()];
+        for (int i = 0;
+                i < actSubPossibleFamiliesList.size();
+                i++) {
+            subFamilies[i] = actSubPossibleFamiliesList.get(i).toString();
+            if (subFamilies[i].length() > 30) {
+                subFamilies[i] = actSubPossibleFamiliesList.get(i).toString().substring(0, 30) + " ...";
+            }
 
+        }
         // create the default sub families model
         subPossibleFamiliesModel = new DefaultComboBoxModel(subFamilies);
+
         cboActPossibleSubFamily.setModel(subPossibleFamiliesModel);
         return subPossibleFamiliesModel;
     }
@@ -534,14 +573,19 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         try {
 
             String sqlStm = "SELECT [LG_Category_ID], [LG_Category_Name] FROM [LG_Category] ";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 Category catObj = new Category(rs.getString(1), rs.getString(2));
                 actCategoriesList.add(catObj);
+
+
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ActMainMetadata.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         String[] categories = new String[actCategoriesList.size()];
@@ -553,31 +597,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         return actCategoriesBasicModel;
 
-//        DefaultComboBoxModel actCategoriesModel = null;
-//        String[] actCategories = null; // stores all the bill Names
-//        // initialise the Bungeni Connector Client
-//        BungeniConnector client = null;
-//        try {
-//            // initialize the data store client
-//            client = CommonConnectorFunctions.getDSClient();
-//            // get the acts from the registry H2 db
-//            List<ActCategory> actCategoriesList = client.getActCategories();
-//            actCategories = new String[actCategoriesList.size()];
-//
-//            // loop through extracting the acts
-//            for (int i = 0; i < actCategoriesList.size(); i++) {
-//                // get the current act & extract the act Name
-//                ActCategory currActCategory = actCategoriesList.get(i);
-//                actCategories[i] = currActCategory.getNameByLang(Locale.getDefault().getLanguage());
-//            }
-//
-//            // create the default acts Names model
-//            actCategoriesModel = new DefaultComboBoxModel(actCategories);
-//
-//        } catch (IOException ex) {
-//            log.error(ex);
-//        }
-//        return actCategoriesModel;
     }
 
     private ComboBoxModel setActCategoriesBasicModel() {
@@ -586,14 +605,19 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         try {
 
             String sqlStm = "SELECT [LG_Basic_ID], [LG_Basic_Name] FROM [LG_Basic] ";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(sqlStm);
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 Category_Basic catBasicObj = new Category_Basic(rs.getString(1), rs.getString(2));
                 actCategoriesBasicList.add(catBasicObj);
+
+
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ActMainMetadata.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         String[] categoriesBasic = new String[actCategoriesBasicList.size()];
@@ -605,38 +629,11 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         return actCategoriesBasicModel;
 
-//        DefaultComboBoxModel actCategoriesBasicModel = null;
-//        String[] actCategoriesBasic = null; // stores all the bill Names
-//        // initialise the Bungeni Connector Client
-//        BungeniConnector client = null;
-//        try {
-//            // initialize the data store client
-//            client = CommonConnectorFunctions.getDSClient();
-//            // get the acts from the registry H2 db
-//            List<ActCategoryBasic> actCategoriesBasicList = client.getActCategoriesBasic();
-//            actCategoriesBasic = new String[actCategoriesBasicList.size()];
-//
-//            // loop through extracting the acts
-//            for (int i = 0; i < actCategoriesBasicList.size(); i++) {
-//                // get the current act & extract the act Name
-//                ActCategoryBasic currActCategoryBasic = actCategoriesBasicList.get(i);
-//                actCategoriesBasic[i] = currActCategoryBasic.getNameByLang(Locale.getDefault().getLanguage());
-//            }
-//
-//            // create the default acts Names model
-//            actCategoriesBasicModel = new DefaultComboBoxModel(actCategoriesBasic);
-//
-//        } catch (IOException ex) {
-//            log.error(ex);
-//        }
-//        return actCategoriesBasicModel;
     }
 
     public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
         boolean bState = false;
         try {
-
-            SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
 
             LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
             String strEffectiveDate = dformatter.format(dt_effective_date.getDate());
@@ -644,14 +641,17 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             String sBungeniActName = this.txtActName.getText();
             String sBungeniActNo = this.txtActNo.getText();
             String sBungeniActYear = this.txtActYear.getText();
-            String selBungeniActType = (String) this.cboActType.getSelectedItem();
-            String selBungeniActScope = (String) this.cboActScope.getSelectedItem();
-            String selBungeniActHistoricalPeriod = (String) this.cboActHistoricalPeriod.getSelectedItem();
-            String selBungeniActFamily = (String) this.cboActFamily.getSelectedItem();
-            String selBungeniActFamilyPossible = (String) this.cboActPossibleFamily.getSelectedItem();
 
+            PublicationType actType = PublicationTypesList.get(this.cboActType.getSelectedIndex());
+            HistoricalPeriod actHistoricalPeriod = actHistoricalPeriodsList.get(this.cboActHistoricalPeriod.getSelectedIndex());
+            Family actFamily = actFamiliesList.get(this.cboActFamily.getSelectedIndex());
+            Family actSubFamily = actSubFamiliesList.get(this.cboActSubFamily.getSelectedIndex());
+            Family actPossibleFamily = actPossibleFamiliesList.get(this.cboActPossibleFamily.getSelectedIndex());
+            Family actSubPossibleFamily = actSubPossibleFamiliesList.get(this.cboActPossibleSubFamily.getSelectedIndex());
+            Area actScope = actScopeList.get(this.cboActScope.getSelectedIndex());
+            Category actCategory = actCategoriesList.get(this.cboActCategory.getSelectedIndex());
+            Category_Basic actCategoryBasic = actCategoriesBasicList.get(this.cboActCategoryBasic.getSelectedIndex());
 
-            String selBungeniActCategory = (String) this.cboActCategory.getSelectedItem() + " - " + (String) this.cboActCategoryBasic.getSelectedItem();
             String sBungeniActState = this.txtActState.getText();
             String strPageNo = this.txtPageNo.getText();
             String strPageCount = this.txtPageCount.getText();
@@ -660,14 +660,37 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             docMetaModel.updateItem("BungeniActName", sBungeniActName);
             docMetaModel.updateItem("BungeniActNo", sBungeniActNo);
             docMetaModel.updateItem("BungeniActYear", sBungeniActYear);
-            docMetaModel.updateItem("BungeniActType", selBungeniActType);
-            docMetaModel.updateItem("BungeniActScope", selBungeniActScope);
-            docMetaModel.updateItem("BungeniActHistoricalPeriod", selBungeniActHistoricalPeriod);
-            docMetaModel.updateItem("BungeniActFamily", selBungeniActFamily);
-            docMetaModel.updateItem("BungeniActFamilyPossible", selBungeniActFamilyPossible);
+
+            docMetaModel.updateItem("BungeniActType", actType.toString());
+            docMetaModel.updateItem("BungeniActTypeID", actType.getPublicationTypeID());
+
+            docMetaModel.updateItem("BungeniActScope", actScope.getAreaName());
+            docMetaModel.updateItem("BungeniActScopeID", actScope.getAreaID());
+
+            docMetaModel.updateItem("BungeniActHistoricalPeriod", actHistoricalPeriod.toString());
+            docMetaModel.updateItem("BungeniActHistoricalPeriodID", actHistoricalPeriod.getHistoricalPeriodID());
+
+            docMetaModel.updateItem("BungeniActFamily", actFamily.toString());
+            docMetaModel.updateItem("BungeniActFamilyID", actFamily.getFamilyID());
+
+            docMetaModel.updateItem("BungeniActSubFamily", actSubFamily.toString());
+            docMetaModel.updateItem("BungeniActSubFamilyID", String.valueOf((this.cboActFamily.getSelectedIndex() + 1) * 100 + (this.cboActSubFamily.getSelectedIndex() + 1)));
+
+            docMetaModel.updateItem("BungeniActFamilyPossible", actPossibleFamily.toString());
+            docMetaModel.updateItem("BungeniActFamilyPossibleID", actPossibleFamily.getFamilyID());
+
+            docMetaModel.updateItem("BungeniActSubFamilyPossible", actSubPossibleFamily.toString());
+            docMetaModel.updateItem("BungeniActSubFamilyPossibleID", String.valueOf((this.cboActPossibleFamily.getSelectedIndex() + 1) * 100 + (this.cboActPossibleSubFamily.getSelectedIndex() + 1)));
+
             docMetaModel.updateItem("BungeniActState", sBungeniActState);
             docMetaModel.updateItem("BungeniActEffectiveDate", strEffectiveDate);
-            docMetaModel.updateItem("BungeniActCategory", selBungeniActCategory);
+
+            docMetaModel.updateItem("BungeniActCategory", actCategory.getCategoryName());
+            docMetaModel.updateItem("BungeniActCategoryID", actCategory.getCategoryID());
+
+            docMetaModel.updateItem("BungeniActCategoryBasic", actCategoryBasic.getCategoryBasicName());
+            docMetaModel.updateItem("BungeniActCategoryBasicID", actCategoryBasic.getCategoryBasicID());
+
             docMetaModel.updateItem("BungeniPageNo", strPageNo);
             docMetaModel.updateItem("BungeniPageCount", strPageCount);
 
@@ -738,11 +761,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         cboActScope.setModel(setActScopesModel());
         cboActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActTypeActionPerformed(evt);
-            }
-        });
 
         lblActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
@@ -752,6 +770,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         lblEffectiveDate.setText(bundle.getString("ActMainMetadata.lblEffectiveDate.text")); // NOI18N
         lblEffectiveDate.setName("lbl.BungeniLanguageID"); // NOI18N
 
+        dt_effective_date.setFormats("yyyy-MM-dd");
         dt_effective_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblActScope.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -759,11 +778,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         cboActType.setModel(setActTypesModel());
         cboActScope.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActScope.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActScopeActionPerformed(evt);
-            }
-        });
 
         lblActState.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblActState.setText(bundle.getString("ActMainMetadata.lblActState.text")); // NOI18N
@@ -775,11 +789,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         cboActHistoricalPeriod.setModel(setActHistoricalPeriodsModel());
         cboActHistoricalPeriod.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActHistoricalPeriod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActHistoricalPeriodActionPerformed(evt);
-            }
-        });
 
         lblActFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblActFamily.setText(bundle.getString("ActMainMetadata.lblActFamily.text")); // NOI18N
@@ -805,11 +814,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         cboActCategoryBasic.setModel(setActCategoriesBasicModel());
         cboActCategoryBasic.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActCategoryBasic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActCategoryBasicActionPerformed(evt);
-            }
-        });
 
         cboActPossibleFamily.setModel(setActPossibleFamiliesModel());
         cboActPossibleFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -824,27 +828,12 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         cboActPossibleSubFamily.setModel(setActPossibleSubFamiliesModel(cboActPossibleFamily.getSelectedIndex()));
         cboActPossibleSubFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActPossibleSubFamily.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActPossibleSubFamilyActionPerformed(evt);
-            }
-        });
 
         cboActSubFamily.setModel(setActSubFamiliesModel(cboActFamily.getSelectedIndex()));
         cboActSubFamily.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActSubFamily.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActSubFamilyActionPerformed(evt);
-            }
-        });
 
         cboActCategory.setModel(setActCategoriesModel());
         cboActCategory.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActCategory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActCategoryActionPerformed(evt);
-            }
-        });
 
         lblPageNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblPageNo.setText(bundle.getString("ActMainMetadata.lblPageNo.text")); // NOI18N
@@ -910,20 +899,25 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                             .addComponent(cboActSubFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboActPossibleSubFamily, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboActCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActState, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtActState, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboActHistoricalPeriod, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActHistoricalPeriod)
-                            .addComponent(dt_effective_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEffectiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn30days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn90days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cboActScope, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cboActType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(76, 76, 76)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtActYear, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblActState, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtActState, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboActHistoricalPeriod, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblActHistoricalPeriod)
+                                .addComponent(dt_effective_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblEffectiveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btn30days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btn90days, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(txtActName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblActNo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtActNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -931,8 +925,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                     .addComponent(lblPageNo)
                     .addComponent(txtPageNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPageCount)
-                    .addComponent(cboActType, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboActScope, 0, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblActScope)
                     .addComponent(txtPageCount, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLanguage)
@@ -962,11 +954,11 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                         .addGap(9, 9, 9)
                         .addComponent(lblActType)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboActScope, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboActType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblActScope)
                         .addGap(2, 2, 2)
-                        .addComponent(cboActType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboActScope, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblPageNo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1042,8 +1034,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                 put(lblEffectiveDate.getText().replace("*", ""), dt_effective_date);
                 put(lblActFamily.getText().replace("*", ""), cboActFamily);
                 put(lblActFamily.getText().replace("*", ""), cboActSubFamily);
-                put(lblActPossibleFamily.getText().replace("*", ""), cboActPossibleFamily);
-                put(lblActPossibleFamily.getText().replace("*", ""), cboActPossibleSubFamily);
                 put(lblActCategory.getText().replace("*", ""), cboActCategoryBasic);
                 put(lblActCategory.getText().replace("*", ""), cboActCategory);
 
@@ -1051,17 +1041,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         });
         return super.validateSelectedMetadata(spf);
     }
-
-    private void cboActTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActTypeActionPerformed
-    }//GEN-LAST:event_cboActTypeActionPerformed
-
-    private void cboActScopeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActScopeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboActScopeActionPerformed
-
-    private void cboActHistoricalPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActHistoricalPeriodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboActHistoricalPeriodActionPerformed
 
     private void cboActFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActFamilyActionPerformed
         JComboBox cb = (JComboBox) evt.getSource();
@@ -1073,10 +1052,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         setActSubFamiliesModel(selectedActFamilyIndex);
     }//GEN-LAST:event_cboActFamilyActionPerformed
 
-    private void cboActCategoryBasicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActCategoryBasicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboActCategoryBasicActionPerformed
-
     private void cboActPossibleFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActPossibleFamilyActionPerformed
         JComboBox cb = (JComboBox) evt.getSource();
 
@@ -1086,18 +1061,6 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         setActPossibleSubFamiliesModel(selectedActPossibleFamilyIndex);
 
     }//GEN-LAST:event_cboActPossibleFamilyActionPerformed
-
-    private void cboActPossibleSubFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActPossibleSubFamilyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboActPossibleSubFamilyActionPerformed
-
-    private void cboActSubFamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActSubFamilyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboActSubFamilyActionPerformed
-
-    private void cboActCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActCategoryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboActCategoryActionPerformed
 
     private void btn30daysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn30daysActionPerformed
         Date effectiveDate = dt_effective_date.getDate();
@@ -1150,4 +1113,35 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
     private javax.swing.JTextField txtPageCount;
     private javax.swing.JTextField txtPageNo;
     // End of variables declaration//GEN-END:variables
+//    public void getDBValues(ArrayList values) {
+//        String strEffectiveDate = dbformatter.format(dt_effective_date.getDate());
+//        String sBungeniActName = this.txtActName.getText();
+//        String sBungeniActNo = this.txtActNo.getText();
+//        String sBungeniActYear = this.txtActYear.getText();
+//        String selBungeniActType = String.valueOf(this.cboActType.getSelectedIndex() + 1);
+//        String selBungeniActScope = String.valueOf(this.cboActScope.getSelectedIndex() + 1);
+//        String selBungeniActHistoricalPeriod = String.valueOf(this.cboActHistoricalPeriod.getSelectedIndex() + 1);
+//        String selBungeniActFamily = String.valueOf((this.cboActFamily.getSelectedIndex() + 1) * 100 + (this.cboActSubFamily.getSelectedIndex() + 1));
+//        String selBungeniActFamilyPossible = String.valueOf((this.cboActPossibleFamily.getSelectedIndex() + 1) * 100 + (this.cboActPossibleSubFamily.getSelectedIndex() + 1));
+//        String selBungeniActCategory = String.valueOf(this.cboActCategory.getSelectedIndex() + 1);
+//        String selBungeniActCategoryB = String.valueOf(this.cboActCategoryBasic.getSelectedIndex() + 1);
+//        String sBungeniActState = this.txtActState.getText();
+//        String strPageNo = this.txtPageNo.getText();
+//        String strPageCount = this.txtPageCount.getText();
+//
+//        values.add(sBungeniActName);
+//        values.add(sBungeniActNo);
+//        values.add(sBungeniActYear);
+//        values.add(selBungeniActType);
+//        values.add(sBungeniActState);
+//        values.add(selBungeniActScope);
+//        values.add(selBungeniActHistoricalPeriod);
+//        values.add(strPageNo);
+//        values.add(strEffectiveDate);
+//        values.add(strPageCount);
+//        values.add(selBungeniActFamily);
+//        values.add(selBungeniActFamilyPossible);
+//        values.add(selBungeniActCategory);
+//        values.add(selBungeniActCategoryB);
+//    }
 }

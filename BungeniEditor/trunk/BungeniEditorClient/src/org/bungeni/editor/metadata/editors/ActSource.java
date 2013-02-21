@@ -17,7 +17,6 @@
  */
 package org.bungeni.editor.metadata.editors;
 
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.*;
@@ -29,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingUtilities;
 import javax.xml.parsers.DocumentBuilder;
@@ -61,29 +61,37 @@ import org.w3c.dom.NodeList;
 public class ActSource extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GeneralMetadata.class.getName());
-    ActSourceModel docMetaModel = new ActSourceModel();
+    private static ActSourceModel docMetaModel = new ActSourceModel();
     private ArrayList<PublicationSrc> SrcNamesList = new ArrayList<PublicationSrc>();
     private final SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
+    private String dbName = "Muqtafi_test";
+    private Connection con = CommonConnectorFunctions.ConnectMMSM(dbName);
+    private Statement conStmt;
 
-     private String dbName = "Muqtafi2007";
-     
     /**
      * Creates new customizer ActSource
      */
     public ActSource() {
         super();
+        try {
+            conStmt = con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ActSource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         initComponents();
         CommonUIFunctions.compOrientation(this);
+
     }
 
     @Override
     public void initialize() {
         super.initialize();
-        this.docMetaModel.setup();
+        docMetaModel.setup();
 
         try {
 
-            File fXmlFile = new File("./ActSourceMetadata.xml");
+            File fXmlFile = new File("ActSourceMetadata.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
@@ -105,7 +113,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             e.printStackTrace();
         }
 
-
+        //   if (theMode == SelectorDialogModes.TEXT_EDIT) {
         try {
             //retrieve metadata... and set in controls....
             docMetaModel.loadModel(ooDocument);
@@ -117,31 +125,30 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             String sSourceType = docMetaModel.getItem("BungeniSourceType");
             String sSourceNo = docMetaModel.getItem("BungeniSourceNo");
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-
 
             if (!CommonStringFunctions.emptyOrNull(sSrcPublicationDate)) {
-                this.dt_publication_date.setDate(dateFormat.parse(sSrcPublicationDate));
-                ActMainMetadata.setBungeniActEffectiveDate(this.dt_publication_date.getDate());
+                this.dt_publication_date.setDate(dformatter.parse(sSrcPublicationDate));
+                ActMainMetadata.setBungeniActEffectiveDate(dformatter.parse(sSrcPublicationDate));
             }
-            
+
             if (!CommonStringFunctions.emptyOrNull(sSrcPublicationDateHijri)) {
-                 this.dt_publication_dateHijri.setDate(dformatter.parse(sSrcPublicationDateHijri));
+                this.dt_publication_dateHijri.setDate(dformatter.parse(sSrcPublicationDateHijri));
             }
-             
-             
+
             if (!CommonStringFunctions.emptyOrNull(sBungeniPublicationName)) {
                 this.cboSrcName.setSelectedItem(sBungeniPublicationName);
             }
+
             if (!CommonStringFunctions.emptyOrNull(sPublicationArea)) {
                 this.txtPublicationArea.setText(sPublicationArea);
             }
 
-            if(sSourceType.equalsIgnoreCase("true"))           
+            if (sSourceType.equalsIgnoreCase("true")) {
                 this.jcbScrExcIssue.setSelected(true);
-            else
+            } else {
                 this.jcbScrExcIssue.setSelected(false);
-                
+            }
+
             if (!CommonStringFunctions.emptyOrNull(sSourceNo)) {
                 this.txtSourceNo.setText(sSourceNo);
             }
@@ -150,6 +157,11 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         } catch (ParseException ex) {
             log.error("initalize()  =  " + ex.getMessage());
         }
+        //    }
+    }
+
+    public static ActSourceModel getDocMetaModel() {
+        return docMetaModel;
     }
 
     private static String getTagValue(String sTag, Element eElement) {
@@ -165,7 +177,6 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         if (c instanceof JFormattedTextField) {
             final JFormattedTextField ftf = (JFormattedTextField) c;
             SwingUtilities.invokeLater(new Runnable() {
-
                 public void run() {
                     ftf.selectAll();
                 }
@@ -203,7 +214,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         lblPublicationDateHijri.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblPublicationDateHijri.setText(bundle.getString("ActSource.lblPublicationDateHijri.text")); // NOI18N
 
-        dt_publication_dateHijri.setFormats("dd/MM/yyyy");
+        dt_publication_dateHijri.setFormats("yyyy-MM-dd");
         dt_publication_dateHijri.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblSourceType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -226,11 +237,18 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         cboSrcName.setMaximumSize(new java.awt.Dimension(107, 21));
         cboSrcName.setMinimumSize(new java.awt.Dimension(107, 21));
 
-        dt_publication_date.setFormats("dd/MM/yyyy");
+        dt_publication_date.setFormats("yyyy-MM-dd");
         dt_publication_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         dt_publication_date.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dt_publication_dateActionPerformed(evt);
+            }
+        });
+        dt_publication_date.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                dt_publication_dateInputMethodTextChanged(evt);
             }
         });
 
@@ -249,31 +267,24 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPublicationDate)
-                            .addComponent(lblSrcName))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cboSrcName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dt_publication_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dt_publication_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblPublicationDateHijri))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPublicationArea)
-                                    .addComponent(txtPublicationArea, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSourceType)
-                                    .addComponent(jcbScrExcIssue))))
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSourceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSourceNo))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(txtSourceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSourceNo)
+                    .addComponent(lblSrcName)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cboSrcName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblPublicationDate)
+                                .addComponent(dt_publication_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dt_publication_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPublicationDateHijri))
+                            .addGap(35, 35, 35)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblPublicationArea)
+                                .addComponent(lblSourceType)
+                                .addComponent(jcbScrExcIssue)
+                                .addComponent(txtPublicationArea, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,15 +294,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboSrcName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSourceType)
-                        .addGap(5, 5, 5)
-                        .addComponent(jcbScrExcIssue)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblPublicationArea)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPublicationArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblPublicationDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -299,7 +302,15 @@ public class ActSource extends BaseEditorDocMetadataDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblPublicationDateHijri)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dt_publication_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dt_publication_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblSourceType)
+                        .addGap(5, 5, 5)
+                        .addComponent(jcbScrExcIssue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblPublicationArea)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPublicationArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSourceNo)
@@ -311,8 +322,8 @@ public class ActSource extends BaseEditorDocMetadataDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dt_publication_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dt_publication_dateActionPerformed
-          ActMainMetadata.setBungeniActEffectiveDate(dt_publication_date.getDate());
-        
+        ActMainMetadata.setBungeniActEffectiveDate(dt_publication_date.getDate());
+
         java.util.Date gPublictionDate = dt_publication_date.getDate();
         String sHijriDate = DateHijri.writeIslamicDate(gPublictionDate);
         try {
@@ -321,6 +332,20 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             log.error(ex);
         }
     }//GEN-LAST:event_dt_publication_dateActionPerformed
+
+    private void dt_publication_dateInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dt_publication_dateInputMethodTextChanged
+        // TODO add your handling code here:
+        ActMainMetadata.setBungeniActEffectiveDate(dt_publication_date.getDate());
+
+        java.util.Date gPublictionDate = dt_publication_date.getDate();
+        String sHijriDate = DateHijri.writeIslamicDate(gPublictionDate);
+        try {
+            dt_publication_dateHijri.setDate(dformatter.parse(sHijriDate));
+        } catch (ParseException ex) {
+            log.error(ex);
+        }
+        
+    }//GEN-LAST:event_dt_publication_dateInputMethodTextChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cboSrcName;
@@ -337,8 +362,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
     private javax.swing.JTextField txtSourceNo;
     // End of variables declaration//GEN-END:variables
 
-    
-        @Override
+    @Override
     public Component getPanelComponent() {
         return this;
     }
@@ -350,34 +374,33 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         return new Dimension(DIM_X, DIM_Y);
     }
 
-   
     public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
         boolean bState = false;
         try {
-            String strPubDate = dformatter.format(this.dt_publication_date.getDate());
+            String strPubDate = dformatter.format(dt_publication_date.getDate());
             String sPubDateHijri = dformatter.format(dt_publication_dateHijri.getDate());
-            String strPubName = (String) this.cboSrcName.getSelectedItem();
+
+            PublicationSrc SrcName = SrcNamesList.get(this.cboSrcName.getSelectedIndex());
+
             String strPubArea = this.txtPublicationArea.getText();
             String strSrcNo = this.txtSourceNo.getText();
             String bSrcType;
-            if(jcbScrExcIssue.isSelected())
-                 bSrcType = "True";
-            else
-                 bSrcType = "False";
+            if (jcbScrExcIssue.isSelected()) {
+                bSrcType = "True";
+            } else {
+                bSrcType = "False";
+            }
 
-            docMetaModel.updateItem("BungeniWorkDate", strPubDate);
-            docMetaModel.updateItem("BungeniDocAuthor", "Samar");
+//            docMetaModel.updateItem("BungeniWorkDate", strPubDate);
+//            docMetaModel.updateItem("BungeniDocAuthor", "Samar");
 
             // General Metadata
             docMetaModel.updateItem("BungeniPublicationDate", strPubDate);
             docMetaModel.updateItem("BungeniPublicationDateHijri", sPubDateHijri);
-            docMetaModel.updateItem("BungeniPublicationSrcName", strPubName);
+            docMetaModel.updateItem("BungeniPublicationSrcName", SrcName.getPublicationSrcName());
+            docMetaModel.updateItem("BungeniPublicationSrcNameID", SrcName.getPublicationSrcID());
+            docMetaModel.updateItem("BungeniPublicationSrcName_AN", SrcName.getPublicationSrcName_AN());
 
-
-            PublicationSrc selectedPublicationSrc = SrcNamesList.get(this.cboSrcName.getSelectedIndex());
-            
-            docMetaModel.updateItem("BungeniPublicationSrcName_AN", selectedPublicationSrc.getPublicationSrcName_AN());
-           
             docMetaModel.updateItem("BungeniPublicationArea", strPubArea);
             docMetaModel.updateItem("BungeniSourceType", bSrcType);
             docMetaModel.updateItem("BungeniSourceNo", strSrcNo);
@@ -386,8 +409,8 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             if (docType.equalsIgnoreCase("act")) {
                 spf.setSaveComponent("DocumentType", "leg");
             } else {
-            spf.setSaveComponent("DocumentType", docType);
-             }
+                spf.setSaveComponent("DocumentType", docType);
+            }
             spf.setSaveComponent("CountryCode", Locale.getDefault().getCountry());
 
             Calendar cal = Calendar.getInstance();
@@ -397,10 +420,10 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             spf.setSaveComponent("Year", debateCal.get(Calendar.YEAR));
             spf.setSaveComponent("Month", debateCal.get(Calendar.MONTH) + 1);
             spf.setSaveComponent("Day", debateCal.get(Calendar.DAY_OF_MONTH));
-            
+
             spf.setSaveComponent("LanguageCode", Locale.getDefault().getLanguage());
-           
-            
+
+
             spf.parseComponents();
 
             docMetaModel.saveModel(ooDocument);
@@ -433,7 +456,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
             Source source = new DOMSource(document);
 
 
-            File file = new File("./ActSourceMetadata.xml");
+            File file = new File("ActSourceMetadata.xml");
 
             Result result = new StreamResult(file);
             transformer.transform(source, result);
@@ -460,7 +483,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
                 colLabel = "LG_Src_Name_E";
             }
             String sqlStm = "SELECT [LG_Src_ID], [" + colLabel + "], [LG_Src_Name_AN] FROM LG_Src";
-            ResultSet rs = CommonConnectorFunctions.ConnectMMSM(dbName, sqlStm);
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
                 PublicationSrc psObj = new PublicationSrc(rs.getString(1), rs.getString(2), rs.getString(3));
@@ -478,44 +501,28 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         // create the default acts Names mode
         srcNamesModel = new DefaultComboBoxModel(srcNames);
 
-//        // initialise the Bungeni Connector Client
-//        BungeniConnector client = null;
-//        
-//        try {
-//                // initialize the data store client
-//                 client = CommonConnectorFunctions.getDSClient();
-//
-//                // get the acts from the registry H2 db
-//                List<SrcName> SrcNamesList = client.getSrcNames();
-//                srcNames = new String[SrcNamesList.size()];
-//
-//                // loop through extracting the acts
-//                for (int i = 0 ; i < SrcNamesList.size() ; i ++)
-//                {
-//                    // get the current act & extract the act Name
-//                    SrcName currSrcName = SrcNamesList.get(i);
-//                    srcNames[i] = currSrcName.getNameByLang(Locale.getDefault().getLanguage());
-//                }
-//                // create the default acts Names model
-//                srcNamesModel = new DefaultComboBoxModel(srcNames) ;
-//            } catch (IOException ex) {
-//                log.error(ex) ;
-//            }
-
         return srcNamesModel;
     }
 
     @Override
     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
         addFieldsToValidate(new TreeMap<String, Component>() {
-
             {
                 put(lblPublicationDate.getText().replace("*", ""), dt_publication_date);
-                put(lblPublicationArea.getText().replace("*", ""), txtPublicationArea);
                 put(lblSourceNo.getText().replace("*", ""), txtSourceNo);
                 put(lblSrcName.getText().replace("*", ""), cboSrcName);
             }
         });
         return super.validateSelectedMetadata(spf);
     }
+
+    public void resetComponents() {
+        cboSrcName.setSelectedIndex(0);
+        dt_publication_date.setDate(null);
+        dt_publication_dateHijri.setDate(null);
+        jcbScrExcIssue.setSelected(false);
+        txtPublicationArea.setText("");
+        txtSourceNo.setText("");
+    }
+  
 }

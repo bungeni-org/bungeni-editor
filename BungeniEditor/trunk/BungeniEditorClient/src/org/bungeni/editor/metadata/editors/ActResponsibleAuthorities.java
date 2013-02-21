@@ -16,9 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package org.bungeni.editor.metadata.editors;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +40,10 @@ import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.ActResponsibleAuthoritiesModel;
+import org.bungeni.editor.metadata.ActSourceModel;
 import org.bungeni.editor.metadata.DateHijri;
+import org.bungeni.editor.metadata.PromulagtedLeg;
+import org.bungeni.editor.metadata.PublicationType;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.*;
 import org.bungeni.utils.BungeniFileSavePathFormat;
@@ -48,16 +56,27 @@ import org.jdesktop.swingx.JXMonthView;
 public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GeneralMetadata.class.getName());
-    ActResponsibleAuthoritiesModel docMetaModel = new ActResponsibleAuthoritiesModel();
+    private static ActResponsibleAuthoritiesModel docMetaModel = new ActResponsibleAuthoritiesModel();
     private final SimpleDateFormat dformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
-
+   // private final SimpleDateFormat dbformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("dataBaseDateFormat"));
+    private ArrayList<PromulagtedLeg> ReleaseOrganizationsList = new ArrayList<PromulagtedLeg>();
+    private String dbName = "Muqtafi_test";
+    private Connection con = CommonConnectorFunctions.ConnectMMSM(dbName);
+    private Statement conStmt;
     /**
      * Creates new customizer ActResponsibleAuthorities
      */
     public ActResponsibleAuthorities() {
         super();
+          try {
+            conStmt = con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ActSource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
         CommonUIFunctions.compOrientation(this);
+        
+       
     }
 
     @Override
@@ -103,7 +122,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
                 }
 
                 if (!CommonStringFunctions.emptyOrNull(sBungeniActApproved)) {
-                    this.txtActDeveloped.setText(sBungeniActApproved);
+                    this.txtActApproved.setText(sBungeniActApproved);
                 }
 
                 if (!CommonStringFunctions.emptyOrNull(sBungeniActAprovedDate)) {
@@ -121,7 +140,6 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
         if (c instanceof JFormattedTextField) {
             final JFormattedTextField ftf = (JFormattedTextField) c;
             SwingUtilities.invokeLater(new Runnable() {
-
                 public void run() {
                     ftf.selectAll();
                 }
@@ -129,6 +147,10 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
         }
     }
 
+     public static ActResponsibleAuthoritiesModel getDocMetaModel(){
+        return docMetaModel;
+    }
+     
     private void loadActInfo() {
         BungeniConnector client = null;
         try {
@@ -161,33 +183,61 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
     }
 
     private ComboBoxModel setActReleaseOrganizationModel() {
-        DefaultComboBoxModel actOrganizationsModel = null;
-        String[] actOrganizations = null; // stores all the bill Names
-        // initialise the Bungeni Connector Client
-        BungeniConnector client = null;
+
+        DefaultComboBoxModel releaseOrganizationsModel = null;
+
         try {
-            // initialize the data store client
-            client = CommonConnectorFunctions.getDSClient();
-            // get tactScopeshe acts from the registry H2 db
-            List<ActOrganization> actOrganizationsList = client.getActOrganizations();
-            actOrganizations = new String[actOrganizationsList.size()];
+            String sqlStm = "SELECT [LG_Body_ID], [LG_Body_Name], [LG_Body_Name_E] FROM [LG_Body] WHERE LG_Body_LG_BodyType_ID=3";
+            ResultSet rs = conStmt.executeQuery(sqlStm);
 
-            // loop through extracting the acts
-            for (int i = 0; i < actOrganizationsList.size(); i++) {
-                // get the current act & extract the act Name
-                ActOrganization currActOrganization = actOrganizationsList.get(i);
-                actOrganizations[i] = currActOrganization.getNameByLang(Locale.getDefault().getLanguage());
+            while (rs.next()) {
+                PromulagtedLeg plObj = new PromulagtedLeg(rs.getString(1), rs.getString(2), rs.getString(3));
+                ReleaseOrganizationsList.add(plObj);
+
             }
-
-            // create the default acts Names model
-            actOrganizationsModel = new DefaultComboBoxModel(actOrganizations);
-
-        } catch (IOException ex) {
-            log.error(ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return actOrganizationsModel;
+
+        String[] releaseOrganizations = new String[ReleaseOrganizationsList.size()];
+        for (int i = 0; i < ReleaseOrganizationsList.size(); i++) {
+            releaseOrganizations[i] = ReleaseOrganizationsList.get(i).toString();  
+            if(releaseOrganizations[i].length() > 35 ){
+                releaseOrganizations[i] = ReleaseOrganizationsList.get(i).toString().substring(0, 35) + " ...";
+            }
+        }
+        // create the default acts Names mode
+        releaseOrganizationsModel = new DefaultComboBoxModel(releaseOrganizations);
+
+
+        return releaseOrganizationsModel;
+//        DefaultComboBoxModel actOrganizationsModel = null;
+//        String[] actOrganizations = null; // stores all the bill Names
+//        // initialise the Bungeni Connector Client
+//        BungeniConnector client = null;
+//        try {
+//            // initialize the data store client
+//            client = CommonConnectorFunctions.getDSClient();
+//            // get tactScopeshe acts from the registry H2 db
+//            List<ActOrganization> actOrganizationsList = client.getActOrganizations();
+//            actOrganizations = new String[actOrganizationsList.size()];
+//
+//            // loop through extracting the acts
+//            for (int i = 0; i < actOrganizationsList.size(); i++) {
+//                // get the current act & extract the act Name
+//                ActOrganization currActOrganization = actOrganizationsList.get(i);
+//                actOrganizations[i] = currActOrganization.getNameByLang(Locale.getDefault().getLanguage());
+//            }
+//
+//            // create the default acts Names model
+//            actOrganizationsModel = new DefaultComboBoxModel(actOrganizations);
+//
+//        } catch (IOException ex) {
+//            log.error(ex);
+//        }
+//        return actOrganizationsModel;
     }
-         
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,20 +256,27 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
         lblActDeveloped = new javax.swing.JLabel();
         lblActApprovedDate = new javax.swing.JLabel();
         txtActDeveloped = new javax.swing.JTextField();
-        cboActRelease = new javax.swing.JComboBox();
         txtActApproved = new javax.swing.JTextField();
         lblActReleaseDateHijri = new javax.swing.JLabel();
         dt_ActRelease_dateHijri = new org.jdesktop.swingx.JXDatePicker();
+        cboActRelease = new javax.swing.JComboBox();
 
         lblActApproved.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         lblActApproved.setText(bundle.getString("ActResponsibleAuthorities.lblActApproved.text")); // NOI18N
 
-        dt_ActRelease_date.setFormats("dd/MM/yyyy");
+        dt_ActRelease_date.setFormats("yyyy-MM-dd");
         dt_ActRelease_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         dt_ActRelease_date.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dt_ActRelease_dateActionPerformed(evt);
+            }
+        });
+        dt_ActRelease_date.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                dt_ActRelease_dateInputMethodTextChanged(evt);
             }
         });
 
@@ -229,10 +286,10 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
         lblActReleased.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblActReleased.setText(bundle.getString("ActResponsibleAuthorities.lblActReleased.text")); // NOI18N
 
-        dt_ActDeveloped_date.setFormats("dd/MM/yyyy");
+        dt_ActDeveloped_date.setFormats("yyyy-MM-dd");
         dt_ActDeveloped_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        dt_ActApproved_date.setFormats("dd/MM/yyyy");
+        dt_ActApproved_date.setFormats("yyyy-MM-dd");
         dt_ActApproved_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblActReleaseDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -246,21 +303,16 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
         txtActDeveloped.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        cboActRelease.setModel(setActReleaseOrganizationModel());
-        cboActRelease.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        cboActRelease.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboActReleaseActionPerformed(evt);
-            }
-        });
-
         txtActApproved.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblActReleaseDateHijri.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblActReleaseDateHijri.setText(bundle.getString("ActResponsibleAuthorities.lblActReleasedDateHijri.text")); // NOI18N
 
-        dt_ActRelease_dateHijri.setFormats("dd/MM/yyyy");
+        dt_ActRelease_dateHijri.setFormats("yyyy-MM-dd");
         dt_ActRelease_dateHijri.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+
+        cboActRelease.setModel(setActReleaseOrganizationModel());
+        cboActRelease.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -269,59 +321,41 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboActRelease, 0, 176, Short.MAX_VALUE)
-                            .addComponent(lblActReleased, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dt_ActRelease_date, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblActReleaseDate))
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtActDeveloped)
-                            .addComponent(txtActApproved)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblActDeveloped)
-                                    .addComponent(lblActApproved))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dt_ActRelease_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dt_ActApproved_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblActDevelopedDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dt_ActDeveloped_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblActApprovedDate)
-                            .addComponent(lblActReleaseDateHijri))
-                        .addGap(29, 29, 29))))
+                    .addComponent(lblActReleased, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtActDeveloped, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtActApproved, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cboActRelease, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblActDeveloped, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblActApproved, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(0, 124, Short.MAX_VALUE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dt_ActRelease_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dt_ActApproved_date, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblActDevelopedDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dt_ActDeveloped_date, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblActApprovedDate)
+                    .addComponent(lblActReleaseDateHijri)
+                    .addComponent(dt_ActRelease_date, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActReleaseDate))
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblActReleased, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblActReleaseDate))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboActRelease, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dt_ActRelease_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(lblActReleaseDateHijri)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblActDeveloped)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtActDeveloped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblActReleaseDate)
                         .addGap(8, 8, 8)
-                        .addComponent(lblActApproved)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtActApproved, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dt_ActRelease_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblActReleaseDateHijri)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dt_ActRelease_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblActDevelopedDate)
@@ -330,14 +364,26 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblActApprovedDate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dt_ActApproved_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(dt_ActApproved_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblActReleased, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(cboActRelease, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblActDeveloped)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtActDeveloped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(lblActApproved)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtActApproved, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void dt_ActRelease_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dt_ActRelease_dateActionPerformed
 
-               Date gReleaseDate = dt_ActRelease_date.getDate();
+        Date gReleaseDate = dt_ActRelease_date.getDate();
         String sHijriDate = DateHijri.writeIslamicDate(gReleaseDate);
         try {
             dt_ActRelease_dateHijri.setDate(dformatter.parse(sHijriDate));
@@ -347,9 +393,16 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
     }//GEN-LAST:event_dt_ActRelease_dateActionPerformed
 
-    private void cboActReleaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActReleaseActionPerformed
+    private void dt_ActRelease_dateInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dt_ActRelease_dateInputMethodTextChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboActReleaseActionPerformed
+         Date gReleaseDate = dt_ActRelease_date.getDate();
+        String sHijriDate = DateHijri.writeIslamicDate(gReleaseDate);
+        try {
+            dt_ActRelease_dateHijri.setDate(dformatter.parse(sHijriDate));
+        } catch (ParseException ex) {
+            log.error(ex);
+        }
+    }//GEN-LAST:event_dt_ActRelease_dateInputMethodTextChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cboActRelease;
@@ -368,7 +421,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
     private javax.swing.JTextField txtActDeveloped;
     // End of variables declaration//GEN-END:variables
 
-     @Override
+    @Override
     public Component getPanelComponent() {
         return this;
     }
@@ -386,7 +439,8 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
             //get the offical date
 
-            String selBungeniActRelease = (String) this.cboActRelease.getSelectedItem();
+            PromulagtedLeg promulagtedLeg = ReleaseOrganizationsList.get(this.cboActRelease.getSelectedIndex());
+            
             String sBungeniActReleaseDate = dformatter.format(dt_ActRelease_date.getDate());
             String sBungeniActReleaseDateHijri = dformatter.format(dt_ActRelease_dateHijri.getDate());
             String sBungeniActDeveloped = this.txtActDeveloped.getText();
@@ -402,7 +456,8 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
             }
 
 
-            docMetaModel.updateItem("BungeniActRelease", selBungeniActRelease);
+            docMetaModel.updateItem("BungeniActRelease", promulagtedLeg.toString());
+            docMetaModel.updateItem("BungeniActReleaseID", promulagtedLeg.getPromulagtedLegID());
             docMetaModel.updateItem("BungeniActReleaseDate", sBungeniActReleaseDate);
             docMetaModel.updateItem("BungeniActReleaseDateHijri", sBungeniActReleaseDateHijri);
             docMetaModel.updateItem("BungeniActDeveloped", sBungeniActDeveloped);
@@ -412,7 +467,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
             //other metadata
             docMetaModel.updateItem("BungeniWorkAuthor", "pna");
-            docMetaModel.updateItem("BungeniWorkAuthorAs", "Issuing");
+            docMetaModel.updateItem("BungeniWorkAuthorAs", "author");
             docMetaModel.updateItem("BungeniWorkAuthorURI", "user.Samar");
             docMetaModel.updateItem("BungeniWorkDateName", "Issuing");
             docMetaModel.updateItem("BungeniWorkDate", sBungeniActReleaseDate);
@@ -421,7 +476,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
 
             //expression
             docMetaModel.updateItem("BungeniExpAuthor", "pna");
-            docMetaModel.updateItem("BungeniExpAuthorAs", "Issuing");
+            docMetaModel.updateItem("BungeniExpAuthorAs", "editor");
             docMetaModel.updateItem("BungeniExpAuthorURI", "user.Samar");
             docMetaModel.updateItem("BungeniExpDateName", "Issuing");
             docMetaModel.updateItem("BungeniExpDate", sBungeniActReleaseDate);
@@ -453,7 +508,6 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
     @Override
     public ArrayList<String> validateSelectedMetadata(BungeniFileSavePathFormat spf) {
         addFieldsToValidate(new TreeMap<String, Component>() {
-
             {
                 put(lblActReleased.getText().replace("*", ""), cboActRelease);
                 put(lblActReleaseDate.getText().replace("*", ""), dt_ActRelease_date);
@@ -461,4 +515,29 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
         });
         return super.validateSelectedMetadata(spf);
     }
+
+//    public void getDBValues(ArrayList values) {
+//        String selBungeniActRelease = String.valueOf(this.cboActRelease.getSelectedIndex()+1);
+//        String sBungeniActReleaseDate = dbformatter.format(dt_ActRelease_date.getDate());
+//        String sBungeniActReleaseDateHijri = dbformatter.format(dt_ActRelease_dateHijri.getDate());
+//        String sBungeniActDeveloped = this.txtActDeveloped.getText();
+//        String sBungeniActDevelopedDate = "";
+//        if (dt_ActDeveloped_date.getDate() != null) {
+//            sBungeniActDevelopedDate = dbformatter.format(dt_ActDeveloped_date.getDate());
+//        }
+//        String sBungeniActApproved = this.txtActApproved.getText();
+//        String sBungeniActAprovedDate = "";
+//        if (dt_ActApproved_date.getDate() != null) {
+//            sBungeniActAprovedDate = dbformatter.format(dt_ActApproved_date.getDate());
+//        }
+//
+//        values.add(selBungeniActRelease);
+//        values.add(sBungeniActReleaseDate);
+//        values.add(sBungeniActReleaseDateHijri);
+//        values.add(sBungeniActDeveloped);
+//        values.add(sBungeniActDevelopedDate);
+//        values.add(sBungeniActApproved);
+//        values.add(sBungeniActAprovedDate);
+//       
+//    }
 }

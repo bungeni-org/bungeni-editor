@@ -21,12 +21,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblActName" min="-2" pref="138" max="-2" attributes="0"/>
                   <Component id="jSeparator1" alignment="0" min="-2" pref="423" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cboActCategoryBasic" alignment="0" pref="220" max="-2" attributes="0"/>
                           <Component id="cboActPossibleFamily" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
@@ -39,20 +39,27 @@
                           <Component id="cboActCategory" min="-2" pref="162" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblActYear" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                          <Component id="txtActYear" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
-                          <Component id="lblActState" min="-2" pref="138" max="-2" attributes="0"/>
-                          <Component id="txtActState" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
-                          <Component id="cboActHistoricalPeriod" alignment="0" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblActHistoricalPeriod" min="-2" max="-2" attributes="0"/>
-                          <Component id="dt_effective_date" alignment="0" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblEffectiveDate" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btn30days" min="-2" pref="38" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btn90days" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cboActScope" max="32767" attributes="0"/>
+                              <Component id="cboActType" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="76" pref="76" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblActYear" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                              <Component id="txtActYear" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
+                              <Component id="lblActState" min="-2" pref="138" max="-2" attributes="0"/>
+                              <Component id="txtActState" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
+                              <Component id="cboActHistoricalPeriod" alignment="0" pref="162" max="-2" attributes="0"/>
+                              <Component id="lblActHistoricalPeriod" min="-2" max="-2" attributes="0"/>
+                              <Component id="dt_effective_date" alignment="0" pref="162" max="-2" attributes="0"/>
+                              <Component id="lblEffectiveDate" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btn30days" min="-2" pref="38" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btn90days" min="-2" pref="38" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Component id="txtActName" min="-2" pref="400" max="-2" attributes="1"/>
@@ -63,8 +70,6 @@
                   <Component id="lblPageNo" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPageNo" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
                   <Component id="lblPageCount" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="cboActType" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                  <Component id="cboActScope" alignment="0" pref="162" max="-2" attributes="0"/>
                   <Component id="lblActScope" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtPageCount" min="-2" pref="162" max="-2" attributes="0"/>
                   <Component id="lblLanguage" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -97,11 +102,11 @@
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Component id="lblActType" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cboActScope" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="cboActType" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblActScope" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                      <Component id="cboActType" min="-2" max="-2" attributes="0"/>
+                      <Component id="cboActScope" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblPageNo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -171,11 +176,9 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActTypeActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActScope.setModel(setActScopesModel());"/>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ActMainMetadata_cboActType"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lblActType">
@@ -209,6 +212,7 @@
         </Property>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_effective_date.setFormats(&quot;yyyy-MM-dd&quot;);"/>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ActMainMetadata_dt_effective_date"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
@@ -232,9 +236,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActScopeActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActType.setModel(setActTypesModel());"/>
       </AuxValues>
@@ -275,9 +276,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActHistoricalPeriodActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActHistoricalPeriod.setModel(setActHistoricalPeriodsModel());"/>
       </AuxValues>
@@ -358,9 +356,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActCategoryBasicActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActCategoryBasic.setModel(setActCategoriesBasicModel());"/>
       </AuxValues>
@@ -397,9 +392,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActPossibleSubFamilyActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActPossibleSubFamily.setModel(setActPossibleSubFamiliesModel(cboActPossibleFamily.getSelectedIndex()));"/>
       </AuxValues>
@@ -410,9 +402,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActSubFamilyActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActSubFamily.setModel(setActSubFamiliesModel(cboActFamily.getSelectedIndex()));"/>
       </AuxValues>
@@ -423,9 +412,6 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboActCategoryActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cboActCategory.setModel(setActCategoriesModel());"/>
       </AuxValues>

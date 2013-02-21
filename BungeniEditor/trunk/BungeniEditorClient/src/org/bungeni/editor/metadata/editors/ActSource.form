@@ -24,41 +24,29 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblPublicationDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblSrcName" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="cboSrcName" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dt_publication_date" alignment="0" pref="162" max="-2" attributes="0"/>
-                                  <Component id="dt_publication_dateHijri" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
-                                  <Component id="lblPublicationDateHijri" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="140" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblPublicationArea" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPublicationArea" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                                  <Component id="lblSourceType" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcbScrExcIssue" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                  <Component id="txtSourceNo" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
+                  <Component id="lblSourceNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSrcName" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="cboSrcName" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblPublicationDate" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="dt_publication_date" alignment="0" pref="162" max="-2" attributes="0"/>
+                              <Component id="dt_publication_dateHijri" alignment="0" min="-2" pref="162" max="-2" attributes="1"/>
+                              <Component id="lblPublicationDateHijri" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblPublicationArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSourceType" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcbScrExcIssue" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPublicationArea" min="-2" pref="124" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtSourceNo" alignment="0" min="-2" pref="162" max="-2" attributes="0"/>
-                          <Component id="lblSourceNo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="167" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,17 +58,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="cboSrcName" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblSourceType" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="jcbScrExcIssue" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblPublicationArea" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtPublicationArea" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="lblPublicationDate" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dt_publication_date" min="-2" max="-2" attributes="0"/>
@@ -88,6 +67,15 @@
                       <Component id="lblPublicationDateHijri" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dt_publication_dateHijri" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lblSourceType" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="jcbScrExcIssue" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblPublicationArea" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtPublicationArea" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -98,7 +86,7 @@
                       <Component id="txtSourceNo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="180" max="32767" attributes="0"/>
+              <EmptySpace pref="171" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,7 +120,7 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new org.jdesktop.swingx.JXDatePicker()"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_publication_dateHijri.setFormats(&quot;dd/MM/yyyy&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_publication_dateHijri.setFormats(&quot;yyyy-MM-dd&quot;);"/>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ActResponsibleAuthorities_dt_ActRelease_dateHijri"/>
       </AuxValues>
     </Component>
@@ -213,9 +201,10 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dt_publication_dateActionPerformed"/>
+        <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="dt_publication_dateInputMethodTextChanged"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_publication_date.setFormats(&quot;dd/MM/yyyy&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_publication_date.setFormats(&quot;yyyy-MM-dd&quot;);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPublicationArea">
