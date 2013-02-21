@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 PC
+ * Copyright (C) 2013 Africa i-Parliaments
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,17 +25,22 @@ import nl.jj.swingx.gui.modal.JModalFrame;
  */
 public class AttachmentVersionPanel extends javax.swing.JPanel {
 
-    JModalFrame parentFrame ; 
+    private JModalFrame parentFrame ; 
+    private String attachmentSourceURL ; 
     /**
      * Creates new form BillVersionPanel
      */
-    boolean proceed = false;
+    private boolean proceed = false;
     
-    public AttachmentVersionPanel(JModalFrame frame) {
+    public AttachmentVersionPanel(JModalFrame frame, String attachmentPageURL) {
         initComponents();
-        parentFrame = frame;
+        this.parentFrame = frame;
+        this.attachmentSourceURL = attachmentPageURL;
     }
 
+    public boolean proceed(){
+        return proceed;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

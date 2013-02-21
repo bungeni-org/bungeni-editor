@@ -23,11 +23,16 @@ package org.bungeni.extpanels.bungeni;
  */
 public class AttachmentUploadPanel extends javax.swing.JPanel {
 
+    String attachmentDocURL ;
+    String fileToUpload ; 
+    
     /**
      * Creates new form AttachmentUploadPanel
      */
-    public AttachmentUploadPanel() {
+    public AttachmentUploadPanel(String docURL, String pathToFile) {
         initComponents();
+        this.attachmentDocURL = docURL;
+        this.fileToUpload = pathToFile;
     }
 
     /**

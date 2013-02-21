@@ -233,18 +233,31 @@ import org.bungeni.utils.BungeniDialog;
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         // TODO add your handling code here:
+        String attachmentPageURL = ooDocument.getPropertyValue("PortalAttSource");
+        
+        
         // 1st we version the existing bill 
         JModalFrame frm = new JModalFrame();
-        frm.setTitle("Configuration Errors");
-        AttachmentVersionPanel panel = new AttachmentVersionPanel(frm);
+        frm.setTitle("Create a New Version");
+        AttachmentVersionPanel panel = new AttachmentVersionPanel(frm, attachmentPageURL);
         frm.getContentPane().add(panel);
         frm.pack();
         frm.centerOfScreen();
         frm.setVisible(true);
         frm.waitForClose();
        
-        // 2nd we upload the bill and replace the existing attachment
-        frm = new JModalFrame();
+        if (panel.proceed()) {
+            String sFile = ooDocument.getDocumentURL();
+            // 2nd we upload the bill and replace the existing attachment
+            frm = new JModalFrame();
+            frm.setTitle("Upload a new version of the Attachment");
+            AttachmentUploadPanel attPanel = new AttachmentUploadPanel(attachmentPageURL, sFile);
+            frm.getContentPane().add(panel);
+            frm.pack();
+            frm.centerOfScreen();
+            frm.setVisible(true);
+            frm.waitForClose();
+        }
         
     }//GEN-LAST:event_btnExportActionPerformed
 

@@ -311,4 +311,20 @@ public class BungeniServiceAccess {
         }
         return trans;
     }
+    
+    
+    public boolean createNewVersion(String docURL, String comment) {
+        // version 
+        
+        //do soemthing
+        return true;
+    }
+    
+    
+    public boolean uploadDocument(String toURL, File fFileToUpload) {
+        // connect and upload
+        
+        // do something
+        return true;
+    }
 }
