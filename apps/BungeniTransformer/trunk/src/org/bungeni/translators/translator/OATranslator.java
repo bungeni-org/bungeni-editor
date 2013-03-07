@@ -4,41 +4,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
-
-import org.w3c.dom.Document;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-//~--- non-JDK imports --------------------------------------------------------
-
 import org.bungeni.translators.configurations.OAConfiguration;
 import org.bungeni.translators.configurations.Parameter;
 import org.bungeni.translators.configurations.steps.OAPipelineStep;
-
 import org.bungeni.translators.exceptions.DocumentNotFoundException;
 import org.bungeni.translators.exceptions.TranslationFailedException;
 import org.bungeni.translators.exceptions.TranslationStepFailedException;
 import org.bungeni.translators.exceptions.ValidationFailedException;
 import org.bungeni.translators.exceptions.XSLTBuildingException;
-
 import org.bungeni.translators.globalconfigurations.GlobalConfigurations;
-
 import org.bungeni.translators.translator.XMLSourceFactory.XMLSourceType;
-
 import org.bungeni.translators.utility.dom.DOMUtility;
 import org.bungeni.translators.utility.exceptionmanager.ValidationError;
 import org.bungeni.translators.utility.files.FileUtility;
@@ -48,6 +34,9 @@ import org.bungeni.translators.utility.runtime.Outputs;
 import org.bungeni.translators.utility.schemavalidator.SchemaValidator;
 import org.bungeni.translators.utility.streams.StreamSourceUtility;
 import org.bungeni.translators.utility.transformer.XSLTTransformer;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 
 /***

@@ -44,6 +44,7 @@ public class ProcessUnescape implements IProcessAction {
 
 
 
+    @Override
     public Document process(Document inputDocument, OAProcessStep processInfo) throws TransformerException, SAXException, IOException {
         Document outputDocument = inputDocument;
 
@@ -78,7 +79,9 @@ public class ProcessUnescape implements IProcessAction {
                     String unescapedHTML = unescapeHtml(swOutputChildren.toString());
                     //cleanup the HTML to correct xml, and wrap it in a XHTML namespace div
                     String jsoup_html = Jsoup.clean(
-                           unescapedHTML , Whitelist.relaxed()
+                           unescapedHTML , 
+                           /** enable the class attribute on all tags **/
+                           Whitelist.relaxed().addAttributes(":all", "class")
                            );
                    //set the escape mode to XHTML
                    org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(jsoup_html);

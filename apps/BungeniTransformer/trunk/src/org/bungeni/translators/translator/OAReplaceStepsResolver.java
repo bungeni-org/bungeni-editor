@@ -2,27 +2,22 @@ package org.bungeni.translators.translator;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.translators.configurations.OAConfiguration;
-import org.bungeni.translators.configurations.steps.OAReplaceStep;
-import org.bungeni.translators.utility.files.FileUtility;
-import org.bungeni.translators.utility.streams.StreamSourceUtility;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.Iterator;
 import java.util.TreeMap;
-
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.log4j.Logger;
+import org.bungeni.translators.configurations.OAConfiguration;
+import org.bungeni.translators.configurations.steps.OAReplaceStep;
+import org.bungeni.translators.utility.files.FileUtility;
 import org.bungeni.translators.utility.runtime.CloseHandle;
 import org.bungeni.translators.utility.runtime.TempFileManager;
+import org.bungeni.translators.utility.streams.StreamSourceUtility;
 
 /**
  * Used to resolve the REPLACE STEPS of a configuration file

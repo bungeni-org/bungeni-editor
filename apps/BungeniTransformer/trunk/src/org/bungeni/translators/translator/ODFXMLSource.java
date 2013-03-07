@@ -17,6 +17,7 @@ public class ODFXMLSource implements IXMLSource {
             org.apache.log4j.Logger.getLogger(ODFXMLSource.class.getName());
 
 
+    @Override
     public StreamSource getSource(String documentPath) {
         StreamSource ss = null;
         try {

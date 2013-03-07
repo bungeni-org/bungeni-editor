@@ -127,7 +127,6 @@ public class OAXSLTStepsResolver {
                         } catch (Exception ex) {
                             log.error("Error while transformWithParam", ex);
                         } finally {
-                            System.out.println("Clearing pipeline param");
                             this.pipelineInputParams.clear();
                         }
                     } else {
