@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <root>
     <test>
-        
-        
-        
+        &lt;div class=&quot;test&quot;&gt;
+&lt;p style=&quot;color:blue&quot;&gt;This is some html&lt;/p&gt;
+&lt;/div&gt;
     </test>
 </root>

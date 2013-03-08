@@ -5,7 +5,7 @@
         <field name="first_name">minister</field>
         <field name="last_name">P1_02</field>
         <field name="user_id">22</field>
-        <field name="description">EDITED - text of the document text of the document text of the
+        <field name="description">&lt;div class=&quot;test&quot;&gt;Hello&lt;/div&gt;EDITED - text of the document text of the document text of the
             document text of the document text of the document text of the document text of the
             document text of the document text of the document text of the document text of the
             document text of the document text of the document text of the document text of the

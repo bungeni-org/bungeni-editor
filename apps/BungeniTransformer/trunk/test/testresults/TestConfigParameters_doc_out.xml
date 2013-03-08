@@ -1,1 +1,4 @@
-<test><text-param-defval>default input value</text-param-defval><text-param-defval-or>overriden value</text-param-defval-or><text-param-input>input param from transformer</text-param-input><xml-param-defval>Address</xml-param-defval><xml-param-input>Earth</xml-param-input><xml-param-defval-or>namsakar</xml-param-defval-or></test>
+<?xml version="1.0" encoding="UTF-8"?><test><div xmlns="http://www.w3.org/1999/xhtml/">default input valueoverriden valueinput param from transformerAddressEarthnamsakar 
+<div xmlns="" class="test"> 
+ <p>This is some html</p> 
+</div></div></test>

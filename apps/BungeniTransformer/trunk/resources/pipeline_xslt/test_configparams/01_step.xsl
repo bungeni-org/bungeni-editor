@@ -55,7 +55,9 @@
             <xml-param-defval-or>
                 <xsl:value-of select="$xml-param-defval-or/value/hello/@name" />
             </xml-param-defval-or>
-            
+            <content>
+                <xsl:value-of select="." />
+            </content>
         </test>
     </xsl:template>
         

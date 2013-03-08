@@ -41,8 +41,20 @@
         
         <xslt   step="1" 
             name="step1" 
-            href="pipeline_xslt/test_configparams/01_step.xsl"/>
+            href="pipeline_xslt/test_configparams/01_step.xsl"
+            postproc="#proc-unescape" 
+            />
         
     </input>
     
+    <processgroup id="proc-unescape">
+
+         <process name="unescapehtml"
+            description="unescape all body texts"
+            param="//test" />
+
+    
+
+    </processgroup>
+     
 </config>
