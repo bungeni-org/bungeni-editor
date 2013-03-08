@@ -53,28 +53,4 @@ public class CommonConnectorFunctions {
         return client;
     }
 
-    public static ResultSet ConnectMMSM(String dbName, String sqlStm) {
-        String connectionUrl = "jdbc:sqlserver://l-share;databaseName="+ dbName+ ";selectMethod=cursor";
-
-        // Declare the JDBC objects.
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            // Establish the connection.
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-            con = DriverManager.getConnection(connectionUrl, "sayesh", "QWE!@#qwe");
-
-            // Create and execute an SQL statement that returns some data.
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(sqlStm);
-        } // Handle any errors that may have occurred.
-        catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return rs;
-        }
-    }
 }

@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
     public static final String __METADATA_SET_FLAG__ = "__BungeniDocMeta";
-    HashMap<String, String>    docMeta               = new HashMap<String, String>();
+    protected HashMap<String, String>    docMeta               = new HashMap<String, String>();
 
     public BaseEditorDocMetaModel() {}
 
