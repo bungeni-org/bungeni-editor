@@ -47,6 +47,12 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         lblFileName = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         btnUpload = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextArea();
+        lblDescription = new javax.swing.JLabel();
+        filenameLabel = new javax.swing.JLabel();
 
         lblFileName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -54,25 +60,54 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
 
         btnUpload.setText("Upload Document to Bungeni");
 
+        lblTitle.setText("Title");
+
+        txtDescription.setColumns(20);
+        txtDescription.setRows(5);
+        jScrollPane1.setViewportView(txtDescription);
+
+        lblDescription.setText("Description");
+
+        filenameLabel.setText("File Name");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblFileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 155, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnUpload)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)))
-                .addGap(0, 0, 0))
+                        .addComponent(btnCancel))
+                    .addComponent(lblFileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTitle)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE))
+                            .addComponent(lblDescription)
+                            .addComponent(filenameLabel))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblDescription)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(filenameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -83,6 +118,12 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpload;
+    private javax.swing.JLabel filenameLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblFileName;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
