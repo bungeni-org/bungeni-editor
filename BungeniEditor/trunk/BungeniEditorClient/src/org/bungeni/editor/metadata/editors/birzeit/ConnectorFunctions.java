@@ -55,7 +55,8 @@ public class ConnectorFunctions {
     }
 
     public static Connection ConnectMMSM(String dbName) {
-         String connectionUrl = "jdbc:sqlserver://l-share;databaseName=" + dbName + ";selectMethod=cursor;CharacterSet=UTF-8";
+        
+         String connectionUrl = "";
 
  //       String connectionUrl = "jdbc:sqlserver://BZUADMIN-HP;instance=SQLEXPRESS;databaseName=Muqtafi_test;selectMethod=cursor;CharacterSet=UTF-8";
         // Declare the JDBC objects.
@@ -72,7 +73,7 @@ public class ConnectorFunctions {
 //            fieldSysPath.setAccessible(true);
 //            fieldSysPath.set(null, null);
             //   con = DriverManager.getConnection(connectionUrl, "sayesh", "QWE!@#qwe"); 
-            con = DriverManager.getConnection(connectionUrl, "sayesh", "QWE!@#qwe");
+            con = DriverManager.getConnection(connectionUrl, "***", "****");
         } // Handle any errors that may have occurred.
         catch (Exception e) {
             e.printStackTrace();
