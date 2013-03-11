@@ -17,6 +17,15 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import java.util.Date;
+import java.util.ResourceBundle;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import nl.jj.swingx.gui.modal.JModalFrame;
+import org.bungeni.extutils.DisabledGlassPane;
+import org.bungeni.extutils.NotifyBox;
+import org.bungeni.utils.BungeniDialog;
+
 /**
  *
  * @author PC
@@ -25,16 +34,31 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
 
     String attachmentDocURL ;
     String fileToUpload ; 
+    private DisabledGlassPane glassPane = new DisabledGlassPane();
+    JModalFrame parentDialog ;
+
+   ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle(
+           "org/bungeni/extpanels/bungeni/Bundle"
+           );
     
     /**
      * Creates new form AttachmentUploadPanel
      */
-    public AttachmentUploadPanel(String docURL, String pathToFile) {
+    public AttachmentUploadPanel(JModalFrame dlg, String docURL, String pathToFile) {
         initComponents();
+        this.parentDialog = dlg;
         this.attachmentDocURL = docURL;
         this.fileToUpload = pathToFile;
     }
 
+    
+        
+    private void disablePanel(){
+        JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
+        rootPane.setGlassPane(glassPane);
+        glassPane.activate(BUNDLE.getString("RETRIEVE_DOCS_MESSAGE"));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +83,11 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         btnCancel.setText("Cancel");
 
         btnUpload.setText("Upload Document to Bungeni");
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadActionPerformed(evt);
+            }
+        });
 
         lblTitle.setText("Title");
 
@@ -115,6 +144,29 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
                     .addComponent(btnUpload)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+        // TODO add your handling code here:
+        String sTitle = this.txtTitle.getText();
+        if (sTitle != null ) {
+            if (sTitle.trim().length() ==  0 ) {
+                NotifyBox.error("Please enter a Title !");
+                return;
+            }
+        } else {
+            NotifyBox.error("Please enter a Title !");
+        }
+        disablePanel();
+        /**
+        BungeniTransitionConfirmationPanel.TransitionExec exec = new BungeniTransitionConfirmationPanel.TransitionExec(
+                dtDate.getDate(), 
+                (Date)spnTime.getValue()
+                );
+        exec.execute();
+        * **/
+
+    }//GEN-LAST:event_btnUploadActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpload;

@@ -29,7 +29,6 @@ import javax.swing.SwingWorker;
 import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extutils.DisabledGlassPane;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniDialog;

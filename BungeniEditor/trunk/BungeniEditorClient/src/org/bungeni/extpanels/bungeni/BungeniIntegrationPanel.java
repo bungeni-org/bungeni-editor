@@ -251,7 +251,7 @@ import org.bungeni.utils.BungeniDialog;
             // 2nd we upload the bill and replace the existing attachment
             frm = new JModalFrame();
             frm.setTitle("Upload a new version of the Attachment");
-            AttachmentUploadPanel attPanel = new AttachmentUploadPanel(attachmentPageURL, sFile);
+            AttachmentUploadPanel attPanel = new AttachmentUploadPanel(frm, attachmentPageURL, sFile);
             frm.getContentPane().add(panel);
             frm.pack();
             frm.centerOfScreen();
