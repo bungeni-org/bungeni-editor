@@ -6,9 +6,9 @@
     </action>
     
 
-    <action name="make_preface_longTitle" source="inlineType" metadata="LongTitle" >
-        <router class="org.bungeni.editor.actions.routers.routerInputReference" />
-    </action>
+<!--    <action name="make_preface_longTitle" source="inlineType" metadata="LongTitle" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
+    </action>-->
             <!--
     <action name="make_preface_docTitle"  source="docTitle" metadata="DocTitle" >
         <router class="org.bungeni.editor.actions.routers.RouterCreateInlineDocTitle" />
@@ -30,14 +30,9 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>-->
 
-    <action name="make_act_preamble" source="sectionType"  metadata="Preamble" >
+    <action name="make_act_preamble" source="sectionType" metadata="Preamble" >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
-
-<!--    <action name="make_ref" source="sectionType" metadata="Ref" >
-        <router class="org.bungeni.editor.actions.routers.routerActSelectRef"
-                dialog="org.bungeni.editor.selectors.debaterecord.ref.Main" />
-    </action>-->
 
     <action name="make_act_body" source="sectionType" metadata="ActBody" >
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
@@ -83,16 +78,16 @@
         <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
     </action>
 
-    <action name="make_act_num" source="sectionType" metadata="Num" >
-        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineNum" />
+    <action name="make_act_num" source="inlineType" metadata="Num" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
     </action>
     
-    <action name="make_act_heading"  source="sectionType" metadata="Heading" >
-        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineHeading" />
+    <action name="make_act_heading" source="inlineType" metadata="Heading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
     </action>
     
-    <action name="make_act_subheading"  source="sectionType" metadata="Subheading" >
-        <router class="org.bungeni.editor.actions.routers.RouterCreateInlineSubheading" />
+    <action name="make_act_subheading" source="inlineType" metadata="Subheading" >
+        <router class="org.bungeni.editor.actions.routers.routerCreateInline" />
     </action>
     
     <action name="make_act_content" source="sectionType" metadata="Content">
@@ -108,5 +103,11 @@
                 dialog="refinline"
             />
     </action>
+
+   <action name="mark_table" source="sectionType" metadata="table">
+        <router class="org.bungeni.editor.actions.routers.routerCreateSection" />
+    </action>
+    
+
 
 </actions>

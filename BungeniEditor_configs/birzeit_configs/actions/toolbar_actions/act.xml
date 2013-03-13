@@ -16,14 +16,14 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
             
              <blockAction title="PREFACE">
                 <subaction tooltip="CREATE_PREFACE_FROM_SELECTION" target="make_act_preface"
-                           condition="textSelected:true"
+                           condition="cursorInSection:act :and: textSelected:true"
                            title="CREATE_PREFACE_FROM_SELECTION" >
                 </subaction>
-            
+<!--            
                 <subaction tooltip="LONGTITLE" target="make_preface_longTitle"
                            condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:longTitle"
                            title="LONGTITLE">
-                </subaction>   
+                </subaction>   -->
 <!--                    
                 <subaction tooltip="DOCTITLE" target="make_preface_docTitle"
                            condition="cursorInSection:preface :and: textSelected:true :and: sectionNotExists:docTitle"
@@ -50,14 +50,9 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
 <!--             Preamble -->
             <blockAction title="PREAMBLE">
                 <subaction tooltip="CREATE_PREAMBLE_FROM_SELECTION" target="make_act_preamble" 
-                           condition="textSelected:true"
+                           condition="cursorInSection:act :and: textSelected:true"
                            title="CREATE_PREAMBLE_FROM_SELECTION">
                 </subaction> 
-                
-                <subaction tooltip="REF" target="mark_reference"
-                           condition="cursorInSection:preamble :and: textSelected:true"
-                           title="REF">
-                </subaction>
             </blockAction>
 
                <!--body--> 
@@ -215,6 +210,21 @@ NOTE : DO NOT REFORMAT THIS FILE OR CHANGE INDENTATION GLOBALLY
                 </subaction> 
             </blockAction>
 
+            <blockAction title="REFERENCES">
+                <subaction tooltip="REF" target="mark_reference"
+                             condition="textSelected:true"
+                             title="REF">
+                </subaction>
+            </blockAction>
+              
+              
+            <blockAction title="TABLES">
+                <subaction tooltip="TABLE" target="mark_table"
+                             condition="textSelected:true"
+                             title="TABLE">
+                </subaction>
+            </blockAction>
+            
         </actionGroup>
     </root>
 </toolbar>

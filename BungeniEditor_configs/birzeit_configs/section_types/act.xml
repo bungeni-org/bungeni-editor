@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="windows-1252"?>
-<sectionTypes for="act" xmlns:an="#an">
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!-- was: <?xml version="1.0" encoding="windows-1252"?> -->
+<sectionTypes for="act" xmlns:an="http://www.akomantos.org/2.0" xmlns:muqid="http://muqtafi.birzeit.edu/proprietary" >
  
     <!-- root is mandatory, all mode="call" attributed calls need sectionType definitions -->
  
     <sectionType name="root"
-              prefix="act"
-              numstyle="single"
-              visibility="user" >
-            
-       <output>
+                 prefix="act"
+                 numstyle="single"
+                 visibility="user" >
+    
+        <output>
             <content>
                 <an:akomaNtoso>
                     <an:act>
@@ -24,23 +25,92 @@
     </sectionType>
 	 
     <sectionType name="meta"
-                prefix="meta"
-                numstyle="single">
+                 prefix="meta"
+                 numstyle="single">
+        <metadatas>
+            <metadata name="BungeniExpAuthor" />
+            <metadata name="BungeniExpAuthorURI" />
+            <metadata name="BungeniPublicationSrcName" />
+            <metadata name="BungeniPublicationDate" />
+            <metadata name="BungeniPublicationDateHijri" />
+            <metadata name="BungeniPublicationArea" />
+            <metadata name="BungeniSourceType" />
+            <metadata name="BungeniSourceNo" />
+                
+            <metadata name="BungeniActType" />
+            <metadata name="BungeniActName" />
+            <metadata name="BungeniActNo" />
+            <metadata name="BungeniActYear" />
+            <metadata name="BungeniActScope" />
+            <metadata name="BungeniActState" />
+            <metadata name="BungeniActFamily" />
+            <metadata name="BungeniActHistoricalPeriod" />
+            <metadata name="BungeniActEffectiveDate" />
+            <metadata name="BungeniPageNo" />
+            <metadata name="BungeniPageCount" />
+            <metadata name="BungeniActFamily" />
+            <metadata name="BungeniActFamilyPossible" />
+            <metadata name="BungeniActCategory" />
+ 
+            <metadata name="BungeniActRelease" />
+            <metadata name="BungeniActReleaseDate" />
+            <metadata name="BungeniActReleaseDateHijri" />
+            <metadata name="BungeniActDeveloped" />
+            <metadata name="BungeniActDevelopedDate" />
+            <metadata name="BungeniActApproved" />
+            <metadata name="BungeniActApprovedDate" />
+        </metadatas>
+            
         <output>
+            <meta>
+                <proprietary>
+                    <muqid:AdditionalInfo>
+                        <muqid:BungeniPublicationSrcName value="$BungeniPublicationSrcName" />
+                        <muqid:BungeniPublicationDate value="$BungeniPublicationDate" />
+                        <muqid:BungeniPublicationDateHijri value="$BungeniPublicationDateHijri" />
+                        <muqid:BungeniPublicationArea value="$BungeniPublicationArea" />
+                        <muqid:BungeniSourceType value="$BungeniSourceType" />
+                        <muqid:BungeniSourceNo value="$BungeniSourceNo" />
+                        
+                        <muqid:BungeniActType value="$BungeniActType" />
+                        <muqid:BungeniActName value="BungeniActName" />
+                        <muqid:BungeniActNo value="$BungeniActNo" />
+                        <muqid:BungeniActYear value="$BungeniActYear" />
+                        <muqid:BungeniActScope value="$BungeniActScope" />
+                        <muqid:BungeniActState value="$BungeniActState" />
+                        <muqid:BungeniActFamily value="$BungeniActFamily" /> 
+                        <muqid:BungeniActHistoricalPeriod value="$BungeniActHistoricalPeriod" />
+                        <muqid:BungeniActEffectiveDate value="$BungeniActEffectiveDate" />
+                        <muqid:BungeniPageNo value="$BungeniPageNo" /> 
+                        <muqid:BungeniPageCount value="$BungeniPageCount" />
+                        <muqid:BungeniActFamily value="$BungeniActFamily" />
+                        <muqid:BungeniActFamilyPossible value="$BungeniActFamilyPossible" />
+                        <muqid:BungeniActCategory value="$BungeniActCategory" />
+                        
+                        <muqid:BungeniActRelease value="$BungeniActRelease" /> 
+                        <muqid:BungeniActReleaseDate value="$BungeniActReleaseDate" />
+                        <muqid:BungeniActReleaseDateHijri value="$BungeniActReleaseDateHijri" />
+                        <muqid:BungeniActDeveloped value="$BungeniActDeveloped" /> 
+                        <muqid:BungeniActDevelopedDate value="$BungeniActDevelopedDate" />
+                        <muqid:BungeniActApproved value="$BungeniActApproved" />
+                        <muqid:BungeniActApprovedDate value="$BungeniActApprovedDate" />
+                                   
+                    </muqid:AdditionalInfo>
+                </proprietary>      
+            </meta>
             <content>
-                <an:meta/>
-               
+                  
+                <an:meta />
             </content>
         </output>
     </sectionType>
-	 
    
     <sectionType name="Preface" 
                  prefix="preface" 
                  numstyle="single" 
-                 background="0xa1a1a1"
+                 background="0xb1b1b1"
     >
-        <output>
+        <output>  
             <content>
                 <an:preface/>
             </content>
@@ -61,12 +131,9 @@
     </sectionType>
 
     <sectionType name="ActBody"
-                     prefix="body"
-                     numstyle="single"
-                     background="0xf0f0f0"
-                     indent-left="0"
-                     indent-right="0"
-                     visibility="user"
+                 prefix="body"
+                 numstyle="single"
+                 background="0xf0f0fe"
     >
         <output>
             <content>
@@ -76,12 +143,12 @@
     </sectionType>
 
     <sectionType name="Conclusions"
-                     prefix="conclusion"
-                     numstyle="single"
-                     background="0xffdfdf"
-                     indent-left="0"
-                     indent-right="0"
-                     visibility="user">
+                 prefix="conclusion"
+                 numstyle="single"
+                 background="0xffdfdf"
+                 indent-left="0"
+                 indent-right="0"
+                 visibility="user">
         <output>
             <content>
                 <an:conclusions />
@@ -90,7 +157,7 @@
     </sectionType>	
 	      
     <sectionType name="Books" prefix="books" numstyle="serial" background="0xf0f0f0"
-                      indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -100,7 +167,7 @@
     </sectionType>
     
     <sectionType name="Book" prefix="B" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -110,7 +177,7 @@
     </sectionType>
     
     <sectionType name="Parts" prefix="parts" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -120,7 +187,7 @@
     </sectionType>
     
     <sectionType name="Part" prefix="P" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -130,7 +197,7 @@
     </sectionType>
     
     <sectionType name="Chapters" prefix="chapters" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -150,7 +217,7 @@
     </sectionType>
     
     <sectionType name="Sections" prefix="sections" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -160,7 +227,7 @@
     </sectionType>
     
     <sectionType name="Section" prefix="S" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -170,7 +237,7 @@
     </sectionType>
     
     <sectionType name="Articles" prefix="articles" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -180,7 +247,7 @@
     </sectionType>
     
     <sectionType name="Article" prefix="A" numstyle="serial" background="0xf0f0f0"
-                  indent-left=".3" indent-right="0" visibility="user">
+                 indent-left=".3" indent-right="0" visibility="user">
         <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
@@ -188,87 +255,26 @@
             </content>
         </output>
     </sectionType>
-  
-    <sectionType name="LongTitle" prefix="longtitle" numstyle="single" background="0xffffff"
-                 indent-left=".3" indent-right="0" visibility="user"> 
-        <output>
-            <content>
-                <an:longTitle />
-            </content>
-        </output>
-    </sectionType>
-    
-      <sectionType name="Num" prefix="num" numstyle="single" background="0xffffff"
-                 indent-left=".3" indent-right="0" visibility="user"> 
-        <output>
-            <content>
-                <an:num />
-            </content>
-        </output>
-    </sectionType>
-    
-    <sectionType name="Heading" prefix="heading" numstyle="single" background="0xffffff"
-                 indent-left=".1" indent-right="0" visibility="user">
-        <output>
-            <content>
-                <an:heading />
-            </content>
-        </output>
-    </sectionType>
-    
-     <sectionType name="Subheading" prefix="subheading" numstyle="single" background="0xffffff"
-                 indent-left=".1" indent-right="0" visibility="user">
-        <output>
-            <content>
-                <an:subheading />
-            </content>
-        </output>
-    </sectionType>
-    
-    <sectionType name="Content" prefix="content" numstyle="single" background="0xffffff"
-                 indent-left=".1" indent-right="0" visibility="user">
+ 
+    <sectionType name="Content" prefix="C" numstyle="single" background="0xf0f0fa"
+                 indent-left=".6" indent-right="0.6" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
                 <an:content />
             </content>
         </output>
     </sectionType>
-  
-    
-    <!--
-     
-    <sectionType name="Ref" prefix="ref" numstyle="single" background="0xffffff"
-                 indent-left=".1" indent-right="0" visibility="user">
+
+ <sectionType name="table" prefix="T" numstyle="single" background="0xf0f0fa"
+                 indent-left=".6" indent-right="0.6" visibility="user">
+        <numbering scheme="NUMERIC" decorator="flowerBracket"/>
         <output>
             <content>
-                <ref />
+                <an:Table />
             </content>
         </output>
     </sectionType>
     
-    
-    
-    
-    <sectionType name="Clause" prefix="clause" numstyle="serial" background="0xffdfdf"
-                 indent-left=".5" indent-right="0" visibility="user">
-        <numbering scheme="ROMAN" decorator="hashPrefix"/>
-        <output>
-            <content>
-                <clause />
-            </content>
-        </output>
-    </sectionType>
-    
-    
-    <sectionType name="Paragraph" prefix="para" numstyle="serial" background="0xffff00"
-                 indent-left=".7" indent-right="0" visibility="user">
-        <numbering scheme="ALPHABETICAL-Lower" decorator="parens"/>
-        <output>
-            <content>
-                <paragraph />
-            </content>
-        </output>
-    </sectionType>
-    
-    -->  
+
 </sectionTypes>
