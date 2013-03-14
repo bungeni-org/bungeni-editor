@@ -116,14 +116,19 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
             // form lib uses the UNTRANSLATED transition title to generate hashes for 
             // submission buttons, we cannot know/guess that, so we make a rountrip
             //tothe server to get the form and parse the field names
-            List<BasicNameValuePair> formFields = BungeniServiceAccess.getInstance().getWfTransitionInputTypeSubmitInfo(sAttURL);
+            List<BasicNameValuePair> formFields = 
+                    BungeniServiceAccess.getInstance().
+                        getWfTransitionInputTypeSubmitInfo(
+                            sAttURL
+                        );
             
             //get the post parameters
-            List<BasicNameValuePair> postParams = BungeniServiceAccess.getInstance().attachmentWorkflowTransitPostQuery(
-                    transition, 
-                    this.transitionDate, 
-                    this.transitionTime,
-                    formFields
+            List<BasicNameValuePair> postParams = BungeniServiceAccess.getInstance().
+                    attachmentWorkflowTransitPostQuery(
+                        transition, 
+                        this.transitionDate, 
+                        this.transitionTime,
+                        formFields
                     );
             // post
             WebResponse wr = BungeniServiceAccess.getInstance().doTransition(

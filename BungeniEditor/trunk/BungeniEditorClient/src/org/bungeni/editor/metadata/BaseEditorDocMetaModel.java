@@ -2,14 +2,11 @@ package org.bungeni.editor.metadata;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.ooDocMetadata;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.ooDocMetadata;
 
 /**
  * Defines the base metadata attributes applicable to all Bungeni documents
@@ -44,7 +41,7 @@ public class BaseEditorDocMetaModel implements IEditorDocMetaModel {
 
         // expression
         docMeta.put("BungeniExpAuthor", "");
-         docMeta.put("BungeniExpAuthorAs", "");
+        docMeta.put("BungeniExpAuthorAs", "");
         docMeta.put("BungeniExpAuthorURI", "");
         docMeta.put("BungeniExpDate", "");
         docMeta.put("BungeniExpDateName", "");

@@ -17,7 +17,10 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import java.util.List;
+import javax.swing.SwingWorker;
 import nl.jj.swingx.gui.modal.JModalFrame;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  *
@@ -38,6 +41,38 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
         this.attachmentSourceURL = attachmentPageURL;
     }
 
+    class VersionExec extends SwingWorker<BungeniAppConnector.WebResponse, Boolean>{
+
+        String comment ; 
+        
+        public VersionExec(String sComment){
+            this.comment = sComment ; 
+        }
+        
+        @Override
+        protected BungeniAppConnector.WebResponse doInBackground() throws Exception {
+            List<BasicNameValuePair> formFields = 
+                    BungeniServiceAccess.getInstance().getAttachmentVersionSubmitInfo(
+                        attachmentSourceURL
+                    );
+            //get the post parameters
+            List<BasicNameValuePair> postParams = BungeniServiceAccess.getInstance().
+                    attachmentVersionSubmitPostQuery(
+                        formFields,
+                        this.comment
+                    );
+
+            // post
+            BungeniAppConnector.WebResponse wr = BungeniServiceAccess.getInstance().doVersion(
+                    attachmentSourceURL, 
+                    postParams 
+                    );
+            return wr;
+        }
+       
+   }
+
+    
     public boolean proceed(){
         return proceed;
     }
@@ -52,14 +87,14 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtComment = new javax.swing.JTextArea();
         lblComment = new javax.swing.JLabel();
         btnVersionAndUpload = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtComment.setColumns(20);
+        txtComment.setRows(5);
+        jScrollPane1.setViewportView(txtComment);
 
         lblComment.setText("Comment for the Version");
 
@@ -119,14 +154,16 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
     private void btnVersionAndUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVersionAndUploadActionPerformed
         // TODO add your handling code here:
         proceed = Boolean.TRUE;
-        parentFrame.dispose();
+        String sComment = txtComment.getText();
+        VersionExec exec = new VersionExec(sComment);
+        exec.execute();
     }//GEN-LAST:event_btnVersionAndUploadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnVersionAndUpload;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblComment;
+    private javax.swing.JTextArea txtComment;
     // End of variables declaration//GEN-END:variables
 }

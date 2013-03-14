@@ -121,6 +121,16 @@ public class BungeniServiceAccess {
         return sdf.format(dtDate);
     }
 
+    
+    /**
+    public List<BasicNameValuePair> attachmentUploadFormFields(String sAttURL, List<BasicNameValuePair> inputFormSubmit) {
+       List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
+       //nvPair.add(new BasicNameValuePair("container_contents_versions.commit_message", ))
+       
+       return null;   
+    }
+    ***/
+    
     public List<BasicNameValuePair> attachmentWorkflowTransitPostQuery(Transition transObj, String sDate, String sTime, List<BasicNameValuePair> inputFormFields) throws MalformedURLException {
 
         List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
@@ -144,25 +154,11 @@ public class BungeniServiceAccess {
                 break;
             }
         }
-        
-        /**        
-        String actionTransitionName = transObj.title ;
-        try {
-            actionTransitionName = this.transitionNameAsciiAble(actionTransitionName);
-        } catch (UnsupportedEncodingException ex) {
-            log.error("This is the transition name throwing an error during encoding !", ex);
-        } // otherwise use the default title
-        
-        nvPair.add(new BasicNameValuePair(
-                "form.actions." + actionTransitionName  ,
-                transObj.title));
-                */
-        
         return nvPair;
     }
 
    public  String toHex(String arg) throws UnsupportedEncodingException {
-    return String.format("%x", new BigInteger(arg.getBytes("UTF-8")));
+        return String.format("%x", new BigInteger(arg.getBytes("UTF-8")));
     }
 
     
@@ -175,7 +171,6 @@ public class BungeniServiceAccess {
             _identifier = re.compile('[A-Za-z][a-zA-Z0-9_]*$')
          */
         String pattern =  "^[A-Za-z][a-zA-Z0-9_]*$";
-        
         if (name.matches(pattern)) {
             return name.toLowerCase();
         } else {
@@ -184,7 +179,13 @@ public class BungeniServiceAccess {
     }
     
     
-    
+    /**
+     * This api returns the form information for submitting a transition.
+     * We make 2 calls 2 this form
+     * this is the first one it determines the fields on the form and the submit actions
+     * @param docURL
+     * @return 
+     */
     public List<BasicNameValuePair>  getWfTransitionInputTypeSubmitInfo(String docURL) {
         List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
         WebResponse wr = appConnector.getUrl( makeWFurl(docURL), false);
@@ -203,9 +204,64 @@ public class BungeniServiceAccess {
         }
         return nvp;
     }
+
+   public List<BasicNameValuePair> attachmentVersionSubmitPostQuery(List<BasicNameValuePair> pairs, String sComment ){
+       
+        List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
+        nvPair.add(
+               new BasicNameValuePair("container_contents_versions.commit_message", sComment)
+            );
+        
+        for (BasicNameValuePair inputFormField : pairs) {
+            if (inputFormField.getValue().equalsIgnoreCase(
+                    "container_contents_versions.actions.new_version"
+                )){
+                nvPair.add(inputFormField);
+                break;
+            }
+        }
+
+       return nvPair;
+   }
+    
+    public List<BasicNameValuePair>  getAttachmentVersionSubmitInfo(String docURL) {
+        
+        List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
+        WebResponse wr = appConnector.getUrl( 
+            this.makeVersionUrl(docURL), 
+            false
+        );
+
+        if (wr.getStatusCode() == 200 ) {
+                Document wfDoc = Jsoup.parse(wr.getResponseBody());
+                Elements inputList = wfDoc.select("div#actionsView input");
+                for (int i = 0; i < inputList.size(); i++) {
+                    Element inputItem = inputList.get(i);
+                    nvp.add(
+                            new BasicNameValuePair(
+                                inputItem.attr("name"),
+                                inputItem.attr("value")
+                            )
+                    );
+                }
+            }
+        
+        return nvp;
+    }
+
     
     public String makeWFurl(String docURL) {
         return docURL + "/workflow";
+    }
+    
+    public String makeVersionUrl(String docURL){
+        return docURL + "/version-log";
+    }
+    
+    public WebResponse doVersion(String docURL, List<BasicNameValuePair> nvp) throws UnsupportedEncodingException {
+        String versionURL = makeVersionUrl(docURL);
+        WebResponse wr = appConnector.multipartPostUrl(versionURL, false, nvp);
+        return wr;
     }
     
     public WebResponse doTransition(String docURL, List<BasicNameValuePair> nvp) throws UnsupportedEncodingException {

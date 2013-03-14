@@ -17,14 +17,17 @@
  */
 package org.bungeni.extpanels.bungeni;
 
-import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import nl.jj.swingx.gui.modal.JModalFrame;
+import org.apache.http.message.BasicNameValuePair;
+import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
-import org.bungeni.utils.BungeniDialog;
+import org.bungeni.ooo.OOComponentHelper;
 
 /**
  *
@@ -34,24 +37,60 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
 
     String attachmentDocURL ;
     String fileToUpload ; 
-    private DisabledGlassPane glassPane = new DisabledGlassPane();
     JModalFrame parentDialog ;
+    OOComponentHelper ooDocument;
 
-   ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle(
+    private DisabledGlassPane glassPane = new DisabledGlassPane();
+
+    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle(
            "org/bungeni/extpanels/bungeni/Bundle"
            );
     
     /**
      * Creates new form AttachmentUploadPanel
      */
-    public AttachmentUploadPanel(JModalFrame dlg, String docURL, String pathToFile) {
+    public AttachmentUploadPanel(JModalFrame dlg, OOComponentHelper ooDocument, String docURL, String pathToFile) {
         initComponents();
         this.parentDialog = dlg;
         this.attachmentDocURL = docURL;
+        this.ooDocument = ooDocument;
         this.fileToUpload = pathToFile;
     }
 
-    
+   class UploadExec extends SwingWorker<BungeniAppConnector.WebResponse, Boolean>{
+
+        String odfdocPath;
+        String docTitle;
+        String docDesc ; 
+       
+        public UploadExec(String filePath, String title, String description){
+            this.odfdocPath = filePath;
+            this.docDesc = description;
+            this.docTitle = title;
+        }
+       
+        @Override
+        protected WebResponse doInBackground() throws Exception {
+            String sAttURL = ooDocument.getPropertyValue("PortalAttSource");
+           // List<BasicNameValuePair> formFields = 
+           //         BungeniServiceAccess.getInstance().attachmentUploadFormFields(sAttURL);
+            
+            return null;
+        }
+   }
+
+    private boolean errorMessageOnEmpty(String value, String message) {
+        if (value != null ) {
+            if (value.trim().length() ==  0 ) {
+                NotifyBox.error(message);
+                return false;
+            }
+        } else {
+            NotifyBox.error(message);
+            return false;
+        }
+        return true;
+    }
         
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
@@ -148,15 +187,18 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
         // TODO add your handling code here:
         String sTitle = this.txtTitle.getText();
-        if (sTitle != null ) {
-            if (sTitle.trim().length() ==  0 ) {
-                NotifyBox.error("Please enter a Title !");
-                return;
-            }
-        } else {
-            NotifyBox.error("Please enter a Title !");
+        if (!errorMessageOnEmpty(sTitle, "Please enter a Title !")) {
+            return;
         }
+        String sDesc = this.txtDescription.getText();
+        if (!errorMessageOnEmpty(sDesc, "Please enter a Description !")) {
+            return;
+        }     
+        
         disablePanel();
+        UploadExec exec = new UploadExec(this.ooDocument.getDocumentURL(), sTitle, sDesc);
+        exec.execute();
+        
         /**
         BungeniTransitionConfirmationPanel.TransitionExec exec = new BungeniTransitionConfirmationPanel.TransitionExec(
                 dtDate.getDate(), 
