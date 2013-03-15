@@ -79,12 +79,20 @@ public class ProcessUnescape implements IProcessAction {
                     String unescapedHTML = unescapeHtml(swOutputChildren.toString());
                     //cleanup the HTML to correct xml, and wrap it in a XHTML namespace div
                     String jsoup_html = Jsoup.clean(
-                           unescapedHTML , 
+                            unescapedHTML
+                            , 
                            /** enable the class attribute on all tags **/
                            Whitelist.relaxed().addAttributes(":all", "class")
                            );
                    //set the escape mode to XHTML
-                   org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(jsoup_html);
+                   // introduce the namespace here as introdcing it earlier results
+                   // in blank namespace attributes on child elements !+BLANK_NS(2013-03-15)
+                   // maybe not required - see change in documentbuilderfactory
+                   org.jsoup.nodes.Document doc = org.jsoup.Jsoup.parse(
+                           "<div xmlns=\"http://www.w3.org/1999/xhtml\">" +
+                           jsoup_html+
+                           "</div>"
+                           );
                    doc.outputSettings().escapeMode(Entities.EscapeMode.xhtml);
                     
                     // !+UNESCAPE(ah, 10-04-2012) - It is neccessary to run 2 passes of unescape before and after JSoup 
@@ -92,9 +100,7 @@ public class ProcessUnescape implements IProcessAction {
                     // &nbsp;
                     // escape mode XHTML seems to fix the problem of unsecaping, do that 
                     // instead of unescaping again
-                    jsoup_html = "<div xmlns=\"http://www.w3.org/1999/xhtml/\">" +
-                                        doc.body().html() +
-                                 "</div>";
+                    jsoup_html = doc.body().html();
                     Document docJsoupNode = OADocumentBuilder.getInstance().getDocumentBuilder().parse(
                            new InputSource(new StringReader(jsoup_html))
                            );

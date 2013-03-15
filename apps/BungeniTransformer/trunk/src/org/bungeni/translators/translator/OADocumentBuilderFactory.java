@@ -14,6 +14,10 @@ public class OADocumentBuilderFactory {
     
     private OADocumentBuilderFactory(){
         dbfInstance = DocumentBuilderFactory.newInstance();
+        //!+BLANK_NS(2013-03-15, enabling namespaceware = true to prevent blank xmlns attributes
+        //during adoption and import of nodes
+        //!+WARNING+WARNING - possible breakages, side-effects !
+        dbfInstance.setNamespaceAware(true);
     }
 
     public static OADocumentBuilderFactory getInstance(){

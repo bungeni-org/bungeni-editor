@@ -79,7 +79,7 @@
         
         <process name="unescapehtml"
             description="item body"
-            param="//bu:ontology/bu:group/bu:description" />
+            param="//bu:ontology/bu:group/bu:field[@name='description']" />
         
         <process name="unescapehtml"
             description="owner description text"
