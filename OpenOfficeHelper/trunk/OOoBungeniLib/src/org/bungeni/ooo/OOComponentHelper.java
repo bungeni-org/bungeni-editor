@@ -1570,14 +1570,10 @@ public class OOComponentHelper {
             Object objValue = xDocProperties.getPropertyValue(propertyName);
 
             bExists = true;
-            log.debug("property Exists - value : " + AnyConverter.toString(objValue));
-        } catch (com.sun.star.lang.IllegalArgumentException ex) {
-            bExists = false;
-            log.error("propertyExists - unknown property exception");
+            //log.debug("property Exists - value : " + AnyConverter.toString(objValue));
         } catch (UnknownPropertyException ex) {
-            log.error("propertyExists - unknown property exception");
-
-            // property does not exist
+           // log.error("propertyExists - unknown property exception");
+           // property does not exist
             bExists = false;
         } catch (WrappedTargetException ex) {
             bExists = false;
