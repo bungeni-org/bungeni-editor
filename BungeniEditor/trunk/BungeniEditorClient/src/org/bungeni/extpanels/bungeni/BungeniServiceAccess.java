@@ -191,19 +191,56 @@ public class BungeniServiceAccess {
         WebResponse wr = appConnector.getUrl( makeWFurl(docURL), false);
         if (wr.getStatusCode() == 200 ) {
             Document wfDoc = Jsoup.parse(wr.getResponseBody());
-            Elements inputList = wfDoc.select("div#actionsView input");
-            for (int i = 0; i < inputList.size(); i++) {
-                Element inputItem = inputList.get(i);
-                nvp.add(
-                        new BasicNameValuePair(
-                            inputItem.attr("name"),
-                            inputItem.attr("value")
-                        )
-                );
-            }
+            nvp = getActionsViewButtonInfo(wfDoc);
         }
         return nvp;
     }
+    
+   
+    
+   
+   public List<BasicNameValuePair> attachmentEditSubmitPostQuery(
+         List<BasicNameValuePair> pairs, 
+         String title, String description, String language, String fFileName 
+           ) {
+        List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
+        
+        nvPair.add(
+           new BasicNameValuePair("form.type", "main-doc")
+           );
+        nvPair.add(
+           new BasicNameValuePair("form.type-empty-marker", "1")
+           );
+        nvPair.add(
+          new BasicNameValuePair("form.title", title)      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form.data.up_action", "update")      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form_data_file", "????")      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form.language", language)      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form.language-empty-marker", "1")      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form.description", description)      
+          );
+        
+        for (BasicNameValuePair inputFormField : pairs) {
+            if (inputFormField.getName().equalsIgnoreCase(
+                    "form.actions.save"
+                )){
+                nvPair.add(inputFormField);
+                break;
+            }
+        }
+        
+        return nvPair;
+   }
 
    public List<BasicNameValuePair> attachmentVersionSubmitPostQuery(List<BasicNameValuePair> pairs, String sComment ){
        
@@ -224,6 +261,56 @@ public class BungeniServiceAccess {
        return nvPair;
    }
     
+   
+   private List<BasicNameValuePair> getActionsViewButtonInfo(Document doc) {
+       List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>(0); 
+       Elements inputList = doc.select("div#actionsView input");
+       for (int i = 0; i < inputList.size(); i++) {
+            Element inputItem = inputList.get(i);
+            nvp.add(
+                    new BasicNameValuePair(
+                        inputItem.attr("name"),
+                        inputItem.attr("value")
+                    )
+            );
+        }
+       return nvp;
+   }
+   
+   private List<BasicNameValuePair> getFormFieldDefaultValues(Document doc, List<String> fieldNames) {
+       List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>(0); 
+       for (String fieldName : fieldNames) {
+           Elements inputItems = doc.select("[name=" + fieldName + "]");
+           for (int i = 0; i < inputItems.size(); i++) {
+               Element inputItem = inputItems.get(i);
+               nvp.add(new  BasicNameValuePair(fieldName, inputItem.val()));
+           }
+       }
+       return nvp;
+   }
+   
+   public List<BasicNameValuePair> getAttachmentEditSubmitInfo(String docURL){
+        List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
+        WebResponse wr = appConnector.getUrl( 
+            this.makeEditUrl(docURL), 
+            false
+        );
+
+        if (wr.getStatusCode() == 200 ) {
+            Document wfDoc = Jsoup.parse(wr.getResponseBody());
+            nvp = this.getActionsViewButtonInfo(wfDoc);
+            
+            List<String> defaultFields = new ArrayList<String>(){{
+               add("form.language");
+               add("form.type");
+            }};
+            nvp.addAll(
+                    this.getFormFieldDefaultValues(wfDoc, defaultFields)
+            );
+        }
+        return nvp;
+   }
+   
     public List<BasicNameValuePair>  getAttachmentVersionSubmitInfo(String docURL) {
         
         List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
@@ -234,18 +321,8 @@ public class BungeniServiceAccess {
 
         if (wr.getStatusCode() == 200 ) {
                 Document wfDoc = Jsoup.parse(wr.getResponseBody());
-                Elements inputList = wfDoc.select("div#actionsView input");
-                for (int i = 0; i < inputList.size(); i++) {
-                    Element inputItem = inputList.get(i);
-                    nvp.add(
-                            new BasicNameValuePair(
-                                inputItem.attr("name"),
-                                inputItem.attr("value")
-                            )
-                    );
-                }
-            }
-        
+                nvp = getActionsViewButtonInfo(wfDoc);
+        }
         return nvp;
     }
 
@@ -257,6 +334,12 @@ public class BungeniServiceAccess {
     public String makeVersionUrl(String docURL){
         return docURL + "/version-log";
     }
+    
+    public String makeEditUrl(String docURL){
+        return docURL + "/edit";
+    }
+    
+    
     
     public WebResponse doVersion(String docURL, List<BasicNameValuePair> nvp) throws UnsupportedEncodingException {
         String versionURL = makeVersionUrl(docURL);

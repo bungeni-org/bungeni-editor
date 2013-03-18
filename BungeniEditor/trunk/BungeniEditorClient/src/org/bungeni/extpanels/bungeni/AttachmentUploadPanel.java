@@ -73,9 +73,10 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         @Override
         protected WebResponse doInBackground() throws Exception {
             String sAttURL = ooDocument.getPropertyValue("PortalAttSource");
-           // List<BasicNameValuePair> formFields = 
-           //         BungeniServiceAccess.getInstance().attachmentUploadFormFields(sAttURL);
-            
+            List<BasicNameValuePair> formFields = 
+                BungeniServiceAccess.getInstance().getAttachmentEditSubmitInfo(sAttURL);
+          //  List<BasicNameValuePair> postParams = 
+          //      BungeniServiceAccess.getInstance().attachmentEditSubmitPostQuery(postParams, docTitle, docTitle, docTitle, docTitle);
             return null;
         }
    }
