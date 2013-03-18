@@ -213,7 +213,7 @@ public class BungeniServiceAccess {
             );
         
         for (BasicNameValuePair inputFormField : pairs) {
-            if (inputFormField.getValue().equalsIgnoreCase(
+            if (inputFormField.getName().equalsIgnoreCase(
                     "container_contents_versions.actions.new_version"
                 )){
                 nvPair.add(inputFormField);

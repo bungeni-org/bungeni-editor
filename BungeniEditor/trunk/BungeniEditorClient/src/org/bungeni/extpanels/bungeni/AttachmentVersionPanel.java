@@ -18,9 +18,11 @@
 package org.bungeni.extpanels.bungeni;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import javax.swing.SwingWorker;
 import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.http.message.BasicNameValuePair;
+import org.bungeni.extutils.NotifyBox;
 
 /**
  *
@@ -30,6 +32,10 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
 
     private JModalFrame parentFrame ; 
     private String attachmentSourceURL ; 
+    
+    private static org.apache.log4j.Logger log =
+        org.apache.log4j.Logger.getLogger(AttachmentVersionPanel.class.getName());
+
     /**
      * Creates new form BillVersionPanel
      */
@@ -43,7 +49,8 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
 
     class VersionExec extends SwingWorker<BungeniAppConnector.WebResponse, Boolean>{
 
-        String comment ; 
+        private String comment ; 
+        private boolean versionSuccess = false;
         
         public VersionExec(String sComment){
             this.comment = sComment ; 
@@ -70,11 +77,28 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
             return wr;
         }
        
+        @Override
+        protected void done(){
+            try {
+                BungeniAppConnector.WebResponse wr  = get();
+                if (wr.getStatusCode() == 200 ) {
+                    this.versionSuccess = true;
+                }
+            } catch (InterruptedException ex) {
+                log.error("Versioning was interrupted", ex);
+            } catch (ExecutionException ex) {
+                log.error("Versioning was interrupted", ex);
+            }
+        } 
+        
+        public boolean versionSucceeded(){
+            return this.versionSuccess;
+        }
+        
    }
-
     
     public boolean proceed(){
-        return proceed;
+        return this.proceed;
     }
     
     /**
@@ -153,10 +177,16 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
 
     private void btnVersionAndUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVersionAndUploadActionPerformed
         // TODO add your handling code here:
-        proceed = Boolean.TRUE;
         String sComment = txtComment.getText();
+        this.proceed = false;
         VersionExec exec = new VersionExec(sComment);
         exec.execute();
+        if (exec.versionSucceeded()) {
+            this.parentFrame.dispose();
+        } else {
+            NotifyBox.error("The versioning of the attachment failed, will not proceed !", "Versioning Failure");
+        }
+        
     }//GEN-LAST:event_btnVersionAndUploadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
