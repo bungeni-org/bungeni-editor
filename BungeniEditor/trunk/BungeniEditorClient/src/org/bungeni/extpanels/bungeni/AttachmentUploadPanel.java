@@ -35,10 +35,11 @@ import org.bungeni.ooo.OOComponentHelper;
  */
 public class AttachmentUploadPanel extends javax.swing.JPanel {
 
-    String attachmentDocURL ;
-    String fileToUpload ; 
-    JModalFrame parentDialog ;
-    OOComponentHelper ooDocument;
+    private String attachmentDocURL ;
+    private String fileToUpload ; 
+    private JModalFrame parentDialog ;
+    private OOComponentHelper ooDocument;
+    private boolean proceed = false;
 
     private DisabledGlassPane glassPane = new DisabledGlassPane();
 
@@ -92,6 +93,10 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         return true;
     }
         
+    public boolean proceed(){
+        return this.proceed;
+    }
+    
     private void disablePanel(){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);

@@ -182,6 +182,7 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
         VersionExec exec = new VersionExec(sComment);
         exec.execute();
         if (exec.versionSucceeded()) {
+            this.proceed = true;
             this.parentFrame.dispose();
         } else {
             NotifyBox.error("The versioning of the attachment failed, will not proceed !", "Versioning Failure");

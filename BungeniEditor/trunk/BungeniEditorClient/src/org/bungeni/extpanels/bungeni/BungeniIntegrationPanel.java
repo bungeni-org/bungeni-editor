@@ -32,6 +32,7 @@ import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniDialog;
 
@@ -46,6 +47,37 @@ import org.bungeni.utils.BungeniDialog;
         initComponents();
     }
 
+    private boolean versionsDialog(String attachmentPageURL){
+        JModalFrame frm = new JModalFrame();
+        frm.setTitle("Create a New Version");
+        AttachmentVersionPanel panel = new AttachmentVersionPanel(frm, attachmentPageURL);
+        frm.getContentPane().add(panel);
+        frm.pack();
+        frm.centerOfScreen();
+        frm.setVisible(true);
+        frm.waitForClose();
+        return panel.proceed();
+    }
+    
+    private boolean uploadDialog(String attachmentPageURL){
+        String sFile = ooDocument.getDocumentURL();
+        // 2nd we upload the bill and replace the existing attachment
+        JModalFrame frm = new JModalFrame();
+        frm.setTitle("Upload a new version of the Attachment");
+        AttachmentUploadPanel attPanel = new AttachmentUploadPanel(
+                frm,
+                ooDocument,
+                attachmentPageURL, 
+                sFile
+                );
+        frm.getContentPane().add(attPanel);
+        frm.pack();
+        frm.centerOfScreen();
+        frm.setVisible(true);
+        frm.waitForClose();
+        return attPanel.proceed();
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -236,31 +268,14 @@ import org.bungeni.utils.BungeniDialog;
         // TODO add your handling code here:
         String attachmentPageURL = ooDocument.getPropertyValue("PortalAttSource");
         // 1st we version the existing bill 
-        JModalFrame frm = new JModalFrame();
-        frm.setTitle("Create a New Version");
-        AttachmentVersionPanel panel = new AttachmentVersionPanel(frm, attachmentPageURL);
-        frm.getContentPane().add(panel);
-        frm.pack();
-        frm.centerOfScreen();
-        frm.setVisible(true);
-        frm.waitForClose();
-       
-        if (panel.proceed()) {
-            String sFile = ooDocument.getDocumentURL();
-            // 2nd we upload the bill and replace the existing attachment
-            frm = new JModalFrame();
-            frm.setTitle("Upload a new version of the Attachment");
-            AttachmentUploadPanel attPanel = new AttachmentUploadPanel(
-                    frm,
-                    ooDocument,
-                    attachmentPageURL, 
-                    sFile
-                    );
-            frm.getContentPane().add(panel);
-            frm.pack();
-            frm.centerOfScreen();
-            frm.setVisible(true);
-            frm.waitForClose();
+        if (versionsDialog(attachmentPageURL)) {
+            if (uploadDialog(attachmentPageURL)) {
+                 NotifyBox.infoTimed(
+                        "Document Upload", 
+                        "The document was successfully versioned and uploaded to Bungeni", 
+                        400
+                        );
+            }
         }
         
     }//GEN-LAST:event_btnExportActionPerformed
