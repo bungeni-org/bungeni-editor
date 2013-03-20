@@ -20,11 +20,14 @@ package org.bungeni.extpanels.bungeni;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.OOComponentHelper;
@@ -65,9 +68,17 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
     }
 
     
-   class LoadAttInfoExec extends SwingWorker<BungeniAttachment, BungeniAttachment>{
+    public void init(){
+        disablePanel();
+        //CommonUIFunctions.disablePanel(glassPane, parentDialog, "Loading Attachment Info");
+        LoadAttInfoExec loadAtt = new LoadAttInfoExec(this.attachmentDocURL);
+        loadAtt.execute();
+    }
+    
+    class LoadAttInfoExec extends SwingWorker<BungeniAttachment, BungeniAttachment>{
      
        String attachmentURL ; 
+       BungeniAttachment attachment ; 
        
        public LoadAttInfoExec(String attURL) {
            this.attachmentURL = attURL;
@@ -75,12 +86,25 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
        
         @Override
         protected BungeniAttachment doInBackground() throws Exception {
-            throw new UnsupportedOperationException("Not supported yet.");
+            BungeniAttachment att = BungeniServiceAccess.getInstance().getAttachmentFromURL(attachmentURL);
+            return att;
         }
           
        @Override
        protected void done(){
-           
+           try {
+               BungeniAttachment att = get();
+               if (att != null ){
+                    txtTitle.setText(att.title);
+                    txtDescription.setText(att.description);
+                    lblFileName.setText(att.fileName);
+                    glassPane.deactivate();
+               }
+           } catch (InterruptedException ex) {
+               log.error("Error parsing attachment", ex);
+           } catch (ExecutionException ex) {
+               log.error("Error parsing attachment", ex);
+           }
        }
 
    }

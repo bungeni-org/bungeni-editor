@@ -444,22 +444,26 @@ public class BungeniServiceAccess {
         return fodf;
     }
     
-    public List<Transition> getUpdatedTransitionsForAttachment(String sURL ){
-        List<Transition> trans = new ArrayList<Transition>();
-        WebResponse wr = 
-            appConnector.getUrl(
-                    sURL,
-                    false
-            );
-        if (wr.getStatusCode() == 200) {
+    
+    public BungeniAttachment getAttachmentFromURL(String sURL){
+        WebResponse wr = appConnector.getUrl(sURL, false);
+        if (wr.getStatusCode() == 200 ){
             String responseBody = wr.getResponseBody();
-            if (null != responseBody) {
-                Document attDoc  = Jsoup.parse(responseBody);
-                // create a dummy document
+            if (null != responseBody){
+                Document attDoc = Jsoup.parse(responseBody);
                 BungeniAttachment att = new BungeniAttachment();
                 att.parseAttachment(attDoc);
-                trans =  att.transitions;
+                return att;
             }
+        }
+        return null;
+    }
+    
+    public List<Transition> getUpdatedTransitionsForAttachment(String sURL ){
+        List<Transition> trans = new ArrayList<Transition>();
+        BungeniAttachment att = this.getAttachmentFromURL(sURL);
+        if (att != null) {
+            return att.transitions;
         }
         return trans;
     }

@@ -72,6 +72,7 @@ import org.bungeni.utils.BungeniDialog;
         frm.pack();
         frm.setLocationRelativeTo(null);
         frm.setVisible(true);
+        attPanel.init();
         return attPanel.proceed();
     }
     
