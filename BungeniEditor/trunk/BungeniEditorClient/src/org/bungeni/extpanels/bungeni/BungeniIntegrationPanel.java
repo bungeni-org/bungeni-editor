@@ -48,22 +48,20 @@ import org.bungeni.utils.BungeniDialog;
     }
 
     private boolean versionsDialog(String attachmentPageURL){
-        JModalFrame frm = new JModalFrame();
-        frm.setTitle("Create a New Version");
+        BungeniDialog frm = new BungeniDialog(parentFrame, "Version", true );
         AttachmentVersionPanel panel = new AttachmentVersionPanel(frm, attachmentPageURL);
+        frm.initFrame();
         frm.getContentPane().add(panel);
         frm.pack();
-        frm.centerOfScreen();
+        frm.setLocationRelativeTo(null);
         frm.setVisible(true);
-        frm.waitForClose();
         return panel.proceed();
     }
     
     private boolean uploadDialog(String attachmentPageURL){
         String sFile = ooDocument.getDocumentURL();
         // 2nd we upload the bill and replace the existing attachment
-        JModalFrame frm = new JModalFrame();
-        frm.setTitle("Upload a new version of the Attachment");
+        BungeniDialog frm = new BungeniDialog(parentFrame, "Upload a new version of the Attachment", true);
         AttachmentUploadPanel attPanel = new AttachmentUploadPanel(
                 frm,
                 ooDocument,
@@ -72,9 +70,8 @@ import org.bungeni.utils.BungeniDialog;
                 );
         frm.getContentPane().add(attPanel);
         frm.pack();
-        frm.centerOfScreen();
+        frm.setLocationRelativeTo(null);
         frm.setVisible(true);
-        frm.waitForClose();
         return attPanel.proceed();
     }
     

@@ -199,48 +199,6 @@ public class BungeniServiceAccess {
    
     
    
-   public List<BasicNameValuePair> attachmentEditSubmitPostQuery(
-         List<BasicNameValuePair> pairs, 
-         String title, String description, String language, String fFileName 
-           ) {
-        List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
-        
-        nvPair.add(
-           new BasicNameValuePair("form.type", "main-doc")
-           );
-        nvPair.add(
-           new BasicNameValuePair("form.type-empty-marker", "1")
-           );
-        nvPair.add(
-          new BasicNameValuePair("form.title", title)      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form.data.up_action", "update")      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form_data_file", "????")      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form.language", language)      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form.language-empty-marker", "1")      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form.description", description)      
-          );
-        
-        for (BasicNameValuePair inputFormField : pairs) {
-            if (inputFormField.getName().equalsIgnoreCase(
-                    "form.actions.save"
-                )){
-                nvPair.add(inputFormField);
-                break;
-            }
-        }
-        
-        return nvPair;
-   }
 
    public List<BasicNameValuePair> attachmentVersionSubmitPostQuery(List<BasicNameValuePair> pairs, String sComment ){
        
@@ -277,13 +235,17 @@ public class BungeniServiceAccess {
        return nvp;
    }
    
-   private List<BasicNameValuePair> getFormFieldDefaultValues(Document doc, List<String> fieldNames) {
+   private List<BasicNameValuePair> getFormFieldSelectDefaultValues(Document doc, List<String> fieldNames) {
        List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>(0); 
        for (String fieldName : fieldNames) {
            Elements inputItems = doc.select("[name=" + fieldName + "]");
            for (int i = 0; i < inputItems.size(); i++) {
                Element inputItem = inputItems.get(i);
-               nvp.add(new  BasicNameValuePair(fieldName, inputItem.val()));
+               Elements selItems = inputItem.select("[selected=selected]");
+               for (int j = 0; j < selItems.size() ; j++) {
+                   Element selItem = selItems.get(j);
+                    nvp.add(new  BasicNameValuePair(fieldName, selItem.attr("value")));
+               }
            }
        }
        return nvp;
@@ -298,18 +260,69 @@ public class BungeniServiceAccess {
 
         if (wr.getStatusCode() == 200 ) {
             Document wfDoc = Jsoup.parse(wr.getResponseBody());
+            // get the action buttons
             nvp = this.getActionsViewButtonInfo(wfDoc);
-            
+            // get the other fields
             List<String> defaultFields = new ArrayList<String>(){{
                add("form.language");
                add("form.type");
             }};
+            // get the default values for fields
             nvp.addAll(
-                    this.getFormFieldDefaultValues(wfDoc, defaultFields)
+                this.getFormFieldSelectDefaultValues(wfDoc, defaultFields)
             );
+            
         }
         return nvp;
    }
+
+      public List<BasicNameValuePair> attachmentEditSubmitPostQuery(
+         List<BasicNameValuePair> pairs, 
+         String title, 
+         String description, 
+         String language, 
+         String fFileName 
+       ) {
+          
+        List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
+        
+        //nvPair.add(
+        //   new BasicNameValuePair("form.type", "main-doc")
+        //   );
+        nvPair.add(
+           new BasicNameValuePair("form.type-empty-marker", "1")
+           );
+        nvPair.add(
+          new BasicNameValuePair("form.title", title)      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form.data.up_action", "update")      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form_data_file", "????")      
+          );
+        //nvPair.add(
+        //  new BasicNameValuePair("form.language", language)      
+        //  );
+        nvPair.add(
+          new BasicNameValuePair("form.language-empty-marker", "1")      
+          );
+        nvPair.add(
+          new BasicNameValuePair("form.description", description)      
+          );
+        
+        for (BasicNameValuePair inputFormField : pairs) {
+            if (inputFormField.getName().equalsIgnoreCase(
+                    "form.actions.save"
+                )){
+                nvPair.add(inputFormField);
+                break;
+            }
+        }
+        
+        return nvPair;
+   }
+
    
     public List<BasicNameValuePair>  getAttachmentVersionSubmitInfo(String docURL) {
         

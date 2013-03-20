@@ -18,21 +18,32 @@
 package org.bungeni.extpanels.bungeni;
 
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.http.message.BasicNameValuePair;
+import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
+import org.bungeni.utils.BungeniDialog;
 
 /**
  *
- * @author PC
+ * @author Ashok Hariharan
  */
 public class AttachmentVersionPanel extends javax.swing.JPanel {
 
-    private JModalFrame parentFrame ; 
+    private BungeniDialog parentFrame ; 
     private String attachmentSourceURL ; 
     
+    private DisabledGlassPane glassPane = new DisabledGlassPane();
+    
+    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle(
+           "org/bungeni/extpanels/bungeni/Bundle"
+           );
+    
+
     private static org.apache.log4j.Logger log =
         org.apache.log4j.Logger.getLogger(AttachmentVersionPanel.class.getName());
 
@@ -41,7 +52,7 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
      */
     private boolean proceed = false;
     
-    public AttachmentVersionPanel(JModalFrame frame, String attachmentPageURL) {
+    public AttachmentVersionPanel(BungeniDialog frame, String attachmentPageURL) {
         initComponents();
         this.parentFrame = frame;
         this.attachmentSourceURL = attachmentPageURL;
@@ -50,7 +61,6 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
     class VersionExec extends SwingWorker<BungeniAppConnector.WebResponse, Boolean>{
 
         private String comment ; 
-        private boolean versionSuccess = false;
         
         public VersionExec(String sComment){
             this.comment = sComment ; 
@@ -82,7 +92,11 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
             try {
                 BungeniAppConnector.WebResponse wr  = get();
                 if (wr.getStatusCode() == 200 ) {
-                    this.versionSuccess = true;
+                    proceed = true;
+                    parentFrame.dispose();
+                } else {
+                    proceed = false;
+                    NotifyBox.error("The versioning of the attachment failed, will not proceed !", "Versioning Failure");
                 }
             } catch (InterruptedException ex) {
                 log.error("Versioning was interrupted", ex);
@@ -91,12 +105,16 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
             }
         } 
         
-        public boolean versionSucceeded(){
-            return this.versionSuccess;
-        }
-        
    }
     
+    
+    private void disablePanel(){
+        JRootPane rootPane = SwingUtilities.getRootPane(this.parentFrame);
+        rootPane.setGlassPane(glassPane);
+        glassPane.activate(BUNDLE.getString("RETRIEVE_DOCS_MESSAGE"));
+    }
+    
+
     public boolean proceed(){
         return this.proceed;
     }
@@ -181,13 +199,6 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
         this.proceed = false;
         VersionExec exec = new VersionExec(sComment);
         exec.execute();
-        if (exec.versionSucceeded()) {
-            this.proceed = true;
-            this.parentFrame.dispose();
-        } else {
-            NotifyBox.error("The versioning of the attachment failed, will not proceed !", "Versioning Failure");
-        }
-        
     }//GEN-LAST:event_btnVersionAndUploadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

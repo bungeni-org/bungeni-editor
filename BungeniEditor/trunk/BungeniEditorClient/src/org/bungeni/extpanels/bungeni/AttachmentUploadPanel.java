@@ -19,27 +19,33 @@ package org.bungeni.extpanels.bungeni;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.utils.BungeniDialog;
 
 /**
  *
- * @author PC
+ * @author Ashok Hariharan
  */
 public class AttachmentUploadPanel extends javax.swing.JPanel {
 
     private String attachmentDocURL ;
     private String fileToUpload ; 
-    private JModalFrame parentDialog ;
+    private BungeniDialog parentDialog ;
     private OOComponentHelper ooDocument;
     private boolean proceed = false;
+    
+    
+    private static org.apache.log4j.Logger log =
+        org.apache.log4j.Logger.getLogger(AttachmentUploadPanel.class.getName());
+
 
     private DisabledGlassPane glassPane = new DisabledGlassPane();
 
@@ -50,7 +56,7 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
     /**
      * Creates new form AttachmentUploadPanel
      */
-    public AttachmentUploadPanel(JModalFrame dlg, OOComponentHelper ooDocument, String docURL, String pathToFile) {
+    public AttachmentUploadPanel(BungeniDialog dlg, OOComponentHelper ooDocument, String docURL, String pathToFile) {
         initComponents();
         this.parentDialog = dlg;
         this.attachmentDocURL = docURL;
@@ -58,6 +64,27 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         this.fileToUpload = pathToFile;
     }
 
+    
+   class LoadAttInfoExec extends SwingWorker<BungeniAttachment, BungeniAttachment>{
+     
+       String attachmentURL ; 
+       
+       public LoadAttInfoExec(String attURL) {
+           this.attachmentURL = attURL;
+       }
+       
+        @Override
+        protected BungeniAttachment doInBackground() throws Exception {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+          
+       @Override
+       protected void done(){
+           
+       }
+
+   }
+    
    class UploadExec extends SwingWorker<BungeniAppConnector.WebResponse, Boolean>{
 
         String odfdocPath;
@@ -78,6 +105,24 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
           //  List<BasicNameValuePair> postParams = 
           //      BungeniServiceAccess.getInstance().attachmentEditSubmitPostQuery(postParams, docTitle, docTitle, docTitle, docTitle);
             return null;
+        }
+        
+        
+       @Override
+       protected void done(){
+            try {
+                BungeniAppConnector.WebResponse wr  = get();
+                //if (wr.getStatusCode() == 200 ) {
+                //    this.versionSuccess = true;
+                //}
+                glassPane.deactivate();
+
+            } catch (InterruptedException ex) {
+                log.error("Versioning was interrupted", ex);
+            } catch (ExecutionException ex) {
+                log.error("Versioning was interrupted", ex);
+            }
+            
         }
    }
 
