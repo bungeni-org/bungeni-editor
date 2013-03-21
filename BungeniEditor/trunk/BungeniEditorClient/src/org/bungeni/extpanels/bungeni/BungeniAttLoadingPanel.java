@@ -199,6 +199,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
 
         txtDescription.setEditable(false);
         txtDescription.setColumns(20);
+        txtDescription.setLineWrap(true);
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 

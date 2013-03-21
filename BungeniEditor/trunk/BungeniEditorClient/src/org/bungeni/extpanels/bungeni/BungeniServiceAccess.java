@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -251,8 +256,16 @@ public class BungeniServiceAccess {
        return nvp;
    }
    
-   public List<BasicNameValuePair> getAttachmentEditSubmitInfo(String docURL){
-        List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
+   
+   /**
+    * THis API gets all the submit buttons for Attachment submission
+    * Also gets the default values for the selection dropdowns
+    * @param docURL
+    * @return 
+    */
+   public HashMap<String, ContentBody> getAttachmentEditSubmitInfo(String docURL){
+        HashMap<String, ContentBody> formFields = new HashMap<String, ContentBody>();
+        // List<BasicNameValuePair> nvp = new ArrayList<BasicNameValuePair>();
         WebResponse wr = appConnector.getUrl( 
             this.makeEditUrl(docURL), 
             false
@@ -261,66 +274,56 @@ public class BungeniServiceAccess {
         if (wr.getStatusCode() == 200 ) {
             Document wfDoc = Jsoup.parse(wr.getResponseBody());
             // get the action buttons
-            nvp = this.getActionsViewButtonInfo(wfDoc);
-            // get the other fields
+            List<BasicNameValuePair> nvp = this.getActionsViewButtonInfo(wfDoc);
+            // filter the action buttons, we want only the save acttion
+            for (BasicNameValuePair pair : nvp) {
+                try {
+                    if (pair.getName().equals("form.actions.save")) {
+                        formFields.put(pair.getName(), new StringBody(pair.getValue()));
+                    }
+                } catch (UnsupportedEncodingException ex) {
+                    log.error("Encoding error while adding field " + pair.getName(), ex);
+                }
+            }
+            // get the other defaulted fields
             List<String> defaultFields = new ArrayList<String>(){{
                add("form.language");
                add("form.type");
             }};
             // get the default values for fields
-            nvp.addAll(
-                this.getFormFieldSelectDefaultValues(wfDoc, defaultFields)
-            );
+            for (BasicNameValuePair defField : this.getFormFieldSelectDefaultValues(wfDoc, defaultFields)){
+                try {
+                    formFields.put(defField.getName(), new StringBody(defField.getValue()));
+                } catch (UnsupportedEncodingException ex) {
+                    log.error("Error encoding field value " + defField.getName(), ex);
+                }
+            }
             
         }
-        return nvp;
+        return formFields;
    }
 
-      public List<BasicNameValuePair> attachmentEditSubmitPostQuery(
-         List<BasicNameValuePair> pairs, 
+      public HashMap<String, ContentBody> attachmentEditSubmitPostQuery(
+         HashMap<String, ContentBody> formFields, 
          String title, 
          String description, 
-         String language, 
          String fFileName 
        ) {
-          
-        List<BasicNameValuePair> nvPair = new ArrayList<BasicNameValuePair>(0);
-        
-        //nvPair.add(
-        //   new BasicNameValuePair("form.type", "main-doc")
-        //   );
-        nvPair.add(
-           new BasicNameValuePair("form.type-empty-marker", "1")
-           );
-        nvPair.add(
-          new BasicNameValuePair("form.title", title)      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form.data.up_action", "update")      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form_data_file", "????")      
-          );
-        //nvPair.add(
-        //  new BasicNameValuePair("form.language", language)      
-        //  );
-        nvPair.add(
-          new BasicNameValuePair("form.language-empty-marker", "1")      
-          );
-        nvPair.add(
-          new BasicNameValuePair("form.description", description)      
-          );
-        
-        for (BasicNameValuePair inputFormField : pairs) {
-            if (inputFormField.getName().equalsIgnoreCase(
-                    "form.actions.save"
-                )){
-                nvPair.add(inputFormField);
-                break;
-            }
+        try {
+            formFields.put("form.title", new StringBody(title)) ;
+            formFields.put("form.data.up_action", new StringBody("update")) ;
+            formFields.put("form_data_file", new FileBody(new File(new URI(fFileName))) ) ;
+            formFields.put("form.description", new StringBody(description));
+            formFields.put("form.language-empty-marker", new StringBody("1") ) ;
+            formFields.put("form.type-empty-marker", new StringBody("1"));
+            return formFields;
+        } catch (URISyntaxException ex) {
+            log.error("Error getting URI to file ", ex);
+            return formFields;
+        } catch (UnsupportedEncodingException ex) {
+            log.error("Encoding exception for field ", ex);
+            return formFields;
         }
-        
-        return nvPair;
    }
 
    
@@ -363,6 +366,12 @@ public class BungeniServiceAccess {
     public WebResponse doTransition(String docURL, List<BasicNameValuePair> nvp) throws UnsupportedEncodingException {
         String wfUrl = makeWFurl(docURL);
         WebResponse wr = appConnector.multipartPostUrl(wfUrl, false, nvp);
+        return wr;
+    }
+    
+    public WebResponse doEdit(String docURL, HashMap<String, ContentBody> nvp) throws UnsupportedEncodingException {
+        String editURL = makeEditUrl(docURL);
+        WebResponse wr = appConnector.multipartPostUrl(editURL, false, nvp);
         return wr;
     }
 

@@ -24,6 +24,7 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.http.message.BasicNameValuePair;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
@@ -91,6 +92,7 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
         protected void done(){
             try {
                 BungeniAppConnector.WebResponse wr  = get();
+                glassPane.deactivate();
                 if (wr.getStatusCode() == 200 ) {
                     proceed = true;
                     parentFrame.dispose();
@@ -108,13 +110,6 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
    }
     
     
-    private void disablePanel(){
-        JRootPane rootPane = SwingUtilities.getRootPane(this.parentFrame);
-        rootPane.setGlassPane(glassPane);
-        glassPane.activate(BUNDLE.getString("RETRIEVE_DOCS_MESSAGE"));
-    }
-    
-
     public boolean proceed(){
         return this.proceed;
     }
@@ -135,6 +130,7 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
 
         txtComment.setColumns(20);
+        txtComment.setLineWrap(true);
         txtComment.setRows(5);
         jScrollPane1.setViewportView(txtComment);
 
@@ -195,6 +191,7 @@ public class AttachmentVersionPanel extends javax.swing.JPanel {
 
     private void btnVersionAndUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVersionAndUploadActionPerformed
         // TODO add your handling code here:
+        CommonUIFunctions.disablePanel(this.glassPane, this.parentFrame, "Versioning Attachment" );
         String sComment = txtComment.getText();
         this.proceed = false;
         VersionExec exec = new VersionExec(sComment);

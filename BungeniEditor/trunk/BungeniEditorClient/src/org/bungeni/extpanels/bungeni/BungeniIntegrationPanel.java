@@ -50,11 +50,7 @@ import org.bungeni.utils.BungeniDialog;
     private boolean versionsDialog(String attachmentPageURL){
         BungeniDialog frm = new BungeniDialog(parentFrame, "Version", true );
         AttachmentVersionPanel panel = new AttachmentVersionPanel(frm, attachmentPageURL);
-        frm.initFrame();
-        frm.getContentPane().add(panel);
-        frm.pack();
-        frm.setLocationRelativeTo(null);
-        frm.setVisible(true);
+        frm.view(panel);
         return panel.proceed();
     }
     
@@ -68,11 +64,8 @@ import org.bungeni.utils.BungeniDialog;
                 attachmentPageURL, 
                 sFile
                 );
-        frm.getContentPane().add(attPanel);
-        frm.pack();
-        frm.setLocationRelativeTo(null);
-        frm.setVisible(true);
         attPanel.init();
+        frm.view(attPanel);
         return attPanel.proceed();
     }
     
@@ -270,8 +263,8 @@ import org.bungeni.utils.BungeniDialog;
             if (uploadDialog(attachmentPageURL)) {
                  NotifyBox.infoTimed(
                         "Document Upload", 
-                        "The document was successfully versioned and uploaded to Bungeni", 
-                        400
+                        "The Attachment was successfully versioned and uploaded to Bungeni", 
+                        3000
                         );
             }
         }

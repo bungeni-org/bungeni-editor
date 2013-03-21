@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -40,6 +42,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -190,6 +193,25 @@ public class BungeniAppConnector {
         }
     }
     
+    public WebResponse multipartPostUrl(String sPage, boolean prefix, HashMap<String, ContentBody> nameValuePairs ) throws UnsupportedEncodingException  {
+       WebResponse wr = null;
+         String pageURL = (
+                prefix ? 
+                    this.urlBase + sPage :
+                    sPage
+                );
+        MultipartEntity entity = 
+                new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+        
+        Set<String> fields = nameValuePairs.keySet();
+        for (String fieldName : fields) {
+            entity.addPart(fieldName, nameValuePairs.get(fieldName));
+        }
+        return doMultiPartPost(pageURL, entity);
+    }
+    
+    
+    
     public WebResponse multipartPostUrl(String sPage, boolean prefix, List<BasicNameValuePair> nameValuePairs ) throws UnsupportedEncodingException  {
         WebResponse wr = null;
         String pageURL = (
@@ -202,6 +224,30 @@ public class BungeniAppConnector {
         for (BasicNameValuePair nv : nameValuePairs) {
             entity.addPart(nv.getName(), new StringBody(nv.getValue()));
         }
+        
+        return this.doMultiPartPost(pageURL, entity);
+        /*
+        HttpPost webPost = new HttpPost(pageURL);
+        webPost.setEntity(entity);
+        HttpResponse response = null ;
+        try {
+            response = client.execute(webPost);
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String sBody = responseHandler.handleResponse(response);
+            wr = new WebResponse(response.getStatusLine().getStatusCode(), sBody);
+        } catch (IOException ex) {
+            log.error(ex.getMessage(), ex);
+        } finally {
+            if (response != null) {
+                consumeContent(
+                    response.getEntity()
+                );
+            }
+        }
+        return wr; */
+    }
+    private WebResponse doMultiPartPost(String pageURL, MultipartEntity entity){
+        WebResponse wr = null;
         HttpPost webPost = new HttpPost(pageURL);
         webPost.setEntity(entity);
         HttpResponse response = null ;
@@ -221,6 +267,7 @@ public class BungeniAppConnector {
         }
         return wr;
     }
+
     
     public WebResponse postUrl(String sPage, boolean prefix, List<BasicNameValuePair> nameValuePairs ) throws UnsupportedEncodingException {
         WebResponse wr = null;

@@ -17,15 +17,13 @@
  */
 package org.bungeni.extpanels.bungeni;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.DisabledGlassPane;
@@ -69,8 +67,7 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
 
     
     public void init(){
-        disablePanel();
-        //CommonUIFunctions.disablePanel(glassPane, parentDialog, "Loading Attachment Info");
+        CommonUIFunctions.disablePanel(this.glassPane, this.parentDialog, "Loading Attachment Info" );
         LoadAttInfoExec loadAtt = new LoadAttInfoExec(this.attachmentDocURL);
         loadAtt.execute();
     }
@@ -114,7 +111,8 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         String odfdocPath;
         String docTitle;
         String docDesc ; 
-       
+        boolean uploadSuccess = false;
+        
         public UploadExec(String filePath, String title, String description){
             this.odfdocPath = filePath;
             this.docDesc = description;
@@ -124,11 +122,17 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         @Override
         protected WebResponse doInBackground() throws Exception {
             String sAttURL = ooDocument.getPropertyValue("PortalAttSource");
-            List<BasicNameValuePair> formFields = 
+            HashMap<String, ContentBody> formFields = 
                 BungeniServiceAccess.getInstance().getAttachmentEditSubmitInfo(sAttURL);
-          //  List<BasicNameValuePair> postParams = 
-          //      BungeniServiceAccess.getInstance().attachmentEditSubmitPostQuery(postParams, docTitle, docTitle, docTitle, docTitle);
-            return null;
+            formFields = 
+                BungeniServiceAccess.getInstance().attachmentEditSubmitPostQuery(
+                    formFields, 
+                    docTitle, 
+                    docDesc, 
+                    odfdocPath
+                );
+            WebResponse wr = BungeniServiceAccess.getInstance().doEdit(sAttURL, formFields);
+            return wr;
         }
         
         
@@ -136,11 +140,12 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
        protected void done(){
             try {
                 BungeniAppConnector.WebResponse wr  = get();
-                //if (wr.getStatusCode() == 200 ) {
-                //    this.versionSuccess = true;
-                //}
+                if (wr.getStatusCode() == 200 ) {
+                    this.uploadSuccess = true;
+                    proceed = true;
+                    parentDialog.dispose();
+                }
                 glassPane.deactivate();
-
             } catch (InterruptedException ex) {
                 log.error("Versioning was interrupted", ex);
             } catch (ExecutionException ex) {
@@ -195,6 +200,11 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         lblFileName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnUpload.setText("Upload Document to Bungeni");
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +216,7 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         lblTitle.setText("Title");
 
         txtDescription.setColumns(20);
+        txtDescription.setLineWrap(true);
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 
@@ -283,6 +294,11 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
         * **/
 
     }//GEN-LAST:event_btnUploadActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        this.parentDialog.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
