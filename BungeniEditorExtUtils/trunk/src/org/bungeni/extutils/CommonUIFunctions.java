@@ -96,13 +96,13 @@ public class CommonUIFunctions {
    * @param parentDialog
    * @param message 
    */
-  public void disablePanel(DisabledGlassPane glassPane, JDialog parentDialog, String message){
+  public static void disablePanel(DisabledGlassPane glassPane, JDialog parentDialog, String message){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
         glassPane.activate(message);
   }
 
-  public void disablePanel(DisabledGlassPane glassPane, JFrame parentDialog, String message){
+  public static void disablePanel(DisabledGlassPane glassPane, JFrame parentDialog, String message){
         JRootPane rootPane = SwingUtilities.getRootPane(parentDialog);
         rootPane.setGlassPane(glassPane);
         glassPane.activate(message);
