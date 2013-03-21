@@ -65,7 +65,7 @@ public class NotifyBox {
                      .withDisplayTime(INFO_WAIT_TIME);
     }
     
-    public static void error(String message, String title) {
+    public static void error(String title, String message) {
             errorBuilder
                     .withTitle(title)
                     .withMessage(message)
