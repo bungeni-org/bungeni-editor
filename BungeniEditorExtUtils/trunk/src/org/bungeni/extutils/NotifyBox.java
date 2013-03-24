@@ -50,13 +50,13 @@ public class NotifyBox {
                     .withStyle(infoStyle) // Required. here we set the previously set style
                     .withDisplayTime(INFO_WAIT_TIME) // Optional
                     .withIcon(UIManager.getIcon("OptionPane.informationIcon"))
-                    .withPosition(Positions.SOUTH_EAST); // Optional. Show it at the center of the screen
+                    .withPosition(Positions.SOUTH_WEST); // Optional. Show it at the center of the screen
             
             errorBuilder = new NotificationBuilder()
                     .withStyle(infoStyle) // Required. here we set the previously set style
                     .withIcon(UIManager.getIcon("OptionPane.errorIcon"))
                     .withDisplayTime(ERR_WAIT_TIME) // Optional
-                    .withPosition(Positions.SOUTH_EAST); // Optional. Show it at the center of the screen
+                    .withPosition(Positions.SOUTH_WEST); // Optional. Show it at the center of the screen
     }
     
     public static void info(String title, String message) {
