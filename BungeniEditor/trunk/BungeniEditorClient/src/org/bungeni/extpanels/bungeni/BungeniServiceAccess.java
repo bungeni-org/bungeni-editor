@@ -312,7 +312,11 @@ public class BungeniServiceAccess {
         try {
             formFields.put("form.title", new StringBody(title)) ;
             formFields.put("form.data.up_action", new StringBody("update")) ;
-            formFields.put("form_data_file", new FileBody(new File(new URI(fFileName))) ) ;
+            formFields.put("form_data_file", new FileBody(
+                    new File(new URI(fFileName)), 
+                    getMimeType(fFileName)
+                    ) 
+               ) ;
             formFields.put("form.description", new StringBody(description));
             formFields.put("form.language-empty-marker", new StringBody("1") ) ;
             formFields.put("form.type-empty-marker", new StringBody("1"));
@@ -415,13 +419,15 @@ public class BungeniServiceAccess {
             }
         }
 
-        if (docPropsMap.containsKey("BungeniDocType") && rootSectionExists) {
+       // if (this.hasDocumentBeeenEditedByTheEditor(docPropsMap, rootSectionExists)) {
             // this is a bungeni document ... load for editing
-        } else {
+            // TO DO 
+       // } else {
             //first prepare the document
             BungeniAttachment att = aDocument.getSelectedAttachment();
             propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
             propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
+            propshelper.setUserDefinedPropertyValue("DocEditor", "BungeniEditor");
             propshelper.setUserDefinedPropertyValue("DocInit", "False");
             propshelper.setUserDefinedPropertyValue("PortalSourceDoc", aDocument.getStatus());
             propshelper.setUserDefinedPropertyValue("PortalSourceTitle", aDocument.getTitle());
@@ -449,9 +455,23 @@ public class BungeniServiceAccess {
 
             odfhelper.saveDocument();
             // create the root section after opening and set initial metadata properties
-        }
+        //}
         return fodf;
     }
+
+    public boolean hasDocumentBeeenEditedByTheEditor(HashMap<String,String> docPropsMap, boolean rootSectionExists){
+        if (docPropsMap.containsKey("BungeniDocType") && 
+                docPropsMap.containsKey("DocSource") && 
+                docPropsMap.containsKey("DocEditor") && 
+                rootSectionExists) {
+                if (docPropsMap.get("DocSource").equals("BungeniPortal") && 
+                        docPropsMap.get("DocEditor").equals("BungeniEditor")) {
+                        return true;
+                }
+        }
+        return false;
+    }
+
     
     
     public BungeniAttachment getAttachmentFromURL(String sURL){
@@ -491,5 +511,15 @@ public class BungeniServiceAccess {
         
         // do something
         return true;
+    }
+
+    private String getMimeType(String fFileName) {
+        if (fFileName.endsWith(".odt")) {
+            return "application/vnd.oasis.opendocument.text";
+        }
+        if (fFileName.endsWith(".xml")) {
+            return "text/xml";
+        }
+        return "application/octet-stream";
     }
 }

@@ -28,12 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingUtilities;
-import nl.jj.swingx.gui.modal.JModalFrame;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.NotifyBox;
-import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.utils.BungeniDialog;
 
 /**
@@ -252,6 +250,7 @@ import org.bungeni.utils.BungeniDialog;
             // if the transition is successful update 
             //the document transition information on this page
             updateTransitionsList();
+            NotifyBox.infoTimed("Transition Info", "Transition Successful !", 2000);
         }
     }//GEN-LAST:event_btnTransitActionPerformed
 

@@ -17,12 +17,9 @@
  */
 package org.bungeni.editor.metadata.editors.birzeit;
 
-import com.mysql.jdbc.Field;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Properties;
 import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;

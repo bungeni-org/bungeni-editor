@@ -177,25 +177,25 @@ public class BillMetadata extends BaseEditorDocMetadataDialog {
         billNameCombobox = new javax.swing.JComboBox();
         lblBillNo1 = new javax.swing.JLabel();
 
-        txtBillNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        txtBillNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         txtBillNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBillNumberActionPerformed(evt);
             }
         });
 
-        dt_dateofassent.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        dt_dateofassent.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        dt_dateofcommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        dt_dateofcommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        lblBillNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblBillNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
         lblBillNo.setText(bundle.getString("BillMetadata.lblBillNo.text")); // NOI18N
 
-        lblDateOfAssent.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblDateOfAssent.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblDateOfAssent.setText(bundle.getString("BillMetadata.lblDateOfAssent.text")); // NOI18N
 
-        lblDateOfCommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10));
+        lblDateOfCommencement.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         lblDateOfCommencement.setText(bundle.getString("BillMetadata.lblDateOfCommencement.text")); // NOI18N
 
         billNameCombobox.setModel(setBillsNamesModel());

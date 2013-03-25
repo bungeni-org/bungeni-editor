@@ -147,7 +147,7 @@ public class BungeniTransitionConfirmationPanel extends javax.swing.JPanel {
                     if (wr.getStatusCode() == 200 ) {
                         glassPane.deactivate();
                         transitionSuccessful = true;
-                        NotifyBox.info("Transited !" );
+                        //NotifyBox.info("Transited !" );
                         parentDialog.dispose();
                     }
                 } else {

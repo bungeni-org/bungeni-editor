@@ -843,14 +843,14 @@ public class BungeniNoaFrame extends BungeniFrame {
                                     XNamed aSectionName = ooQueryInterface.XNamed(aSection);
                                     this.currentSection = aSectionName.getName();
                                     if (this.currentSection.equals(this.previousSection)) {
-                                        System.out.println("Previous Section = Current Section "
-                                                + this.currentSection);
+                                        //System.out.println("Previous Section = Current Section "
+                                        //        + this.currentSection);
                                         // do somehting here
                                     } else {
-                                        System.out.println("Previous Section ("
-                                                + this.previousSection
-                                                + ")  <> Current Section " + this.currentSection);
-                                        this.previousSection = this.currentSection;
+                                        //System.out.println("Previous Section ("
+                                        //        + this.previousSection
+                                        //        + ")  <> Current Section " + this.currentSection);
+                                        //this.previousSection = this.currentSection;
                                         // do something else here
                                     }
                                 }
