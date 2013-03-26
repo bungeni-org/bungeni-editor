@@ -274,6 +274,32 @@
         <p><xsl:apply-templates/></p>
     </xsl:template>
     
+    <xsl:template match="*[local-name() eq 'table']">
+        <table>
+            <xsl:if test="@id">
+                <xsl:attribute name="id" select="@id" />
+            </xsl:if>
+            <xsl:apply-templates />
+        </table>
+    </xsl:template>
+    
+    <xsl:template match="*[local-name() eq 'tr']">
+        <tr>
+            <xsl:if test="@id">
+                <xsl:attribute name="id" select="@id" />
+            </xsl:if>
+            <xsl:apply-templates />
+        </tr>
+    </xsl:template>
+    
+    <xsl:template match="*[local-name() eq 'td']">
+        <td>
+            <xsl:if test="@id">
+                <xsl:attribute name="id" select="@id" />
+            </xsl:if>
+            <xsl:apply-templates />
+        </td>
+    </xsl:template>
     <!-- Prevents emitting metadata content, since metadata is
         "pulled" inline into the content during transformation -->
     <xsl:template match="bungeni:bungenimeta">

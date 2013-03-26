@@ -339,6 +339,29 @@
              </block>
          </xmeta:template>
          
+         <xmeta:template match="table:table">
+             <table>
+                 <xmeta:attribute name="id" select="concat('table-', lower-case(@name))" />
+                 <xmeta:apply-templates />
+             </table>
+         </xmeta:template>
+         
+         <xmeta:template match="table:table-row">
+             <tr>
+                 <xmeta:apply-templates />
+             </tr>
+         </xmeta:template>
+         
+        <xmeta:template match="table:table-cell">
+             <td>
+                 <xmeta:apply-templates />
+             </td>
+         </xmeta:template>
+         
+         
+        <xmeta:template match="table:table-column" />
+         
+
          <xmeta:template match="text:span">
              <inline name="span">
                  <xmeta:attribute name="id" select="generate-id(.)" />
