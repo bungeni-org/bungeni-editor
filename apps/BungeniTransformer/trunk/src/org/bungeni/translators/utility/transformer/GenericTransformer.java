@@ -1,5 +1,6 @@
 package org.bungeni.translators.utility.transformer;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -24,6 +25,7 @@ public class GenericTransformer {
          */
         transformerFactory =new net.sf.saxon.TransformerFactoryImpl();
         transformer =  transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
     }
 
     public static GenericTransformer getInstance() throws TransformerConfigurationException {

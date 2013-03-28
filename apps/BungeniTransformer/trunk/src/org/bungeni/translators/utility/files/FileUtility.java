@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
@@ -194,7 +196,7 @@ public class FileUtility {
      * @return
      * @throws FileNotFoundException
      */
-    public BufferedReader BufferedFileReader(String sPath) throws FileNotFoundException {
+    public BufferedReader BufferedFileReader(String sPath) throws FileNotFoundException, UnsupportedEncodingException {
         File fFile = new File(sPath);
         return BufferedFileReader(fFile);
     }
@@ -205,12 +207,10 @@ public class FileUtility {
      * @return
      * @throws FileNotFoundException
      */
-    public BufferedReader BufferedFileReader(File fFile) throws FileNotFoundException {
+    public BufferedReader BufferedFileReader(File fFile) throws FileNotFoundException, UnsupportedEncodingException {
         BufferedReader bReader = null;
-        FileReader     fReader = new FileReader(fFile);
-
-        bReader = new BufferedReader(fReader);
-
+        InputStreamReader ir = new InputStreamReader(new FileInputStream(fFile), "UTF-8");
+        bReader = new BufferedReader(ir);
         return bReader;
     }
 
@@ -223,13 +223,22 @@ public class FileUtility {
         return new BufferedReader(new InputStreamReader(iStream));
     }
 
+    
+    public BufferedWriter BufferedFileWriter(File fOut) throws UnsupportedEncodingException, FileNotFoundException {
+        BufferedWriter out = new BufferedWriter(
+                        new OutputStreamWriter(
+                            new FileOutputStream(fOut), "UTF-8"
+                            )
+                        );
+        return out;
+    }
     /**
      * Returns a file path as an input source
      * @param sPath
      * @return
      * @throws FileNotFoundException
      */
-    public InputSource FileAsInputSource(String sPath) throws FileNotFoundException {
+    public InputSource FileAsInputSource(String sPath) throws FileNotFoundException, UnsupportedEncodingException {
         InputSource    iFileSource = null;
         BufferedReader bReader     = BufferedFileReader(sPath);
 
@@ -262,7 +271,7 @@ public class FileUtility {
      * @return
      * @throws FileNotFoundException
      */
-    public InputSource FileAsInputSource(File fFile) throws FileNotFoundException {
+    public InputSource FileAsInputSource(File fFile) throws FileNotFoundException, UnsupportedEncodingException {
         InputSource    iFileSource = null;
         BufferedReader bReader     = BufferedFileReader(fFile);
 
@@ -279,7 +288,7 @@ public class FileUtility {
      * @return
      * @throws FileNotFoundException
      */
-    public StreamSource FileAsStreamSource(String sPath) throws FileNotFoundException {
+    public StreamSource FileAsStreamSource(String sPath) throws FileNotFoundException, UnsupportedEncodingException {
         StreamSource   sSource = null;
         BufferedReader bReader = BufferedFileReader(sPath);
 
@@ -294,7 +303,7 @@ public class FileUtility {
      * @return
      * @throws FileNotFoundException
      */
-    public StreamSource FileAsStreamSource(File fPath) throws FileNotFoundException {
+    public StreamSource FileAsStreamSource(File fPath) throws FileNotFoundException, UnsupportedEncodingException {
         StreamSource   sSource = null;
         BufferedReader bReader = BufferedFileReader(fPath);
 

@@ -69,9 +69,8 @@ public final class OAReplaceStepsResolver {
 
             // create a file for the result
             tempFile = TempFileManager.createTempFile("temp", ".xml");
-
             // write the result on the temporary file
-            out = new BufferedWriter(new FileWriter(tempFile));
+            out = FileUtility.getInstance().BufferedFileWriter(tempFile);
             out.write(iteratedStringDocument);
             out.flush();
         } catch (Exception ex ) {

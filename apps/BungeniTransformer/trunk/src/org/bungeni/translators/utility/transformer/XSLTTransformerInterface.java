@@ -37,5 +37,5 @@ public interface XSLTTransformerInterface {
      */
     public StreamSource transformWithParam(StreamSource aDocumentSource, StreamSource anXSLTSource,
             HashMap<String, Parameter> aParamSet)
-            throws TransformerException;
+            throws TransformerException, UnsupportedEncodingException;
 }

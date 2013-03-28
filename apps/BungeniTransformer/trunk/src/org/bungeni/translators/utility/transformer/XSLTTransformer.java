@@ -2,11 +2,17 @@ package org.bungeni.translators.utility.transformer;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+//~--- JDK imports ------------------------------------------------------------
+
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import javax.xml.transform.OutputKeys;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -52,7 +58,7 @@ public class XSLTTransformer implements XSLTTransformerInterface {
 
         // set the line numbering true to the configuration
         transformerFactoryConfiguration.setLineNumbering(true);
-
+        
         // set the new configuration of the transformer factory
         //!+TRANSFORMER_INIT(AH, 2011-09-20)
         this.transformerFactory.setConfiguration(transformerFactoryConfiguration);
@@ -83,21 +89,21 @@ public class XSLTTransformer implements XSLTTransformerInterface {
      * @throws TransformerException
      * @throws UnsupportedEncodingException
      */
+    @Override
     public StreamSource transform(StreamSource aDocumentSource, StreamSource anXSLTSource)
             throws TransformerException, UnsupportedEncodingException {
 
         // create a new transformer
         Transformer trans = this.transformerFactory.newTransformer(anXSLTSource);
-
         // create the writer for the transformation
         StringWriter resultString = new StringWriter();
         // perform the transformation
         trans.transform(aDocumentSource, new StreamResult(resultString));
-
+        trans.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         // returns the obtained file
         // return new StreamSource(((InputStream)new ByteArrayInputStream(resultString.toString().getBytes("UTF-8"))));
         // ashok: simplified byte conversion to Stream using StringReader
-        return new StreamSource(new java.io.StringReader(resultString.toString()));
+        return new StreamSource(((InputStream)new ByteArrayInputStream(resultString.toString().getBytes("UTF-8"))));
     }
 
     /**
@@ -108,13 +114,14 @@ public class XSLTTransformer implements XSLTTransformerInterface {
      * @return the new Document resulting applying the given XSLT to the given Docuement
      * @throws TransformerException
      */
+    @Override
     public StreamSource transformWithParam(StreamSource aDocumentSource, StreamSource anXSLTSource,
             HashMap<String,Parameter> aParamSet)
-            throws TransformerException {
+            throws TransformerException, UnsupportedEncodingException {
 
         // create a new transformer
         Transformer trans = this.transformerFactory.newTransformer(anXSLTSource);
-
+        trans.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         // create an iterator on the parameters hash map
         Iterator<String> parametersIterator = aParamSet.keySet().iterator();
 
@@ -139,6 +146,6 @@ public class XSLTTransformer implements XSLTTransformerInterface {
         // returns the obtained file
         // return new StreamSource(((InputStream)new ByteArrayInputStream(resultString.toString().getBytes())));
         // ashok: simplified byte conversion to Stream using StringReader
-        return new StreamSource(new java.io.StringReader(resultString.toString()));
+        return new StreamSource(((InputStream)new ByteArrayInputStream(resultString.toString().getBytes("UTF-8"))));
     }
 }

@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
@@ -69,7 +71,8 @@ public class StreamSourceUtility {
             StringWriter resultString = new StringWriter();
 
             // perform the transformation
-            GenericTransformer.getInstance().getTransformer().transform(
+            Transformer trans = GenericTransformer.getInstance().getTransformer();
+            trans.transform(
                     aStreamSource,
                     new StreamResult(
                         resultString
