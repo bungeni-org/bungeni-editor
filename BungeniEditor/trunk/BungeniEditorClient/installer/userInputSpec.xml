@@ -5,15 +5,22 @@
         <createForPack name="Configs" />
         <createForPack name="Workspace" />
     <field type="title" 
-        txt="Select the Configuration Folder and the Workspace Folder" bold="true" size="1" />
+        txt="Select the Config Name, Configuration Folder and the Workspace Folder" bold="true" size="1" />
     <field type="title"
-        txt="Both these folders must be user writable !" bold="true" size="1" />
+        txt="Both the folders specified must be user writable !" bold="true" size="1" />
     <field type="divider" align="top"/>
+    <field type="staticText" align="left" txt="Configuration Name"/>
+    <field type="text" variable="config.name">
+        <spec txt="" id="text.label" size="15" set="default"/>
+    </field>
+    <field type="staticText" align="left" txt="Configuration Description"/>
+    <field type="text" variable="config.title">
+        <spec txt="" id="text.label" size="15" set="This is a description"/>
+    </field>
     <field type="staticText" align="left" txt="Select the Configuration Folder"/>
      <field type="dir" align="left" variable="config.folder.home">
         <spec txt="" size="25" set=""  mustExist="true" create="true" />
      </field>
-    <field type="space" />
     <field type="staticText" align="left" txt="Select the Workspace Folder"/>
      <field type="dir" align="left" variable="ws.folder.home">
         <spec txt="" size="25" set="" mustExist="true" create="true" />

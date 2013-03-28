@@ -40,6 +40,8 @@
         <langpack iso3="eng"/>
     </locale>
     <variables>
+        <variable name="config.name" value=""/>
+        <variable name="config.title" value=""/>
         <variable name="config.folder.home" value=""/>
         <variable name="ws.folder.home" value=""/>
     </variables>
