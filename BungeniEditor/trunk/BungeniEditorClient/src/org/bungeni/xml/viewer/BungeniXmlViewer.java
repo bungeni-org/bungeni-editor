@@ -3,9 +3,12 @@ package org.bungeni.xml.viewer;
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -18,24 +21,25 @@ import org.bungeni.extutils.FrameLauncher;
  * Description: ...
  *
  * Copyright (c) March 2001 Kyle Gabhart
+ *
  * @author Kyle Gabhart
  * @version 1.0
  */
-public  class BungeniXmlViewer extends BungeniFrame {
-   private static org.apache.log4j.Logger log = Logger.getLogger(BungeniXmlViewer.class.getName());
+public class BungeniXmlViewer extends BungeniFrame {
 
+    private static org.apache.log4j.Logger log = Logger.getLogger(BungeniXmlViewer.class.getName());
     private static BungeniXmlViewer xmlViewer = null;
     // This is the BungeniXmlTree object which displays the XML in a JTree
     XmlViewerPanel xmlPanel = null;
 
     public static synchronized BungeniXmlViewer getInstance(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
         if (xmlViewer == null) {
-            synchronized(BungeniXmlViewer.class) {
+            synchronized (BungeniXmlViewer.class) {
                 if (xmlViewer == null) {
                     xmlViewer = new BungeniXmlViewer(title, xmlText);
                 }
             }
-           
+
         } else {
             xmlViewer.updateContent(title, xmlText);
             xmlViewer.setVisible(true);
@@ -43,14 +47,17 @@ public  class BungeniXmlViewer extends BungeniFrame {
         return xmlViewer;
     }
 
-    public static void launchXmlViewer(String title, File fFile) throws ParserConfigurationException {
-        BufferedReader reader = null;
+    public static void launchXmlViewer(String title, File fFile) throws ParserConfigurationException, UnsupportedEncodingException {
+        InputStreamReader reader = null;
         try {
             // The file will have to be re-read when the Document object is parsed
-            reader = new BufferedReader(new FileReader(fFile));
+            BufferedReader bReader = null;
+            reader = new InputStreamReader(new FileInputStream(fFile), "UTF-8");
+            bReader = new BufferedReader(reader);
+
             ArrayList<String> xmlText = new ArrayList<String>();
             String line = "";
-            while ((line = reader.readLine()) != null) {
+            while ((line = bReader.readLine()) != null) {
                 xmlText.add(line);
             } //end while ( ( line = reader.readLine() ) != null )
             // The file will have to be re-read when the Document object is parsed
@@ -58,12 +65,14 @@ public  class BungeniXmlViewer extends BungeniFrame {
             BungeniXmlViewer frmViewer = BungeniXmlViewer.getInstance(title, xmlText);
             FrameLauncher.CenterFrame(frmViewer);
         } catch (IOException ex) {
-            log.error("launchXmlViewer" , ex);
+            log.error("launchXmlViewer", ex);
         } finally {
             try {
-                if (reader != null) reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException ex) {
-                    log.error("launchXmlViewer" , ex);
+                log.error("launchXmlViewer", ex);
             }
         }
 
@@ -76,8 +85,8 @@ public  class BungeniXmlViewer extends BungeniFrame {
     }
 
     /**
-     * This constructor passes the graphical construction off to the overloaded constructor
-     * and then handles the processing of the XML text
+     * This constructor passes the graphical construction off to the overloaded
+     * constructor and then handles the processing of the XML text
      */
     protected BungeniXmlViewer(String title, ArrayList<String> xmlText) throws ParserConfigurationException {
         this(title);
@@ -94,13 +103,13 @@ public  class BungeniXmlViewer extends BungeniFrame {
     } //end BungeniXmlViewer( String title, String xml )
 
     /**
-     * This constructor builds a frame containing a JSplitPane, which in turn contains two JScrollPanes.
-     * One of the panes contains an BungeniXmlTree object and the other contains a JTextArea object.
+     * This constructor builds a frame containing a JSplitPane, which in turn
+     * contains two JScrollPanes. One of the panes contains an BungeniXmlTree
+     * object and the other contains a JTextArea object.
      */
     protected BungeniXmlViewer(String title) {
         // This builds the JFrame portion of the object
         super(title);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     } //end BungeniXmlViewer()
-
 } //end class BungeniXmlViewer

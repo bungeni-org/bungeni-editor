@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -363,13 +364,17 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 if (fXml.exists()) {
                     if (fXml.length() != 0) {
                         try {
-                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                            try {
+                                BungeniXmlViewer.launchXmlViewer("Xml Viewer", fXml);
+                            } catch (UnsupportedEncodingException ex) {
+                                java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             return;
                         } catch (ParserConfigurationException ex) {
                             log.error("viewXmlDoc ", ex);
                             NotifyBox.error(bundle.getString("xml_not_wellformed"), bundle.getString("xml_viewer_error"));
                             return;
-                        }
+                        }   
                     }
                 }
                 NotifyBox.error(bundle.getString("xml_does_not_exist"), bundle.getString("xml_viewer_error"));
@@ -383,7 +388,11 @@ public class transformXMLPanel extends BaseClassForITabbedPanel {
                 if (fMlx.exists()) {
                     if (fMlx.length() != 0) {
                         try {
-                            BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
+                            try {
+                                BungeniXmlViewer.launchXmlViewer("Xml Viewer", fMlx);
+                            } catch (UnsupportedEncodingException ex) {
+                                java.util.logging.Logger.getLogger(transformXMLPanel.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             return;
                         } catch (ParserConfigurationException ex) {
                             log.error("viewXmlDoc ", ex);
