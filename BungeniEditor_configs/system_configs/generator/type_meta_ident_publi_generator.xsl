@@ -155,6 +155,15 @@
                  </xsl:with-param>
              </xsl:call-template>
              
+              <xsl:call-template name="meta-outputter">
+                 <xsl:with-param name="meta-name">
+                     <xsl:text>as</xsl:text>
+                 </xsl:with-param>
+                 <xsl:with-param name="meta-value">
+                     <xsl:text>BungeniExpAuthorAs</xsl:text>
+                 </xsl:with-param>
+             </xsl:call-template>
+             
              <xsl:call-template name="meta-outputter">
                  <xsl:with-param name="meta-name">
                      <xsl:text>date</xsl:text>
@@ -193,6 +202,15 @@
                  </xsl:with-param>
                  <xsl:with-param name="meta-value">
                      <xsl:text>BungeniManAuthor</xsl:text>
+                 </xsl:with-param>
+             </xsl:call-template>
+             
+                <xsl:call-template name="meta-outputter">
+                 <xsl:with-param name="meta-name">
+                     <xsl:text>as</xsl:text>
+                 </xsl:with-param>
+                 <xsl:with-param name="meta-value">
+                     <xsl:text>BungeniManAuthorAs</xsl:text>
                  </xsl:with-param>
              </xsl:call-template>
              
