@@ -275,6 +275,7 @@ public class CommonRouterActions {
 
         metaMap.put("BungeniSectionType", subAction.getSectionType());
         metaMap.put("BungeniSectionID", BungeniUUID.getShortUUID());
+        metaMap.putAll(subAction.getMetadatasMap());
         metaMap.put(MetadataEditor.MetaEditableFlag, "false");
 
         return metaMap;

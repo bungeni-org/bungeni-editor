@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.ooo.OOComponentHelper;
@@ -29,6 +30,7 @@ public final class DocumentSection {
     private String sectionNumberingScheme = "";
     private String sectionNumberDecorator = "";
     private boolean Protected = false;
+    private HashMap<String,String> metadatasMap = new HashMap<String,String>(0);
     
     
     /** Creates a new instance of DocumentSection */
@@ -55,6 +57,22 @@ public final class DocumentSection {
         } else {
              setNumberingScheme("none");
              setNumberDecorator("none");
+        }
+        /** <metadatas><metadata name="alpha" ... > 
+         */
+        Element elemMetadatas = sectionType.getChild("metadatas");
+        if (elemMetadatas != null) {
+            List<Element> childrenMetadata = elemMetadatas.getChildren("metadata");
+            if (childrenMetadata != null) {
+                for (Element elemMetadata : childrenMetadata) {
+                    String metaName = elemMetadata.getAttributeValue("name");
+                    String metaDef = elemMetadata.getAttributeValue("default");
+                    if (null == metaDef) {
+                        metaDef = "";
+                    }
+                    this.metadatasMap.put(metaName, metaDef);
+                }
+            }
         }
   
     }
@@ -270,6 +288,10 @@ public final class DocumentSection {
 
     public String getNumberDecorator(){
         return this.sectionNumberDecorator;
+    }
+    
+    public HashMap<String,String> getMetadatasMap(){
+        return this.metadatasMap;
     }
     
 }

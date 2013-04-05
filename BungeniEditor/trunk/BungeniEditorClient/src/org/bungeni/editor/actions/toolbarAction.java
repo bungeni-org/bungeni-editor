@@ -4,6 +4,7 @@ package org.bungeni.editor.actions;
 
 import org.bungeni.editor.config.DocumentActionsReader;
 import java.io.IOException;
+import java.util.HashMap;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -191,6 +192,12 @@ public class toolbarAction {
         }
     }
 
+    public HashMap<String,String> getMetadatasMap(){
+        if (this.actionSource.equals(actionSourceOrigin.sectionType)) {
+            return this.textSection.getMetadatasMap();
+        }
+        return null;
+    }
 
     @Override
     public String toString() {

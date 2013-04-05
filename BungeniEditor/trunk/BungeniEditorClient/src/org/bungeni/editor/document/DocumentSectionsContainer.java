@@ -3,8 +3,8 @@ package org.bungeni.editor.document;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import org.bungeni.editor.config.SectionTypesReader;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.SectionTypesReader;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 

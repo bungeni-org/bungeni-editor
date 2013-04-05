@@ -24,10 +24,13 @@
     receiver="org.bungeni.extpanels.bungeni.BungeniDocumentReceiver"
   
   >
-    <custom>
+	
+ 
+
+  <custom>
        <login server="10.0.2.2" port="8081" baseurl="login" />
        <search base="/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
        <document base="/workspace/my-documents/external/" />
-    </custom>
+    </custom> 
     </config>
 </configs>
