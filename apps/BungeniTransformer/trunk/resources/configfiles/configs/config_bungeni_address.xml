@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungeni_address.xml
+    Created on : 24 January 2012, 15:44
+    Author     : anthony
+    Description:
+    This is the translation pipeline for Bungeni output documents of type="membership"
+-->
+<config name="BungeniXML">
+    <properties>
+        <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">BUNGENI_XML</entry>
+    </properties>
+    
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso20.xsd" />
+    
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        
+        <!-- INPUT PARAMETERS are passed ONLY into Step 1, it is upto step to decide
+            what it wants to do with input parameters, since they can be carried over,
+            by serializing them into the document being pipelined -->
+        <parameters>
+            <parameter name="parliament-info" type="xml" />
+            <parameter name="type-mappings" type="xml" />
+            
+            <!--
+            <parameter name="country-code" value="cc" />
+            <parameter name="parliament-id"/>
+            <parameter name="parliament-election-date"/>
+            <parameter name="for-parliament"/>
+            <parameter name="type-mappings">
+                <value>
+                    <map from="address" uri-name="Address" element-name="address" />
+                    <map from="user" uri-name="User" element-name="user" />
+                    <map from="parliament" uri-name="Legislature" element-name="legislature" />
+                    <map from="committee" uri-name="Committee"  element-name="committee" />
+                    <map from="ministry" uri-name="Ministry"  element-name="ministry" />
+                    <map from="political_group" uri-name="PoliticalGroup"  element-name="politicalGroup" />
+                    <map from="membership" uri-name="Membership"  element-name="membership" />                 
+                </value>
+            </parameter>
+            -->
+            
+        </parameters>
+        
+        <xslt   step="1" 
+            name="groupingLevel1" 
+            href="pipeline_xslt/bungeni/address/1_grouping.xsl"/>
+        
+        <xslt   step="2" 
+            name="groupingLevel2" 
+            href="pipeline_xslt/bungeni/address/2_grouping.xsl"/>               
+        
+        <xslt   step="3" 
+            name="appendBungeniNS" 
+            href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl" 
+            postproc="proc-address-item"/>
+        
+    </input>
+    
+    <processgroup id="proc-address-item">
+        
+        <process name="unescapehtml"
+            description="item description"
+            param="//bu:ontology//bu:description" />
+        
+        <process name="unescapehtml"
+            description="item notes"
+            param="//bu:ontology//bu:notes" />        
+        
+    </processgroup>
+    
+</config>

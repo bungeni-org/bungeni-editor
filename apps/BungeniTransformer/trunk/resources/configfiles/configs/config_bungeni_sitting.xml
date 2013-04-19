@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config_bungeni_groupsitting.xml
+    Created on : 21 February 2012, 10:11
+    Author     : anthony
+    Description:
+    This is the translation pipeline for Bungeni output documents of type="groupsitting"
+-->
+<config name="BungeniXML">
+    <properties>
+        <entry key="resourceBundlePath">localisation.messages.LabelsBundle</entry>
+        <entry key="cachePipelineXSLT">false</entry>
+        <entry key="inputXmlSource">BUNGENI_XML</entry>
+    </properties>
+    
+    <!-- Specfies the schema for the xml document being created -->
+    <schema href="configfiles/schema/akomantoso20.xsd" />
+    
+    <!-- This steps are performed BEFORE the above regex replacement -->
+    <input>
+        
+        <!-- INPUT PARAMETERS are passed ONLY into Step 1, it is upto step to decide
+            what it wants to do with input parameters, since they can be carried over,
+            by serializing them into the document being pipelined -->
+        <parameters>
+            <parameter name="parliament-info" type="xml" />
+            <parameter name="type-mappings" type="xml" />
+            
+            <!--
+            <parameter name="country-code" value="cc" />
+            <parameter name="parliament-id"/>
+            <parameter name="parliament-election-date" />
+            <parameter name="for-parliament" />
+            <parameter name="type-mappings">
+                <value>
+                    <map from="sitting" uri-name="Groupsitting" element-name="groupsitting" />
+                    <map from="question" uri-name="Question" element-name="question" />
+                    <map from="bill" uri-name="Bill" element-name="bill" />
+                    <map from="agenda_item" uri-name="AgendaItem" element-name="agendaItem" />
+                    <map from="motion" uri-name="Motion" element-name="motion"  />
+                    <map from="tabled_document" uri-name="TabledDocument" element-name="tabledDocument"  />
+                    <map from="event" uri-name="Event" element-name="event" />
+                    <map from="ministry" uri-name="Ministry"  element-name="ministry" />
+                    <map from="user" uri-name="Person" element-name="person" />
+                    <map from="member_of_parliament" uri-name="ParliamentMember" element-name="parliamentmember" />                    
+                </value>
+            </parameter>
+            -->
+            
+        </parameters>
+        
+        <xslt   step="1" 
+            name="groupingLevel1" 
+            href="pipeline_xslt/bungeni/sitting/1_grouping.xsl"/>
+        
+        <xslt   step="2" 
+            name="groupingLevel2" 
+            href="pipeline_xslt/bungeni/sitting/2_grouping.xsl"/>               
+        
+        <xslt   step="3" 
+            name="appendBungeniNS" 
+            href="pipeline_xslt/bungeni/common/add_bungeniportal_ns.xsl" 
+            postproc="proc-groupsitting-item"/>
+        
+    </input>
+    
+    <processgroup id="proc-groupsitting-item">
+        
+        <process name="unescapehtml"
+            description="item body"
+            param="//bu:ontology//bu:description" />
+        
+        <process name="unescapehtml"
+            description="item notes"
+            param="//bu:ontology//bu:notes" />        
+        
+        <process name="unescapehtml"
+            description="item notes"
+            param="//bu:ontology//bu:body" />        
+        
+    </processgroup>
+    
+</config>
