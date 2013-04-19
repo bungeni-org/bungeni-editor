@@ -1,0 +1,9 @@
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_address.xml config_bungeni_address.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_attachment.xml config_bungeni_attachment.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_event.xml config_bungeni_event.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_group.xml config_bungeni_group.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_heading.xml config_bungeni_heading.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_membership.xml config_bungeni_membership.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_parliamentaryitem.xml config_bungeni_parliamentaryitem.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_sitting.xml config_bungeni_sitting.xml
+http://bungeni-exist.googlecode.com/svn/glue/trunk/resources/configfiles/configs/config_bungeni_user.xml config_bungeni_user.xml
