@@ -12,10 +12,11 @@
     <inlineType name="ref">
         <metadatas>
             <metadata name="BungeniRefURI" />
+            <metadata name="BungeniRefID" default="my-reference-id" />
         </metadatas>
         <output>
           <content>
-            <an:ref href="$BungeniRefURI" />
+            <an:ref id="$BungeniRefID" href="$BungeniRefURI" />
           </content>
        </output>
     </inlineType>
