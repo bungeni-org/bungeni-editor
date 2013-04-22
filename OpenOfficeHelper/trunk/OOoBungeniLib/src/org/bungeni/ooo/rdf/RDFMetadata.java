@@ -111,7 +111,7 @@ public class RDFMetadata {
      * @param literalValue
      * @return
      */
-    private XLiteral makeEscapedLiteral(String literalValue) {
+     public XLiteral makeEscapedLiteral(String literalValue) {
         XLiteral xLiteral = Literal.create(this.openofficeHelper.getComponentContext(), StringEscapeUtils.escapeXml(literalValue));
         return xLiteral;
     }
@@ -120,7 +120,7 @@ public class RDFMetadata {
      * Returns the relative path to the metadata file
      * @return
      */
-    private String getRDFFilePath() {
+    public String getRDFFilePath() {
         return RDF_META_PATH + RDF_META_FILE;
     }
 
@@ -128,7 +128,7 @@ public class RDFMetadata {
      * Provides access to the Document metadata
      * @return XDocumentMetadataAccess object from the document model
      */
-    private XDocumentMetadataAccess getDocumentMetadataAccess() {
+    public XDocumentMetadataAccess getDocumentMetadataAccess() {
         XDocumentMetadataAccess metaAccess = ooQueryInterface.XDocumentMetadataAccess(openofficeHelper.getDocumentModel());
         return metaAccess;
     }
