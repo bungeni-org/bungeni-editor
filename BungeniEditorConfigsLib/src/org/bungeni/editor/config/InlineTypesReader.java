@@ -120,6 +120,16 @@ public class InlineTypesReader extends BaseConfigReader {
        }
   }
 
+ public Element getInlineTypeByName(String docType, String inlineTypeName) throws JDOMException {
+       if (null != getDocument(docType)) {
+          XPath xPath = XPath.newInstance("//inlineType[@name='"+ inlineTypeName +"']");
+          return (Element) xPath.selectSingleNode(this.cachedTypes.get(docType));
+       } else {
+           log.error("Error getting inline type metadata");
+           return null;
+       }
+ }
+  
  /**
   * This gets the output template applicable for a section type
   * @param inlineTypeName
