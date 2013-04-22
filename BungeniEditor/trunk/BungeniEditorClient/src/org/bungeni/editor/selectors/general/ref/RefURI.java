@@ -1,18 +1,33 @@
 
 package org.bungeni.editor.selectors.general.ref;
 
+import com.sun.star.container.NoSuchElementException;
+import com.sun.star.container.XEnumeration;
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.lang.WrappedTargetException;
+import com.sun.star.rdf.RepositoryException;
+import com.sun.star.rdf.XLiteral;
+import com.sun.star.rdf.XNamedGraph;
+import com.sun.star.rdf.URI;
+import com.sun.star.rdf.XURI;
+
 import java.awt.Component;
-import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.actions.routers.CommonRouterActions.TypeCreationState;
+
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.rdf.RDFConstants;
+import org.bungeni.ooo.rdf.RDFMetadata;
 
 /**
  *
  * @author  undesa
  */
 public class RefURI extends  BaseMetadataPanel {
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(RefURI.class.getName());
 
     /** Creates new form PersonSelector */
     public RefURI() {
@@ -138,12 +153,43 @@ public class RefURI extends  BaseMetadataPanel {
         return true;
     }
 
+    private int getNumberOfReferences() {
+        RDFMetadata rdfMeta = getContainerPanel().getOoDocument().getRDFInstance();
+        int numberOfReferences = 0;
+        try {
+            XNamedGraph xGraph = rdfMeta.getDocumentMetadataGraph();
+            XLiteral xLiteral = rdfMeta.makeEscapedLiteral("ref");
+            XURI xURI = URI.create(getContainerPanel().getOoDocument().getComponentContext(), 
+                    RDFConstants.RDF_META_NAMESPACE + "/" + RDFMetadata.RDF_META_ROOT + "/BungeniInlineType"
+                    );
+            XEnumeration xEnum = xGraph.getStatements(null, xURI, xLiteral);
+            while (xEnum.hasMoreElements()){
+                numberOfReferences++;
+                Object next = xEnum.nextElement();
+            }
+        } catch (WrappedTargetException ex) {
+            log.error("getNumberOfReferences", ex);
+        } catch (IllegalArgumentException ex) {
+            log.error("getNumberOfReferences", ex);
+        } catch (RepositoryException ex) {
+            log.error("getNumberOfReferences", ex);
+        }  catch (NoSuchElementException ex) {
+            log.error("getNumberOfReferences", ex);
+        }
+        
+        
+        return numberOfReferences;
+    }
+    
     @Override
     public boolean processSelectInsert() {
           OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
           final String strHref = this.txt_RefURI.getText();
+          String documentId = "DUMMY-DOCUMENT-ID" ; // get the document id from somewhere ... 
+          Integer nextReferenceId = getNumberOfReferences() + 1;
           TypeCreationState tcs = getContainerPanel().initInlineType();
           if (tcs.propsMap != null ) {
+             tcs.propsMap.put("BungeniRefID",  "P_" + documentId + "_" + nextReferenceId );
              tcs.propsMap.put("BungeniRefURI", strHref );
              ooDoc.setSelectedTextAttributes(tcs.propsMap);
           }
