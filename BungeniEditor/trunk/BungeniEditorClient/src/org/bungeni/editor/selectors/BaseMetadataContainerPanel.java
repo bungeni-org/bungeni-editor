@@ -759,7 +759,7 @@ public abstract class BaseMetadataContainerPanel extends javax.swing.JPanel impl
            String inlineType = theSubAction.getInlineType();
            if (inlineType.length() > 0 ) {
                typeMap = new HashMap<String,String>();
-               typeMap.put("BungeniInlineType", theSubAction.getInlineType());
+               typeMap.putAll(CommonRouterActions.get_newInlineMetadata(theSubAction));
                return new TypeCreationState(theSubAction.getInlineType(), "SUCCESS", typeMap);
            }
            return new TypeCreationState("","FAILURE_INLINE_TYPE_UNKNOWN", null );

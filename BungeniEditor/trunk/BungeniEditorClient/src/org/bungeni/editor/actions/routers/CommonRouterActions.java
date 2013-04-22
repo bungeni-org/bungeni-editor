@@ -286,6 +286,7 @@ public class CommonRouterActions {
 
         metaMap.put("BungeniInlineType", subAction.getInlineType());
         metaMap.put("BungeniInlineID", BungeniUUID.getShortUUID());
+        metaMap.putAll(subAction.getMetadatasMap());
         metaMap.put(MetadataEditor.MetaEditableFlag, "false");
 
         return metaMap;

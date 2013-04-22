@@ -31,7 +31,7 @@ public class routerCreateInline extends defaultRouter {
         if (subAction.getActionSource().equals(actionSourceOrigin.inlineType)) {
           String inlineTypeName = subAction.getInlineType();
           HashMap<String,String> inlineTypeMap = new HashMap<String,String>();
-          inlineTypeMap.put("BungeniInlineType", inlineTypeName);
+          inlineTypeMap.putAll(CommonRouterActions.get_newInlineMetadata(subAction));
           ooDocument.setSelectedTextAttributes(inlineTypeMap);
           bState = true;
         }

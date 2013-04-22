@@ -5,13 +5,18 @@ package org.bungeni.editor.actions;
 import org.bungeni.editor.config.DocumentActionsReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 
 //~--- JDK imports ------------------------------------------------------------
 
 import org.bungeni.editor.document.DocumentSection;
+import org.bungeni.editor.document.DocumentInline;
+
 import org.bungeni.editor.document.DocumentSectionsContainer;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.config.InlineTypesReader;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
@@ -54,6 +59,7 @@ public class toolbarAction {
     // field it maps to in the SUB_ACTIONS_SETTINGS table is dropped
     // private String                         sub_action_state;
     private DocumentSection                textSection ;
+    private DocumentInline                 textInline;
     private String                         validator_class;
     private String                         section_naming_convention;
     private String                         section_numbering_convention;
@@ -162,6 +168,7 @@ public class toolbarAction {
                     if (this.actionSource.equals(actionSourceOrigin.sectionType)) {
                         this.setupSectionType(this.actionSourceValue);
                     } else if (this.actionSource.equals(actionSourceOrigin.inlineType)) {
+                        this.setupInlineType(this.actionSourceValue);
                         log.debug("This is an inline type - no special setup for now");
                     } else if (this.actionSource.equals(actionSourceOrigin.annotationType)) {
                         log.debug("This is an annotation type - no special setup for now");
@@ -174,7 +181,19 @@ public class toolbarAction {
         }
     }
 
-
+   private void setupInlineType(String inline_type){
+      //   InlineTypesReader.getInstance().
+       if (inline_type.length() > 0 ) {
+           try {
+              Element inlineElem =  InlineTypesReader.getInstance().getInlineTypeByName(BungeniEditorPropertiesHelper.getCurrentDocType(), inline_type);
+              DocumentInline docInline = new DocumentInline(inlineElem, inline_type);
+              this.textInline = docInline;
+           } catch (JDOMException ex) {
+               log.error("Error while getting inline type information");
+           }
+       }
+   }
+    
     private void setupSectionType(String sub_section_type) {
           if (sub_section_type.length() > 0 ) {
             DocumentSection associatedSection = DocumentSectionsContainer.getDocumentSectionByType(sub_section_type);
@@ -195,6 +214,8 @@ public class toolbarAction {
     public HashMap<String,String> getMetadatasMap(){
         if (this.actionSource.equals(actionSourceOrigin.sectionType)) {
             return this.textSection.getMetadatasMap();
+        } else if (this.actionSource.equals(actionSourceOrigin.inlineType)) {
+            return this.textInline.getMetadatasMap();
         }
         return null;
     }
