@@ -2785,7 +2785,16 @@ public class OOComponentHelper {
         return cursorInSection;
     }
 
+    /**
+     * Gets the internal RDF metadata instance 
+     * @return 
+     */
+    public RDFMetadata getRDFInstance(){
+        return m_rdfInstance;
+    }
+    
 
+    
     /*
      * disabled temporarily
      *
