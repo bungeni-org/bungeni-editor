@@ -15,6 +15,7 @@ import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bungeni.editor.actions.routers.CommonRouterActions.TypeCreationState;
+import org.bungeni.editor.metadata.ActMainMetadataModel;
 
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonUIFunctions;
@@ -28,7 +29,7 @@ import org.bungeni.ooo.rdf.RDFMetadata;
  */
 public class RefURI extends  BaseMetadataPanel {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(RefURI.class.getName());
-
+ private static ActMainMetadataModel docMetaModel = new ActMainMetadataModel();
     /** Creates new form PersonSelector */
     public RefURI() {
         super();
@@ -184,12 +185,16 @@ public class RefURI extends  BaseMetadataPanel {
     @Override
     public boolean processSelectInsert() {
           OOComponentHelper ooDoc = getContainerPanel().getOoDocument();
+          this.docMetaModel.setup();
+          docMetaModel.loadModel(ooDoc);
+          
+          
           final String strHref = this.txt_RefURI.getText();
-          String documentId = "DUMMY-DOCUMENT-ID" ; // get the document id from somewhere ... 
+          String documentId = docMetaModel.getItem("BungeniMainDocID"); // get the document id from somewhere ... 
           Integer nextReferenceId = getNumberOfReferences() + 1;
           TypeCreationState tcs = getContainerPanel().initInlineType();
           if (tcs.propsMap != null ) {
-             tcs.propsMap.put("BungeniRefID",  "P_" + documentId + "_" + nextReferenceId );
+             tcs.propsMap.put("BungeniRefID",  "P" + documentId + "_" + nextReferenceId );
              tcs.propsMap.put("BungeniRefURI", strHref );
              ooDoc.setSelectedTextAttributes(tcs.propsMap);
           }
