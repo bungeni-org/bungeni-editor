@@ -17,7 +17,6 @@
  */
 package org.bungeni.editor.metadata.editors.birzeit;
 
-import org.bungeni.editor.metadata.editors.birzeit.ActSource;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -25,7 +24,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -39,18 +37,15 @@ import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
-import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.ActResponsibleAuthoritiesModel;
-import org.bungeni.editor.metadata.ActSourceModel;
+import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.birzeit.DateHijri;
 import org.bungeni.editor.metadata.birzeit.PromulagtedLeg;
-import org.bungeni.editor.metadata.PublicationType;
-import org.bungeni.editor.metadata.editors.birzeit.ActMainMetadata;
 import org.bungeni.editor.metadata.editors.GeneralMetadata;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.*;
+import org.bungeni.extutils.CommonStringFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.jdesktop.swingx.JXMonthView;
 
 /**
  *
