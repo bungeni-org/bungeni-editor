@@ -6,17 +6,13 @@ import com.sun.star.container.XEnumeration;
 import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.WrappedTargetException;
 import com.sun.star.rdf.RepositoryException;
+import com.sun.star.rdf.URI;
 import com.sun.star.rdf.XLiteral;
 import com.sun.star.rdf.XNamedGraph;
-import com.sun.star.rdf.URI;
 import com.sun.star.rdf.XURI;
-
 import java.awt.Component;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bungeni.editor.actions.routers.CommonRouterActions.TypeCreationState;
 import org.bungeni.editor.metadata.ActMainMetadataModel;
-
 import org.bungeni.editor.selectors.BaseMetadataPanel;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.ooo.OOComponentHelper;
