@@ -23,38 +23,34 @@ import org.bungeni.editor.metadata.birzeit.Area;
 import org.bungeni.editor.metadata.birzeit.Category;
 import org.bungeni.editor.metadata.birzeit.Category_Basic;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.TreeMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.SwingWorker;
-import org.bungeni.connector.ConnectorProperties;
 import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.element.*;
+import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
-import org.bungeni.editor.metadata.*;
+import org.bungeni.editor.metadata.ActMainMetadataModel;
+import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
+import org.bungeni.editor.metadata.LanguageCode;
+import org.bungeni.editor.metadata.PublicationType;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.*;
+import org.bungeni.extutils.CommonStringFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.xpath.XPath;
 
 /**
  *
@@ -86,7 +82,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         try {
             conStmt = con.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
         initComponents();
         CommonUIFunctions.compOrientation(this);
@@ -251,7 +247,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] publicationTypes = new String[PublicationTypesList.size()];
@@ -302,7 +298,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] ActAreas = new String[actScopeList.size()];
@@ -353,7 +349,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] historicalPeriods = new String[actHistoricalPeriodsList.size()];
@@ -404,7 +400,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] families = new String[actFamiliesList.size()];
@@ -460,7 +456,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] subFamilies = new String[actSubFamiliesList.size()];
@@ -494,7 +490,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
         actPossibleFamiliesList.add(fmObj);
         String[] possibleFamilies = new String[actPossibleFamiliesList.size()];
@@ -551,7 +547,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
                     actSubPossibleFamiliesList.add(fmObj);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
             }
         }
 
@@ -589,8 +585,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class
-                    .getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] categories = new String[actCategoriesList.size()];
@@ -621,8 +616,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class
-                    .getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] categoriesBasic = new String[actCategoriesBasicList.size()];
