@@ -5,8 +5,6 @@
  */
 package org.bungeni.editor.metadata.editors.birzeit;
 
-import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
-import org.bungeni.editor.config.BungeniEditorProperties;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -15,33 +13,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
+import java.util.TreeMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.SwingWorker;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
+import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
+import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
-import org.bungeni.editor.metadata.birzeit.CaseType;
-import org.bungeni.editor.metadata.birzeit.Category;
-import org.bungeni.editor.metadata.birzeit.City;
-import org.bungeni.editor.metadata.birzeit.CourtType;
-import org.bungeni.editor.metadata.birzeit.LitigationType;
-import org.bungeni.editor.metadata.birzeit.Domains;
-import org.bungeni.editor.metadata.birzeit.Importance;
-import org.bungeni.editor.metadata.birzeit.JudgementRegion;
 import org.bungeni.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.metadata.LanguageCode;
-import org.bungeni.editor.metadata.PublicationType;
-import org.bungeni.editor.metadata.editors.birzeit.ActMainMetadata;
-import org.bungeni.editor.metadata.editors.birzeit.ActSource;
+import org.bungeni.editor.metadata.birzeit.CaseType;
+import org.bungeni.editor.metadata.birzeit.City;
+import org.bungeni.editor.metadata.birzeit.CourtType;
+import org.bungeni.editor.metadata.birzeit.Domains;
+import org.bungeni.editor.metadata.birzeit.JudgementRegion;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.*;
+import org.bungeni.extutils.CommonStringFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.BungeniFileSavePathFormat;
 
 /**
@@ -70,7 +66,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
            try {
             conStmt = con.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(ActSource.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
         initComponents();
         CommonUIFunctions.compOrientation(this);
@@ -201,7 +197,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
             }
         }
         String[] judgementCaseTypes = new String[CaseTypesList.size()];
@@ -227,7 +223,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] judgementDomains = new String[DomainsList.size()];
@@ -281,7 +277,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CourtJudgement_Appeal.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] courtTypes = new String[CourtTypesList.size()];
@@ -307,7 +303,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] judgementRegions = new String[JudgementRegionsList.size()];
@@ -334,7 +330,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         String[] cities = new String[CitiesList.size()];

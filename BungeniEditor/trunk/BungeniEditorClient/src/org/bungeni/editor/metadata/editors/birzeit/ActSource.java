@@ -17,20 +17,19 @@
  */
 package org.bungeni.editor.metadata.editors.birzeit;
 
-import org.bungeni.editor.metadata.birzeit.DateHijri;
-import org.bungeni.editor.metadata.birzeit.PublicationSrc;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.io.*;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TreeMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingUtilities;
 import javax.xml.parsers.DocumentBuilder;
@@ -41,18 +40,15 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.bungeni.connector.client.BungeniConnector;
-import org.bungeni.connector.element.*;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
-import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.metadata.*;
-import org.bungeni.editor.metadata.editors.birzeit.ActMainMetadata;
+import org.bungeni.editor.metadata.birzeit.DateHijri;
+import org.bungeni.editor.metadata.birzeit.PublicationSrc;
 import org.bungeni.editor.metadata.editors.GeneralMetadata;
-import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.extutils.*;
+import org.bungeni.extutils.CommonStringFunctions;
+import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.utils.BungeniFileSavePathFormat;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -80,7 +76,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         try {
             conStmt = con.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(ActSource.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("SQL Exception", ex);
         }
 
         initComponents();
@@ -495,7 +491,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ActMainMetadata.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("SQL Exception", ex);
         }
 
         String[] srcNames = new String[SrcNamesList.size()];
