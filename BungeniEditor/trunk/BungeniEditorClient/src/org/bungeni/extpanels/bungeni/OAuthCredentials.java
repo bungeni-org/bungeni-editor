@@ -21,22 +21,24 @@ package org.bungeni.extpanels.bungeni;
  *
  * @author Ashok Hariharan
  */
+public class OAuthCredentials {
+    public final String oauthAppId ; 
+    public final String oauthAppSecret ; 
+    public final String oauthAuthUri;
 
-public class LoginInfo {
-        public final String server ; 
-        public final String port ;
-        public final String loginBase;
+    public OAuthCredentials(String appId, String appSecret, String authUri){
+        this.oauthAppId = appId;
+        this.oauthAppSecret = appSecret;
+        this.oauthAuthUri = authUri;
+    }
+    
+    public String authUri(){
+        StringBuilder suri = new StringBuilder(this.oauthAuthUri);
+        suri.append("?client_id=").append(oauthAppId).
+                append("&client_secret=").append(oauthAppSecret).
+                append("&response_type=code").append("state=zodraziw");
+        return suri.toString();
         
-        OAuthCredentials oauthCredentials  ;
-        
-        public LoginInfo(String server, String port, String loginBase, String oauthAppId, String oauthAppSecret, String oauthAuthUri) {
-            this.server = server;
-            this.port = port;
-            this.loginBase = loginBase;
-            this.oauthCredentials = new OAuthCredentials(
-                oauthAppId,
-                oauthAppSecret,
-                oauthAuthUri
-            );
-        }
+    }
+    
 }

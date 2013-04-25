@@ -29,13 +29,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -72,7 +70,7 @@ public class BungeniAppConnector {
     private final String serverPort ;
     private final String loginPageURI ;
     private final String urlBase ; 
-    
+    private final OAuthCredentials oauthCredentials ; 
     private DefaultHttpClient client = null;
 
    public  BungeniAppConnector(
@@ -80,7 +78,8 @@ public class BungeniAppConnector {
             String serverPort,
             String loginPageURI,
             String user,
-            String password) {
+            String password,
+            OAuthCredentials oauthCredentials) {
         this.loginPageURI = loginPageURI;
         this.serverName = serverName;
         this.serverPort = serverPort;
@@ -88,6 +87,7 @@ public class BungeniAppConnector {
         this.user = user;
         this.urlBase = "http://" + this.serverName + ":" + this.serverPort ;
         loginUrl = this.urlBase + "/" + loginPageURI;
+        this.oauthCredentials = oauthCredentials; 
         log.info("BungeniAppConnector : LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
    
@@ -107,6 +107,17 @@ public class BungeniAppConnector {
     }
    
 
+    
+    
+    public DefaultHttpClient oauthLogin() {
+        if (getClient() != null) {
+            return getClient();
+        }
+        client = getThreadSafeClient();
+        // to do login ... auth etc.. 
+        return getClient();
+    }
+    
        public DefaultHttpClient login() throws UnsupportedEncodingException, IOException{
             if (getClient() != null) {
                 return getClient();

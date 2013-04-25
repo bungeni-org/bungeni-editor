@@ -109,7 +109,9 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
                         txtServerPort.getText(),
                         txtLoginBase.getText(),
                         txtUser.getText(),
-                        txtPassword.getText());
+                        txtPassword.getText(),
+                        loginInfo.oauthCredentials
+                        );
                 failureMessage = "login successful";
             } catch (UnsupportedEncodingException ex) {
                 bConnection = false;

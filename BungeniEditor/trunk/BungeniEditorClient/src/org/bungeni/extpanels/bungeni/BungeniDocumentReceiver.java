@@ -79,10 +79,14 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     
     private LoginInfo loginInfo(PluggableConfig customConfig) {
         Element loginElem = customConfig.customConfigElement.getChild("login");
+        Element oauthElem = customConfig.customConfigElement.getChild("oauth");
         LoginInfo li = new LoginInfo(
                 loginElem.getAttributeValue("server"),
                 loginElem.getAttributeValue("port"),
-                loginElem.getAttributeValue("baseurl")
+                loginElem.getAttributeValue("baseurl"),
+                oauthElem.getAttributeValue("app-id"),
+                oauthElem.getAttributeValue("secret"),
+                oauthElem.getAttributeValue("authorize-uri")
                 );
         return li;
     }

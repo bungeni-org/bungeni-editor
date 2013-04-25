@@ -80,9 +80,9 @@ public class BungeniServiceAccess {
         return this.appConnector;
     }
 
-    public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password) throws UnsupportedEncodingException, IOException {
+    public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password, OAuthCredentials oauth) throws UnsupportedEncodingException, IOException {
         if (null == appConnector) {
-            this.appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password);
+            this.appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password, oauth);
             this.client = appConnector.login();
             return this.client;
         }
