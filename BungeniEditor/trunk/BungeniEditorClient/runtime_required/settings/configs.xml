@@ -29,6 +29,9 @@
 
   <custom>
        <login server="10.0.2.2" port="8081" baseurl="login" />
+       <oauth app-id="bungeni_editor" 
+        secret="e05ef4545155f315e115f2d52f75226430680c18" 
+        authorize-uri="/oauth/authorize"/>
        <search base="/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
        <document base="/workspace/my-documents/external/" />
     </custom> 
