@@ -17,6 +17,8 @@
  */
 package org.bungeni.extpanels.bungeni;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 /**
  *
  * @author Ashok Hariharan
@@ -33,10 +35,12 @@ public class OAuthCredentials {
     }
     
     public String authUri(){
+       
         StringBuilder suri = new StringBuilder(this.oauthAuthUri);
         suri.append("?client_id=").append(oauthAppId).
                 append("&client_secret=").append(oauthAppSecret).
-                append("&response_type=code").append("state=zodraziw");
+                append("&response_type=code").
+                append("&state=").append(RandomStringUtils.randomAlphabetic(8));
         return suri.toString();
         
     }

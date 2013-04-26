@@ -32,12 +32,15 @@ import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
@@ -48,6 +51,9 @@ import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.impl.conn.SchemeRegistryFactory;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.ExecutionContext;
+import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.bungeni.extutils.TempFileManager;
@@ -63,7 +69,8 @@ public class BungeniAppConnector {
 
 
     private final String loginUrl ;
-
+    private final String oauthLoginUrl; 
+    
     private final String user;
     private final String password;
     private final String serverName ;
@@ -86,8 +93,9 @@ public class BungeniAppConnector {
         this.password = password;
         this.user = user;
         this.urlBase = "http://" + this.serverName + ":" + this.serverPort ;
-        loginUrl = this.urlBase + "/" + loginPageURI;
+        this.loginUrl = this.urlBase + "/" + loginPageURI;
         this.oauthCredentials = oauthCredentials; 
+        this.oauthLoginUrl = this.urlBase + oauthCredentials.authUri();
         log.info("BungeniAppConnector : LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
    
@@ -109,12 +117,49 @@ public class BungeniAppConnector {
 
     
     
-    public DefaultHttpClient oauthLogin() {
+    public DefaultHttpClient oauthLogin() throws UnsupportedEncodingException, IOException {
         if (getClient() != null) {
             return getClient();
         }
         client = getThreadSafeClient();
-        // to do login ... auth etc.. 
+        /**
+         * First we get the OAuth login URL 
+         * The correct OAuth login URL will redirect to the login Page
+         */
+        final HttpGet hget = new HttpGet(this.oauthLoginUrl);
+        HttpContext context = new BasicHttpContext(); 
+        HttpResponse oauthResponse = getClient().execute(hget, context); 
+        // if the OAuth page retrieval failed throw an exception
+        if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+            throw new IOException(oauthResponse.getStatusLine().toString());
+        }
+        // if the OAuth page retrieval succeeded we get the redirected page, 
+        // which in this case is the login page
+        HttpUriRequest currentReq = (HttpUriRequest) context.getAttribute( 
+                ExecutionContext.HTTP_REQUEST
+                );
+        HttpHost currentHost = (HttpHost)  context.getAttribute( 
+                ExecutionContext.HTTP_TARGET_HOST
+                );
+        // this gives the login page
+        String currentUrl = (
+                currentReq.getURI().isAbsolute()) ? 
+                    currentReq.getURI().toString() : 
+                    (currentHost.toURI() + currentReq.getURI()
+                );
+        // consume the response
+        ResponseHandler<String> responseHandler = new BasicResponseHandler();
+        responseHandler.handleResponse(oauthResponse);
+        consumeContent(oauthResponse.getEntity());
+        /**
+        final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("login", this.getUser()));
+        nameValuePairs.add(new BasicNameValuePair("password", this.getPassword()));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        ResponseHandler<String> responseHandler = new BasicResponseHandler();
+        HttpResponse response = getClient().execute(post);
+        responseHandler.handleResponse(response);
+        consumeContent(response.getEntity()); **/
         return getClient();
     }
     
@@ -131,7 +176,8 @@ public class BungeniAppConnector {
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             HttpResponse response = getClient().execute(post);
-            responseHandler.handleResponse(response);
+            String sBody = responseHandler.handleResponse(response);
+            System.out.println(sBody);
             consumeContent(response.getEntity());
         return getClient();
     }
