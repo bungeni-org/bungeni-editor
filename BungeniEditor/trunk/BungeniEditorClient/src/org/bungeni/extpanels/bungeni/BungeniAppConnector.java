@@ -126,6 +126,7 @@ public class BungeniAppConnector {
          * First we get the OAuth login URL 
          * The correct OAuth login URL will redirect to the login Page
          */
+        /**
         final HttpGet hget = new HttpGet(this.oauthLoginUrl);
         HttpContext context = new BasicHttpContext(); 
         HttpResponse oauthResponse = getClient().execute(hget, context); 
@@ -151,19 +152,77 @@ public class BungeniAppConnector {
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
         responseHandler.handleResponse(oauthResponse);
         consumeContent(oauthResponse.getEntity());
-        /**
+        **/
+        String oauthForwardURL = oauthNegotiate();
+        if (oauthForwardURL != null ) {
+            String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL);
+            
+        }
+        return getClient();
+    }
+    
+    private String oauthAuthenticate(String oauthForwardURL) throws UnsupportedEncodingException, IOException{
+        
+        final HttpPost post = new HttpPost(oauthForwardURL);
         final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair("login", this.getUser()));
         nameValuePairs.add(new BasicNameValuePair("password", this.getPassword()));
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        HttpContext context = new BasicHttpContext(); 
+        HttpResponse oauthResponse = getClient().execute(post, context); 
+        // if the OAuth page retrieval failed throw an exception
+        if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+            throw new IOException(oauthResponse.getStatusLine().toString());
+        }
+        String currentUrl = getRequestEndContextURL(context);
+        // consume the response
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
-        HttpResponse response = getClient().execute(post);
-        responseHandler.handleResponse(response);
-        consumeContent(response.getEntity()); **/
-        return getClient();
+        String sBody = responseHandler.handleResponse(oauthResponse);
+        System.out.println("oauthAuthenticate sBody = " + sBody);
+        consumeContent(oauthResponse.getEntity());
+        return currentUrl;
     }
     
-       public DefaultHttpClient login() throws UnsupportedEncodingException, IOException{
+    private boolean oauthAuthorize(String oauthAuthorizeURL){
+        System.out.println(oauthAuthorizeURL);
+        return true;
+    }
+    
+    private String oauthNegotiate() throws IOException{
+        final HttpGet hget = new HttpGet(this.oauthLoginUrl);
+        HttpContext context = new BasicHttpContext(); 
+        HttpResponse oauthResponse = getClient().execute(hget, context); 
+        // if the OAuth page retrieval failed throw an exception
+        if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+            throw new IOException(oauthResponse.getStatusLine().toString());
+        }
+        // if the OAuth page retrieval succeeded we get the redirected page, 
+        // which in this case is the login page
+        String currentUrl = getRequestEndContextURL(context);
+        // consume the response
+        ResponseHandler<String> responseHandler = new BasicResponseHandler();
+        responseHandler.handleResponse(oauthResponse);
+        consumeContent(oauthResponse.getEntity());
+        return currentUrl;
+    }
+    
+    private String getRequestEndContextURL(HttpContext context){
+        HttpUriRequest currentReq = (HttpUriRequest) context.getAttribute( 
+                ExecutionContext.HTTP_REQUEST
+                );
+        HttpHost currentHost = (HttpHost)  context.getAttribute( 
+                ExecutionContext.HTTP_TARGET_HOST
+                );
+        // this gives the login page
+        String currentUrl = (
+                currentReq.getURI().isAbsolute()) ? 
+                    currentReq.getURI().toString() : 
+                    (currentHost.toURI() + currentReq.getURI()
+                );
+        return currentUrl;
+    }
+    
+    public DefaultHttpClient login() throws UnsupportedEncodingException, IOException{
             if (getClient() != null) {
                 return getClient();
             }
