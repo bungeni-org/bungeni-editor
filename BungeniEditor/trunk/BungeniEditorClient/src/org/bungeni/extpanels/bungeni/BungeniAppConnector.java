@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -122,55 +123,37 @@ public class BungeniAppConnector {
             return getClient();
         }
         client = getThreadSafeClient();
-        /**
-         * First we get the OAuth login URL 
-         * The correct OAuth login URL will redirect to the login Page
-         */
-        /**
-        final HttpGet hget = new HttpGet(this.oauthLoginUrl);
-        HttpContext context = new BasicHttpContext(); 
-        HttpResponse oauthResponse = getClient().execute(hget, context); 
-        // if the OAuth page retrieval failed throw an exception
-        if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-            throw new IOException(oauthResponse.getStatusLine().toString());
-        }
-        // if the OAuth page retrieval succeeded we get the redirected page, 
-        // which in this case is the login page
-        HttpUriRequest currentReq = (HttpUriRequest) context.getAttribute( 
-                ExecutionContext.HTTP_REQUEST
-                );
-        HttpHost currentHost = (HttpHost)  context.getAttribute( 
-                ExecutionContext.HTTP_TARGET_HOST
-                );
-        // this gives the login page
-        String currentUrl = (
-                currentReq.getURI().isAbsolute()) ? 
-                    currentReq.getURI().toString() : 
-                    (currentHost.toURI() + currentReq.getURI()
-                );
-        // consume the response
-        ResponseHandler<String> responseHandler = new BasicResponseHandler();
-        responseHandler.handleResponse(oauthResponse);
-        consumeContent(oauthResponse.getEntity());
-        **/
         String oauthForwardURL = oauthNegotiate();
         if (oauthForwardURL != null ) {
-            String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL);
+            //oauthForwardURL = URLDecoder.decode(oauthForwardURL, "UTF-8");
+            String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL, this.oauthLoginUrl );
+            if (oauthAuthorizeURL != null) {
+                oauthAuthorize(oauthAuthorizeURL);
+            }
             
         }
         return getClient();
     }
     
-    private String oauthAuthenticate(String oauthForwardURL) throws UnsupportedEncodingException, IOException{
+    private String oauthAuthenticate(String oauthForwardURL, String oauthCameFromURL) throws UnsupportedEncodingException, IOException{
         
         final HttpPost post = new HttpPost(oauthForwardURL);
-        final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-        nameValuePairs.add(new BasicNameValuePair("login", this.getUser()));
-        nameValuePairs.add(new BasicNameValuePair("password", this.getPassword()));
-        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        HttpContext context = new BasicHttpContext(); 
-        HttpResponse oauthResponse = getClient().execute(post, context); 
-        // if the OAuth page retrieval failed throw an exception
+        final HashMap<String, ContentBody> nameValuePairs = new HashMap<String, ContentBody>();
+        //final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(0);
+        nameValuePairs.put("login", new StringBody(this.getUser()));
+        nameValuePairs.put("password", new StringBody(this.getPassword()));
+        nameValuePairs.put("camefrom", new StringBody(oauthCameFromURL));
+        nameValuePairs.put("actions.login", new StringBody("login"));
+        MultipartEntity entity = 
+                new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+        Set<String> fields = nameValuePairs.keySet();
+        for (String fieldName : fields) {
+            entity.addPart(fieldName, nameValuePairs.get(fieldName));
+        }
+        HttpContext context= new BasicHttpContext();
+        post.setEntity(entity);
+        HttpResponse oauthResponse = client.execute(post, context);
+                // if the OAuth page retrieval failed throw an exception
         if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
             throw new IOException(oauthResponse.getStatusLine().toString());
         }
@@ -178,7 +161,6 @@ public class BungeniAppConnector {
         // consume the response
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
         String sBody = responseHandler.handleResponse(oauthResponse);
-        System.out.println("oauthAuthenticate sBody = " + sBody);
         consumeContent(oauthResponse.getEntity());
         return currentUrl;
     }
