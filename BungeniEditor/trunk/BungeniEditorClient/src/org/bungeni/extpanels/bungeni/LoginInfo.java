@@ -29,14 +29,15 @@ public class LoginInfo {
         
         OAuthCredentials oauthCredentials  ;
         
-        public LoginInfo(String server, String port, String loginBase, String oauthAppId, String oauthAppSecret, String oauthAuthUri) {
+        public LoginInfo(String server, String port, String loginBase, String oauthAppId, String oauthAppSecret, String oauthAuthUri, String oauthAuthFormUri) {
             this.server = server;
             this.port = port;
             this.loginBase = loginBase;
             this.oauthCredentials = new OAuthCredentials(
                 oauthAppId,
                 oauthAppSecret,
-                oauthAuthUri
+                oauthAuthUri,
+                oauthAuthFormUri
             );
         }
 }

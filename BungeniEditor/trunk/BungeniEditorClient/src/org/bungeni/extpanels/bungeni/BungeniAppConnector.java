@@ -80,6 +80,7 @@ public class BungeniAppConnector {
     private final String urlBase ; 
     private final OAuthCredentials oauthCredentials ; 
     private DefaultHttpClient client = null;
+    private final String oauthAuthFormUrl;
 
    public  BungeniAppConnector(
             String serverName,
@@ -97,6 +98,7 @@ public class BungeniAppConnector {
         this.loginUrl = this.urlBase + "/" + loginPageURI;
         this.oauthCredentials = oauthCredentials; 
         this.oauthLoginUrl = this.urlBase + oauthCredentials.authUri();
+        this.oauthAuthFormUrl = this.urlBase + oauthCredentials.authFormUri();
         log.info("BungeniAppConnector : LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
    
@@ -165,8 +167,43 @@ public class BungeniAppConnector {
         return currentUrl;
     }
     
-    private boolean oauthAuthorize(String oauthAuthorizeURL){
-        System.out.println(oauthAuthorizeURL);
+    
+    private MultipartEntity getMultiPartEntity(HashMap<String, ContentBody> nameValuePairs) {
+        MultipartEntity entity = 
+                new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+        Set<String> fields = nameValuePairs.keySet();
+        for (String fieldName : fields) {
+            entity.addPart(fieldName, nameValuePairs.get(fieldName));
+        }
+        return entity;
+    }
+    
+    private boolean oauthAuthorize(String oauthAuthorizeURL) throws IOException{
+         // get pag einfo 
+        WebResponse wr = this.getUrl(oauthAuthorizeURL, false);
+        if (wr.statusCode == 200) {
+            HashMap<String, ContentBody> formfields = BungeniServiceAccess.getInstance().getAuthorizeFormFieldValues(wr.responseBody);
+            if ( !formfields.isEmpty() ){
+                HttpContext context = new BasicHttpContext();
+                // we use the form authorize URL here 
+                final HttpPost post = new HttpPost(this.oauthAuthFormUrl);
+                post.setEntity(getMultiPartEntity(formfields));
+                HttpResponse authResponse = getClient().execute(post, context);
+                if (authResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    throw new IOException(authResponse.getStatusLine().toString());
+                }
+                String currentUrl = getRequestEndContextURL(context);
+                ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                responseHandler.handleResponse(authResponse);
+            } else {
+                throw new IOException("Authorization failed !");
+            }
+            
+        }
+        
+        // check body for fields
+        
+        
         return true;
     }
     

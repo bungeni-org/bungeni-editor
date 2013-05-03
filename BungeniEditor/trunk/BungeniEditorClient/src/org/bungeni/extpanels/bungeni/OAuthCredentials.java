@@ -27,11 +27,13 @@ public class OAuthCredentials {
     public final String oauthAppId ; 
     public final String oauthAppSecret ; 
     public final String oauthAuthUri;
+    public final String oauthFormUri;
 
-    public OAuthCredentials(String appId, String appSecret, String authUri){
+    public OAuthCredentials(String appId, String appSecret, String authUri, String authFormUri){
         this.oauthAppId = appId;
         this.oauthAppSecret = appSecret;
         this.oauthAuthUri = authUri;
+        this.oauthFormUri = authFormUri;
     }
     
     public String authUri(){
@@ -43,6 +45,10 @@ public class OAuthCredentials {
                 append("&state=").append(RandomStringUtils.randomAlphabetic(8));
         return suri.toString();
         
+    }
+    
+    public String authFormUri() {
+        return this.oauthFormUri;
     }
     
 }

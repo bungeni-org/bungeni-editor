@@ -32,15 +32,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.extpanels.bungeni.BungeniAppConnector.WebResponse;
 import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
@@ -495,6 +491,35 @@ public class BungeniServiceAccess {
             return att.transitions;
         }
         return trans;
+    }
+    
+    private String getItemAttributeValue(Document doc, String itemPath, String attributeReturn) {
+        Elements item =  doc.select(itemPath);
+        return item.get(0).attr(attributeReturn);
+    }
+    
+    public HashMap<String, ContentBody> getAuthorizeFormFieldValues(String sBody) throws UnsupportedEncodingException{
+        HashMap<String,ContentBody> nvp = new HashMap<String,ContentBody>();
+        Document doc = Jsoup.parse(sBody);
+        if (!doc.select("input[name=client_id]").isEmpty()) {
+            nvp.put("client_id",
+                new StringBody(getItemAttributeValue(doc, "input[name=client_id]", "value"))
+                );
+            nvp.put("state",
+                new StringBody(getItemAttributeValue(doc, "input[name=state]", "value"))
+               );
+            nvp.put("time",
+                new StringBody(getItemAttributeValue(doc, "input[name=time]", "value"))
+               );
+            nvp.put("nonce",
+                new StringBody(getItemAttributeValue(doc, "input[name=nonce]", "value"))
+               );
+            nvp.put("form.actions.authorize",
+              new StringBody(getItemAttributeValue(doc, "input[name=form.actions.authorize]", "value"))
+              );
+        }
+        return nvp;
+
     }
     
     
