@@ -132,7 +132,7 @@ public class PluggableConfigReader {
        }
    }
 
-   private void updateConfigs(){
+   public void updateConfigs(){
        XMLOutputter out = new XMLOutputter();
        FileWriter fw=  null; 
        try {
