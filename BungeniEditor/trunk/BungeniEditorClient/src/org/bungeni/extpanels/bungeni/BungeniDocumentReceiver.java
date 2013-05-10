@@ -80,17 +80,22 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     private LoginInfo loginInfo(PluggableConfig customConfig) {
         Element loginElem = customConfig.customConfigElement.getChild("login");
         Element oauthElem = customConfig.customConfigElement.getChild("oauth");
-        LoginInfo li = new LoginInfo(
+        LoginInfo li;
+        li = new LoginInfo(
                 loginElem.getAttributeValue("server"),
                 loginElem.getAttributeValue("port"),
                 loginElem.getAttributeValue("baseurl"),
                 oauthElem.getAttributeValue("app-id"),
                 oauthElem.getAttributeValue("secret"),
                 oauthElem.getAttributeValue("authorize-uri"),
-                oauthElem.getAttributeValue("authorize-form-uri")
-                );
+                oauthElem.getAttributeValue("authorize-form-uri"),
+                oauthElem.getAttributeValue("access-token-uri"),
+                oauthElem.getAttributeValue("refreshcode"),
+                oauthElem.getAttributeValue("refreshstate")
+              );
         return li;
     }
+    
     
     
     private BungeniListDocument selectDocument(final JFrame parentFrame, List<BungeniListDocument> listDocuments) {

@@ -25,11 +25,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.Header;
@@ -38,12 +43,14 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
@@ -60,7 +67,11 @@ import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.bungeni.editor.config.PluggableConfigReader;
+import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.extutils.TempFileManager;
+import org.jdom.Element;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -102,6 +113,7 @@ public class BungeniAppConnector {
         this.oauthCredentials = oauthCredentials; 
         this.oauthLoginUrl = this.urlBase + oauthCredentials.authUri();
         this.oauthAuthFormUrl = this.urlBase + oauthCredentials.authFormUri();
+        //this.oauthTokenUrl   = this.urlBase + oauthCredentials.authTokenUri();
         log.info("BungeniAppConnector : LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
    
@@ -123,7 +135,7 @@ public class BungeniAppConnector {
 
     
     
-    public DefaultHttpClient oauthLogin() throws UnsupportedEncodingException, IOException {
+    public DefaultHttpClient oauthLogin() throws UnsupportedEncodingException, IOException, JDOMException {
         if (getClient() != null) {
             return getClient();
         }
@@ -133,12 +145,40 @@ public class BungeniAppConnector {
             //oauthForwardURL = URLDecoder.decode(oauthForwardURL, "UTF-8");
             String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL, this.oauthLoginUrl );
             if (oauthAuthorizeURL != null) {
-                oauthAuthorize(oauthAuthorizeURL);
+                OAuthToken token = oauthAuthorize(oauthAuthorizeURL);
+                if (token != null) {
+                    this.oauthCredentials.setRefreshCode(token.getCode());
+                    this.oauthCredentials.setRefreshState(token.getState());
+                    oauthTokenAccess(token);
+                }
             }
-            
         }
         return getClient();
     }
+    
+    private boolean oauthTokenAccess(OAuthToken token) {
+        boolean bstate = false;
+        try {
+            final HttpGet hget = new HttpGet(this.urlBase + this.oauthCredentials.accessTokenUri());
+            HttpContext context = new BasicHttpContext(); 
+            HttpResponse oauthResponse = getClient().execute(hget, context); 
+            // if the OAuth page retrieval failed throw an exception
+            if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                throw new IOException(oauthResponse.getStatusLine().toString());
+            }
+            // if the OAuth page retrieval succeeded we get the redirected page, 
+            // which in this case is the login page
+            String currentUrl = getRequestEndContextURL(context);
+            // consume the response
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String responseBody = responseHandler.handleResponse(oauthResponse);
+            consumeContent(oauthResponse.getEntity());
+            bstate =  true;
+        } catch (IOException ex) {
+            log.error("Error while getting access token", ex);
+        } 
+        return bstate;
+      }
     
     private String oauthAuthenticate(String oauthForwardURL, String oauthCameFromURL) throws UnsupportedEncodingException, IOException{
         
@@ -181,8 +221,47 @@ public class BungeniAppConnector {
         return entity;
     }
     
-    private boolean oauthAuthorize(String oauthAuthorizeURL) throws IOException{
+    class OAuthToken {
+        
+        String code ; 
+        String state ; 
+        
+        public OAuthToken(String code, String state) {
+            this.code = code ; 
+            this.state = state;
+        }
+        
+        public String getCode(){
+            return this.code;
+        }
+        
+        public String getState(){
+            return this.state;
+        }
+        
+    }
+    
+    private OAuthToken getAuthToken(String urlLoc) throws MalformedURLException, URISyntaxException {
+          URL url = new URL(urlLoc);
+          List<NameValuePair> nvps = URLEncodedUtils.parse(new URI(urlLoc), "UTF-8");
+          // add the refresh key and state to the config file 
+          String refreshKey = "";
+          String refreshState = "";
+            for (NameValuePair nameValuePair : nvps) {
+              if (nameValuePair.getName().equals("code")){
+                  refreshKey = nameValuePair.getValue();
+              }
+              if (nameValuePair.getName().equals("state")){
+                  refreshState = nameValuePair.getValue();
+              }
+            }
+           OAuthToken otoken = new OAuthToken(refreshKey, refreshState);  
+           return otoken;
+    }
+    
+    private OAuthToken oauthAuthorize(String oauthAuthorizeURL) throws IOException, JDOMException{
          // get pag einfo 
+        OAuthToken token = null;
         WebResponse wr = this.getUrl(oauthAuthorizeURL, false);
         if (wr.statusCode == 200) {
             HashMap<String, ContentBody> formfields = BungeniServiceAccess.getInstance().getAuthorizeFormFieldValues(wr.responseBody);
@@ -199,27 +278,39 @@ public class BungeniAppConnector {
                 HttpResponse authResponse = getClient().execute(post, context);
                 String redirectLocation = "";
                 Header locationHeader = authResponse.getFirstHeader("location");
+                //consume response
+                //ResponseHandler<String> responseHandler = new BasicResponseHandler();
+                //responseHandler.handleResponse(authResponse);
+                
                 if (locationHeader != null){
                     redirectLocation = locationHeader.getValue();
-                    // do someting with the returned codes 
+                    EntityUtils.consumeQuietly(authResponse.getEntity());
+                    try {
+                        token = getAuthToken(redirectLocation);
+                        // do someting with the returned codes
+                    } catch (MalformedURLException ex) {
+                        log.error("Error while getting oauthtoken", ex);
+                    } catch (URISyntaxException ex) {
+                        log.error("Error while getting oauthtoken", ex);
+                    }
+                    
                 } else {
+                    EntityUtils.consumeQuietly(authResponse.getEntity());
                     throw new IOException(authResponse.getStatusLine().toString());
                 }
-                /** if (authResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                    throw new IOException(authResponse.getStatusLine().toString());
-                } **/
-                ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                responseHandler.handleResponse(authResponse);
             } else {
                 throw new IOException("Authorization failed !");
             }
-            
         }
-        
-        // check body for fields
-        
-        
-        return true;
+        return token;
+    }
+    
+    private void writeToConfigFile(String refreshKey, String refreshState) throws JDOMException {
+        PluggableConfig cfg = PluggableConfigReader.getInstance().getDefaultConfig();
+        Element oauth = cfg.customConfigElement.getChild("oauth");
+        oauth.setAttribute("refreshcode", refreshKey);
+        oauth.setAttribute("refreshstate", refreshState);
+        PluggableConfigReader.getInstance().updateConfigs();
     }
     
     private String oauthNegotiate() throws IOException{

@@ -28,12 +28,34 @@ public class OAuthCredentials {
     public final String oauthAppSecret ; 
     public final String oauthAuthUri;
     public final String oauthFormUri;
-
-    public OAuthCredentials(String appId, String appSecret, String authUri, String authFormUri){
+    public final String oauthTokenUri;
+    public String refreshState;
+    public String refreshCode;
+    
+    public OAuthCredentials(
+            String appId, 
+            String appSecret, 
+            String authUri, 
+            String authFormUri, 
+            String authTokenUri, 
+            String refreshCode, 
+            String refreshState
+            ){
         this.oauthAppId = appId;
         this.oauthAppSecret = appSecret;
         this.oauthAuthUri = authUri;
         this.oauthFormUri = authFormUri;
+        this.oauthTokenUri = authTokenUri;
+        this.refreshCode = refreshCode;
+        this.refreshState = refreshState;
+    }
+    
+    public void setRefreshCode(String refreshCode) {
+        this.refreshCode = refreshCode;
+    }
+    
+    public void setRefreshState(String refreshState){
+        this.refreshState = refreshState;
     }
     
     public String authUri(){
@@ -47,8 +69,29 @@ public class OAuthCredentials {
         
     }
     
+    public String accessTokenUri(){
+       
+        StringBuilder suri = new StringBuilder(this.oauthTokenUri);
+        suri.append("?client_id=").append(oauthAppId).
+                append("&grant_type=authorization_code").
+                append("&code=").append(this.refreshCode);
+        return suri.toString();
+        
+    }
+    
     public String authFormUri() {
         return this.oauthFormUri;
     }
     
+    public String authTokenUri(){
+        return this.oauthTokenUri;
+    }
+    
+    public String refreshCode(){
+        return this.refreshCode;
+    }
+    
+    public String refreshState(){
+        return this.refreshState;
+    }
 }

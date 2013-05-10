@@ -29,7 +29,18 @@ public class LoginInfo {
         
         OAuthCredentials oauthCredentials  ;
         
-        public LoginInfo(String server, String port, String loginBase, String oauthAppId, String oauthAppSecret, String oauthAuthUri, String oauthAuthFormUri) {
+        public LoginInfo(
+                String server, 
+                String port, 
+                String loginBase, 
+                String oauthAppId, 
+                String oauthAppSecret, 
+                String oauthAuthUri, 
+                String oauthAuthFormUri, 
+                String oauthTokenUri, 
+                String refreshCode, 
+                String refreshState
+                ) {
             this.server = server;
             this.port = port;
             this.loginBase = loginBase;
@@ -37,7 +48,10 @@ public class LoginInfo {
                 oauthAppId,
                 oauthAppSecret,
                 oauthAuthUri,
-                oauthAuthFormUri
+                oauthAuthFormUri,
+                oauthTokenUri,
+                refreshCode,
+                refreshState
             );
         }
 }

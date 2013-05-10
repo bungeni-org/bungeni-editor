@@ -43,6 +43,7 @@ import org.bungeni.extpanels.bungeni.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
+import org.jdom.JDOMException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -76,7 +77,7 @@ public class BungeniServiceAccess {
         return this.appConnector;
     }
 
-    public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password, OAuthCredentials oauth) throws UnsupportedEncodingException, IOException {
+    public DefaultHttpClient login(String appServer, String appPort, String appBase, String user, String password, OAuthCredentials oauth) throws UnsupportedEncodingException, IOException, JDOMException {
         if (null == appConnector) {
             this.appConnector = new BungeniAppConnector(appServer, appPort, appBase, user, password, oauth);
             this.client = appConnector.oauthLogin();
