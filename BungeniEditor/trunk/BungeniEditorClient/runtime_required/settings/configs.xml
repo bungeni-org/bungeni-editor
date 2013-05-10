@@ -32,10 +32,11 @@
        <!-- authorize-uri = entry point to oauth
        authorize-form-uri = uri to authorize form to actually autorize after login  -->
        <oauth app-id="bungeni_editor" 
-        secret="b26542da85a3d2851bdc92477deac16027cefc2e" 
-        authorize-uri="/oauth/authorize"
-        authorize-form-uri="/oauth/authorize-form" />
-        
+         secret="7fd54a9cebae8b71c29974002d8fa81c3093a216" 
+         authorize-uri="/oauth/authorize"
+         authorize-form-uri="/oauth/authorize-form"
+         access-token-uri="/oauth/access-token"
+        />
        <search base="/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
        <document base="/workspace/my-documents/external/" />
     </custom> 
