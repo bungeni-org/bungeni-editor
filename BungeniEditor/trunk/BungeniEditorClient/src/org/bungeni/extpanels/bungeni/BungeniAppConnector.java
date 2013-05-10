@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -42,6 +43,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.params.ClientPNames;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
@@ -51,6 +53,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.impl.conn.SchemeRegistryFactory;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.ExecutionContext;
@@ -187,12 +190,24 @@ public class BungeniAppConnector {
                 HttpContext context = new BasicHttpContext();
                 // we use the form authorize URL here 
                 final HttpPost post = new HttpPost(this.oauthAuthFormUrl);
+                // we disable the automatic redirect of the URL since we want to grab 
+                // the refresh token and anyway the redirect is to a dummy url
+                final HttpParams params = new BasicHttpParams();
+                params.setParameter(ClientPNames.HANDLE_REDIRECTS, Boolean.FALSE);
+                post.setParams(params);
                 post.setEntity(getMultiPartEntity(formfields));
                 HttpResponse authResponse = getClient().execute(post, context);
-                if (authResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                String redirectLocation = "";
+                Header locationHeader = authResponse.getFirstHeader("location");
+                if (locationHeader != null){
+                    redirectLocation = locationHeader.getValue();
+                    // do someting with the returned codes 
+                } else {
                     throw new IOException(authResponse.getStatusLine().toString());
                 }
-                String currentUrl = getRequestEndContextURL(context);
+                /** if (authResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    throw new IOException(authResponse.getStatusLine().toString());
+                } **/
                 ResponseHandler<String> responseHandler = new BasicResponseHandler();
                 responseHandler.handleResponse(authResponse);
             } else {
