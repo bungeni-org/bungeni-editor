@@ -143,11 +143,38 @@ public class BungeniAppConnector {
             return getClient();
         }
         client = getThreadSafeClient();
+        
+        // check if acess code exists !
+       boolean access_code_exists = false; 
+       try {
+        Properties props = this.getOauthProperties();
+        if (props.containsKey("access_token")) {
+            access_code_exists = true;
+        }
+       } catch(IOException ex) {
+         log.info("ACCESS_TOKEN not found, will to create a new one");  
+       }
+      
+       
+       if (!access_code_exists) {
+           // attempt to use the refresh code to get it again
+           try {
+               // do something
+               
+               access_code_exists = true;
+           } catch (Exception ex) {
+               access_code_exists = false;
+           }
+       } else {
+       
+        
+        //negotiate to the login url
         String oauthForwardURL = oauthNegotiate();
         if (oauthForwardURL != null ) {
-            //oauthForwardURL = URLDecoder.decode(oauthForwardURL, "UTF-8");
+            // now authenticate , this will return the authorize URL 
             String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL, this.oauthLoginUrl );
             if (oauthAuthorizeURL != null) {
+                // now attempt to authorize, this will provide an oauth refresh token
                 OAuthToken token = oauthAuthorize(oauthAuthorizeURL);
                 if (token != null) {
                     this.oauthCredentials.setRefreshCode(token.getCode());
@@ -156,6 +183,7 @@ public class BungeniAppConnector {
                 }
             }
         }
+       }
         return getClient();
     }
     
@@ -185,8 +213,8 @@ public class BungeniAppConnector {
             for (String key : keys) {
                 jsonTokens.put(key, jsonObject.get(key).toString());
             }
-            jsonTokens.put("refresh-code", token.getCode());
-            jsonTokens.put("refresh-state", token.getState());
+            jsonTokens.put("authorization_code", token.getCode());
+            jsonTokens.put("authorization_state", token.getState());
             this.writeOauthProperties(jsonTokens);
             consumeContent(oauthResponse.getEntity());
             bstate =  true;
@@ -196,11 +224,18 @@ public class BungeniAppConnector {
         return bstate;
       }
     
+    /**
+     * Login to Bungeni via the OAuth route
+     * @param oauthForwardURL
+     * @param oauthCameFromURL
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws IOException 
+     */
     private String oauthAuthenticate(String oauthForwardURL, String oauthCameFromURL) throws UnsupportedEncodingException, IOException{
         
         final HttpPost post = new HttpPost(oauthForwardURL);
         final HashMap<String, ContentBody> nameValuePairs = new HashMap<String, ContentBody>();
-        //final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(0);
         nameValuePairs.put("login", new StringBody(this.getUser()));
         nameValuePairs.put("password", new StringBody(this.getPassword()));
         nameValuePairs.put("camefrom", new StringBody(oauthCameFromURL));
@@ -347,6 +382,11 @@ public class BungeniAppConnector {
     }
             
             
+    /**
+     * Negotiate the Oauth access URL , this will forward to a login page
+     * @return
+     * @throws IOException 
+     */
     private String oauthNegotiate() throws IOException{
         final HttpGet hget = new HttpGet(this.oauthLoginUrl);
         HttpContext context = new BasicHttpContext(); 
