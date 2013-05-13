@@ -21,6 +21,8 @@ package org.bungeni.extpanels.bungeni;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,12 +31,14 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLDecoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
-import java.util.logging.Level;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.Header;
@@ -43,7 +47,6 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -67,11 +70,11 @@ import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.config.PluggableConfigReader;
-import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
+import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.extutils.TempFileManager;
-import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 /**
  *
@@ -163,15 +166,28 @@ public class BungeniAppConnector {
             HttpContext context = new BasicHttpContext(); 
             HttpResponse oauthResponse = getClient().execute(hget, context); 
             // if the OAuth page retrieval failed throw an exception
-            if (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+            if (
+                 (oauthResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) && 
+                    ! (
+                    "application/json".equals(
+                        oauthResponse.getEntity().getContentType().getValue()
+                        )
+                    )
+                 ) {
                 throw new IOException(oauthResponse.getStatusLine().toString());
             }
-            // if the OAuth page retrieval succeeded we get the redirected page, 
-            // which in this case is the login page
-            String currentUrl = getRequestEndContextURL(context);
             // consume the response
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String responseBody = responseHandler.handleResponse(oauthResponse);
+            JSONObject jsonObject = (JSONObject) JSONValue.parse(responseBody);
+            HashMap<String,String> jsonTokens = new HashMap<String, String>();
+            Set<String> keys = jsonObject.keySet();
+            for (String key : keys) {
+                jsonTokens.put(key, jsonObject.get(key).toString());
+            }
+            jsonTokens.put("refresh-code", token.getCode());
+            jsonTokens.put("refresh-state", token.getState());
+            this.writeOauthProperties(jsonTokens);
             consumeContent(oauthResponse.getEntity());
             bstate =  true;
         } catch (IOException ex) {
@@ -305,14 +321,32 @@ public class BungeniAppConnector {
         return token;
     }
     
-    private void writeToConfigFile(String refreshKey, String refreshState) throws JDOMException {
-        PluggableConfig cfg = PluggableConfigReader.getInstance().getDefaultConfig();
-        Element oauth = cfg.customConfigElement.getChild("oauth");
-        oauth.setAttribute("refreshcode", refreshKey);
-        oauth.setAttribute("refreshstate", refreshState);
-        PluggableConfigReader.getInstance().updateConfigs();
+    private File getOauthPropertiesFile(){
+        File fOauthProps = new File(
+                BaseConfigReader.getSettingsFolder() + File.separator + "oauth.properties"
+                );
+        return fOauthProps;
     }
     
+    private void writeOauthProperties(HashMap<String,String> values) throws FileNotFoundException, IOException {
+        File fOauthProps = getOauthPropertiesFile();
+        Properties oauthProps = new Properties();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Set<String> keys = values.keySet();
+        for (String key : keys) {
+            oauthProps.setProperty(key, values.get(key));
+        }
+        oauthProps.store(new FileOutputStream(fOauthProps), "stored on " + df.format(new Date()));
+       }
+    
+    private Properties  getOauthProperties() throws IOException{
+        File f = getOauthPropertiesFile();
+        Properties props = new Properties();
+        props.load(new FileInputStream(f));
+        return props;
+    }
+            
+            
     private String oauthNegotiate() throws IOException{
         final HttpGet hget = new HttpGet(this.oauthLoginUrl);
         HttpContext context = new BasicHttpContext(); 
