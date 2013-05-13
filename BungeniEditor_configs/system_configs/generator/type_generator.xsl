@@ -154,22 +154,27 @@
  </xsl:template>
 
     <xsl:template match="*[parent::content]">
+        <xsl:call-template name="process-content-descendant-element" />
+    </xsl:template>
+    
+    <xsl:template name="process-content-descendant-element">
+        
         <xsl:variable name="elemname"  select="local-name()"/>
         <xmeta:element name="{$elemname}">
             <xmeta:if test="@id">
-                    <xmeta:attribute name="bodf:sourceId" select="@id"/>
+                <xmeta:attribute name="bodf:sourceId" select="concat('{lower-case($elemname)}', '-', @id)"/>
             </xmeta:if>
-
+            
             <xsl:for-each select="@*">
                 <!-- process attributes -->
                 <xmeta:attribute name="{local-name()}" >
                     <xsl:choose>
                         <!-- 
                             Attributes are processed as follows :
-                                values starting with #$
-                                values starting with $
-                                values with literals
-                                -->
+                            values starting with #$
+                            values starting with $
+                            values with literals
+                        -->
                         <xsl:when test="starts-with(.,'#')">
                             <!-- possibly add a check to see if the metadata exists in the parent -->
                             <xmeta:text>#</xmeta:text>
@@ -184,10 +189,19 @@
                     </xsl:choose>
                 </xmeta:attribute>
             </xsl:for-each>
-            <xmeta:apply-templates />
+            
+            <xsl:for-each select="child::*" >
+                <xsl:call-template name="process-content-descendant-element" />
+            </xsl:for-each>
+            
+            <xsl:if test="not(child::*)">
+                <xmeta:apply-templates />
+            </xsl:if>
+        
         </xmeta:element>
+        
     </xsl:template>
-    
+
 	<xsl:template match="outputs" />
 	<xsl:template match="doctype" />
 
