@@ -70,6 +70,7 @@
         <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"  processContents="lax" />
       </xs:sequence>
       <xs:attribute name="ns" type="xs:anyURI" />
+      <xs:attribute name="source" type="xs:anyURI" />
     </xs:complexType>
     
   </xs:element>
