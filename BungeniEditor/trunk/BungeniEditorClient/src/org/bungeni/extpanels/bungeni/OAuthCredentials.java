@@ -79,6 +79,16 @@ public class OAuthCredentials {
         
     }
     
+    public String renewAccessTokenUri(String codeRefresh){
+
+        StringBuilder suri = new StringBuilder(this.oauthTokenUri);
+        suri.append("?grant_type=refresh_token").
+                append("&code=").append(codeRefresh);
+        return suri.toString();
+        
+    }
+    
+    
     public String authFormUri() {
         return this.oauthFormUri;
     }

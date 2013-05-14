@@ -32,8 +32,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -146,31 +148,28 @@ public class BungeniAppConnector {
         
         // check if acess code exists !
        boolean access_code_exists = false; 
+       Properties props = new Properties() ; 
        try {
-        Properties props = this.getOauthProperties();
-        if (props.containsKey("access_token")) {
-            access_code_exists = true;
-        }
-       } catch(IOException ex) {
-         log.info("ACCESS_TOKEN not found, will to create a new one");  
-       }
+            props = this.getOauthProperties();
+            if (props.containsKey("access_token")) {
+                 // the below API checks for expiryfo the access code and 
+                 // gets a new one if it exists
+                 oauthCheckAccessCode(props);
+                 access_code_exists = true;
+            }
+           } catch(IOException ex) {
+             log.info("ACCESS_TOKEN not found, will to create a new one");  
+           }
       
        
-       if (!access_code_exists) {
-           // attempt to use the refresh code to get it again
-           try {
-               // do something
-               
-               access_code_exists = true;
-           } catch (Exception ex) {
-               access_code_exists = false;
-           }
+       if (access_code_exists) {
+           // attempt to use the access code 
+           // get the oauth properties
+           Properties authProps = this.getOauthProperties();
        } else {
-       
-        
-        //negotiate to the login url
-        String oauthForwardURL = oauthNegotiate();
-        if (oauthForwardURL != null ) {
+         //negotiate to the login url
+         String oauthForwardURL = oauthNegotiate();
+         if (oauthForwardURL != null ) {
             // now authenticate , this will return the authorize URL 
             String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL, this.oauthLoginUrl );
             if (oauthAuthorizeURL != null) {
@@ -185,6 +184,69 @@ public class BungeniAppConnector {
         }
        }
         return getClient();
+    }
+    
+    private boolean oauthCheckAccessCode(Properties props) throws FileNotFoundException, IOException{
+        String sRefreshDateTime = (String) props.get("authorization_time");
+        try {
+            if (isAccessTokenExpired(sRefreshDateTime)) {
+                // if expired get new access code
+                try {
+                    boolean bState =  oauthNewAccessToken(props);   
+                    return bState;
+                } catch (Exception ex) {
+                    log.error("Error while getting new access token ", ex);
+                    return false;
+                }
+            }
+        } catch(ParseException ex) {
+            try {
+                // still 
+                boolean bState =  oauthNewAccessToken(props);
+                return bState;
+            } catch(Exception ex2) {
+                log.error("Error while getting new access token ", ex2);
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    private DateFormat getOauthRefreshDateFormat(){
+      return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    }
+    
+    private String getCurrentDateTime(){
+      DateFormat df = getOauthRefreshDateFormat();
+      Date dt = new Date();
+      return df.format(dt);
+    }
+    
+    private boolean isAccessTokenExpired(String sRefreshTime) throws ParseException {
+        long expiryTime = 3600 ; 
+        // parse the refresh date
+        DateFormat df = getOauthRefreshDateFormat();
+        Date dtOriginal = df.parse(sRefreshTime);
+        Calendar c = Calendar.getInstance();
+        Date dtCurrent = c.getTime();
+        long timeDiff = Math.abs( 
+                (dtCurrent.getTime() - dtOriginal.getTime()) / 1000 
+                ) ;
+        if (timeDiff >= expiryTime ) {
+            return true;
+        }
+        return false;
+    }
+    
+    private HashMap<String,String> parseJSonStream(String responseBody){
+        JSONObject jsonObject = (JSONObject) JSONValue.parse(responseBody);
+        HashMap<String,String> jsonTokens = new HashMap<String, String>();
+        Set<String> keys = jsonObject.keySet();
+        for (String key : keys) {
+            jsonTokens.put(key, jsonObject.get(key).toString());
+        }
+        jsonTokens.put("authorization_time", getCurrentDateTime() );
+        return jsonTokens;
     }
     
     private boolean oauthTokenAccess(OAuthToken token) {
@@ -207,12 +269,7 @@ public class BungeniAppConnector {
             // consume the response
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String responseBody = responseHandler.handleResponse(oauthResponse);
-            JSONObject jsonObject = (JSONObject) JSONValue.parse(responseBody);
-            HashMap<String,String> jsonTokens = new HashMap<String, String>();
-            Set<String> keys = jsonObject.keySet();
-            for (String key : keys) {
-                jsonTokens.put(key, jsonObject.get(key).toString());
-            }
+            HashMap<String,String> jsonTokens = parseJSonStream(responseBody);
             jsonTokens.put("authorization_code", token.getCode());
             jsonTokens.put("authorization_state", token.getState());
             this.writeOauthProperties(jsonTokens);
@@ -270,6 +327,28 @@ public class BungeniAppConnector {
             entity.addPart(fieldName, nameValuePairs.get(fieldName));
         }
         return entity;
+    }
+
+
+    private boolean oauthNewAccessToken(Properties props) throws FileNotFoundException, IOException {
+       String sRefreshToken = (String) props.get("refresh_token");
+       String sRefreshTokenUrl = this.urlBase + this.oauthCredentials.renewAccessTokenUri(sRefreshToken);
+       WebResponse wr = this.getUrl(sRefreshTokenUrl, false);
+       if (wr.statusCode == 200 && 
+               "application/json".equals(
+                        wr.response.getEntity().getContentType().getValue()
+                        )
+        ) {
+          HashMap<String,String> refreshTokens = parseJSonStream(wr.getResponseBody());
+          try {
+            this.writeOauthProperties(refreshTokens);
+            return true;
+          } catch(Exception ex) {
+             log.error("Error while writing oauth properties !", ex);
+             return false;
+          }
+       }
+       return false;
     }
     
     class OAuthToken {
@@ -443,10 +522,12 @@ public class BungeniAppConnector {
     public class WebResponse {
         private String responseBody;
         private int statusCode;
+        private HttpResponse response;
         
-        public WebResponse(int statusCode, String responseBody) {
-            this.statusCode = statusCode;
-            this.responseBody = responseBody;
+        public WebResponse(String body, HttpResponse response) {
+            this.statusCode = response.getStatusLine().getStatusCode();
+            this.response = response;
+            this.responseBody = body;
         }
         
         public String getResponseBody(){
@@ -570,7 +651,7 @@ public class BungeniAppConnector {
             response = client.execute(webPost);
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String sBody = responseHandler.handleResponse(response);
-            wr = new WebResponse(response.getStatusLine().getStatusCode(), sBody);
+            wr = new WebResponse(sBody, response);
         } catch (IOException ex) {
             log.error(ex.getMessage(), ex);
         } finally {
@@ -600,7 +681,7 @@ public class BungeniAppConnector {
             response = getClient().execute(webPost);
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String sBody = responseHandler.handleResponse(response);
-            wr = new WebResponse(response.getStatusLine().getStatusCode(), sBody);
+            wr = new WebResponse(sBody, response);
         } catch (IOException ex) {
             log.error("Error while posting transition " , ex);
         } finally {
@@ -627,7 +708,7 @@ public class BungeniAppConnector {
             String responseBody = responseHandler.handleResponse(response);
             int nStatusCode = response.getStatusLine().getStatusCode();
             consumeContent(response.getEntity());
-            wr = new WebResponse(nStatusCode, responseBody);
+            wr = new WebResponse(responseBody, response);
         } catch (IOException ex) {
             bState = false;
             log.error("Error while accessin url : " + pageURL , ex);
