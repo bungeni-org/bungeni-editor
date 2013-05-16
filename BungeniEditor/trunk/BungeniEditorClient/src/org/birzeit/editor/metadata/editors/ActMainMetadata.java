@@ -17,7 +17,7 @@
  */
 package org.birzeit.editor.metadata.editors;
 
-import org.birzeit.editor.metadata.HistoricalPeriod;
+
 import org.birzeit.editor.metadata.Family;
 import org.birzeit.editor.metadata.Area;
 import org.birzeit.editor.metadata.Category;
@@ -43,7 +43,8 @@ import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.MetadataInfo;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
-import org.bungeni.editor.metadata.ActMainMetadataModel;
+import org.birzeit.editor.metadata.ActMainMetadataModel;
+import org.birzeit.editor.metadata.HistoricalPeriod;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.metadata.PublicationType;
@@ -535,6 +536,9 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
 
         Family currActPFamily = actPossibleFamiliesList.get(selectedActPFamilyIndex);
         actSubPossibleFamiliesList.clear();
+        
+        Family sfmObj = new Family("", "", "");
+        
         if (currActPFamily.getFamilyID() != "") {
             try {
                 String sqlStm = "SELECT [LG_Family_ID], [LG_Family_Name], [LG_Family_Name_E] FROM [LG_Family] WHERE RIGHT(LG_Family_ID, 1) != 0 AND LEFT(LG_Family_ID, 1) = "
@@ -551,6 +555,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
             }
         }
 
+        actSubPossibleFamiliesList.add(sfmObj);
         String[] subFamilies = new String[actSubPossibleFamiliesList.size()];
         for (int i = 0;
                 i < actSubPossibleFamiliesList.size();
@@ -762,7 +767,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         cboActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblActType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
         lblActType.setText(bundle.getString("ActMainMetadata.lblActType.text")); // NOI18N
 
         lblEffectiveDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -849,7 +854,8 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         lblPageCount.setText(bundle.getString("ActMainMetadata.lblPageCount.text")); // NOI18N
 
         btn30days.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
-        btn30days.setText(bundle.getString("ActMainMetadata.30days.text")); // NOI18N
+        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        btn30days.setText(bundle1.getString("ActMainMetadata.30days.text")); // NOI18N
         btn30days.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn30daysActionPerformed(evt);
@@ -857,7 +863,7 @@ public class ActMainMetadata extends BaseEditorDocMetadataDialog {
         });
 
         btn90days.setFont(new java.awt.Font("DejaVu Sans", 0, 8)); // NOI18N
-        btn90days.setText(bundle.getString("ActMainMetadata.90days.text")); // NOI18N
+        btn90days.setText(bundle1.getString("ActMainMetadata.90days.text")); // NOI18N
         btn90days.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn90daysActionPerformed(evt);
