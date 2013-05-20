@@ -164,7 +164,7 @@
             <xmeta:if test="@id">
                 <xmeta:attribute name="bodf:sourceId" select="concat('{lower-case($elemname)}', '-', @id)"/>
             </xmeta:if>
-            
+            <xmeta:attribute name="id" select="concat('{lower-case($elemname)}', '-', @id)" />
             <xsl:for-each select="@*">
                 <!-- process attributes -->
                 <xmeta:attribute name="{local-name()}" >
