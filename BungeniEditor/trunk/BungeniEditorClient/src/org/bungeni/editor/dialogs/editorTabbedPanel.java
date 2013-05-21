@@ -31,7 +31,7 @@ import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.config.DocumentActionsReader;
 import org.bungeni.editor.config.PluggableConfigReader;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
-import org.bungeni.extpanels.bungeni.BungeniDocumentReceiver;
+import org.bungeni.ext.integration.bungeniportal.BungeniDocumentReceiver;
 import org.bungeni.editor.input.FSDocumentReceiver;
 import org.bungeni.editor.metadata.BaseEditorDocMetaModel;
 import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
