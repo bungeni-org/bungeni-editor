@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package org.bungeni.ext.integration.bungeniportal;
+package org.bungeni.ext.integration.bungeniportal.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +25,9 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
+import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
@@ -180,7 +183,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         lblInfo = new javax.swing.JLabel();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/panels/Bundle"); // NOI18N
         lblTitle.setText(bundle.getString("BungeniAttLoadingPanel.lblTitle.text")); // NOI18N
 
         txtTitle.setEditable(false);

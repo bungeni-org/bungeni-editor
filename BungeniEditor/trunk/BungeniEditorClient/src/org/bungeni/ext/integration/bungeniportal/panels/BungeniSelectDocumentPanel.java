@@ -15,13 +15,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package org.bungeni.ext.integration.bungeniportal;
+package org.bungeni.ext.integration.bungeniportal.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import org.bungeni.ext.integration.bungeniportal.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
@@ -101,7 +101,7 @@ public class BungeniSelectDocumentPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listDocs);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/panels/Bundle"); // NOI18N
         lblDocSelect.setText(bundle.getString("BungeniSelectDocumentPanel.lblDocSelect.text")); // NOI18N
 
         btnLoadDocument.setText(bundle.getString("BungeniSelectDocumentPanel.btnLoadDocument.text")); // NOI18N

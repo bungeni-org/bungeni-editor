@@ -27,7 +27,7 @@ public class LoginInfo {
         public final String port ;
         public final String loginBase;
         
-        OAuthCredentials oauthCredentials  ;
+        public OAuthCredentials oauthCredentials  ;
         
         public LoginInfo(
                 String server, 

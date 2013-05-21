@@ -22,7 +22,7 @@
  * Created on Oct 23, 2012, 10:14:48 AM
  */
 
-package org.bungeni.ext.integration.bungeniportal;
+package org.bungeni.ext.integration.bungeniportal.panels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingUtilities;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.panels.impl.BaseClassForITabbedPanel;
+import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
@@ -103,7 +105,7 @@ import org.bungeni.utils.BungeniDialog;
         scrollInfo.setViewportView(txtTitle);
 
         lblDocTitle.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/panels/Bundle"); // NOI18N
         lblDocTitle.setText(bundle.getString("BungeniIntegrationPanel.lblDocTitle.text")); // NOI18N
 
         lblStatus.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N

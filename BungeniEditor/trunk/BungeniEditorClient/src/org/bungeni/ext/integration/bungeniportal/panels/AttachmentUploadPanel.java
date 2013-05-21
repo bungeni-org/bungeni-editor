@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package org.bungeni.ext.integration.bungeniportal;
+package org.bungeni.ext.integration.bungeniportal.panels;
 
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -24,7 +24,10 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.http.entity.mime.content.ContentBody;
+import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector.WebResponse;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
 import org.bungeni.extutils.CommonUIFunctions;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;

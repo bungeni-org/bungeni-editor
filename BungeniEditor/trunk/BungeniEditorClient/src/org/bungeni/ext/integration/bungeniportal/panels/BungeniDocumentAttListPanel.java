@@ -21,7 +21,7 @@
  *
  * Created on Oct 12, 2012, 11:23:07 AM
  */
-package org.bungeni.ext.integration.bungeniportal;
+package org.bungeni.ext.integration.bungeniportal.panels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +33,12 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
-import org.bungeni.ext.integration.bungeniportal.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
@@ -237,7 +242,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         cboTransitions = new javax.swing.JList();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/panels/Bundle"); // NOI18N
         btnTransit.setText(bundle.getString("BungeniDocumentAttListPanel.btnTransit.text")); // NOI18N
 
         jScrollPane1.setViewportView(cboListAttachments);

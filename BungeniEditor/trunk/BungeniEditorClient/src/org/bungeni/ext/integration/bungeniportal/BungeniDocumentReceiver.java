@@ -22,13 +22,19 @@ package org.bungeni.ext.integration.bungeniportal;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
+import org.bungeni.ext.integration.bungeniportal.panels.BungeniAttLoadingPanel;
+import org.bungeni.ext.integration.bungeniportal.panels.BungeniDocumentAttListPanel;
+import org.bungeni.ext.integration.bungeniportal.panels.BungeniLoginPanel;
+import org.bungeni.ext.integration.bungeniportal.panels.BungeniSelectDocumentPanel;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.input.IInputDocumentReceiver;
-import org.bungeni.ext.integration.bungeniportal.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.FrameLauncher;
 import org.bungeni.utils.BungeniDialog;
 import org.jdom.Element;

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package org.bungeni.ext.integration.bungeniportal;
+package org.bungeni.ext.integration.bungeniportal.panels;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -26,6 +26,8 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.LoginInfo;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.NotifyBox;
@@ -169,7 +171,7 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
 
         txtUser.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/panels/Bundle"); // NOI18N
         lblUser.setText(bundle.getString("BungeniLoginPanel.lblUser.text")); // NOI18N
 
         lblPassword.setText(bundle.getString("BungeniLoginPanel.lblPassword.text")); // NOI18N

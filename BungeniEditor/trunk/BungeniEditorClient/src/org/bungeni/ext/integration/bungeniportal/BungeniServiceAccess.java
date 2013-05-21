@@ -17,6 +17,10 @@
  */
 package org.bungeni.ext.integration.bungeniportal;
 
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments;
+import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -39,7 +43,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector.WebResponse;
-import org.bungeni.ext.integration.bungeniportal.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
