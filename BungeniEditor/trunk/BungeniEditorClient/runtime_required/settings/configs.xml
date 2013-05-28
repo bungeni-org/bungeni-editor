@@ -21,7 +21,7 @@
     title="Bill Bungeni Integration"
     url="http://bungeni-editor.googlecode.com/svn/BungeniEditor_configs/bill-bungeni.zip"
     folder-base="../../Editor_configs/bungeni_configs"
-    receiver="org.bungeni.extpanels.bungeni.BungeniDocumentReceiver"
+    receiver="org.bungeni.ext.integration.bungeniportal.BungeniDocumentReceiver"
   
   >
 	
@@ -32,7 +32,7 @@
        <!-- authorize-uri = entry point to oauth
        authorize-form-uri = uri to authorize form to actually autorize after login  -->
        <oauth app-id="bungeni_editor" 
-         secret="7fd54a9cebae8b71c29974002d8fa81c3093a216" 
+         secret="2000bc6f803955e9829d01a9b13e56d1ea0e811d" 
          authorize-uri="/oauth/authorize"
          authorize-form-uri="/oauth/authorize-form"
          access-token-uri="/oauth/access-token"
