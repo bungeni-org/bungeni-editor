@@ -48,7 +48,7 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
     private LoginInfo loginInfo;
     private boolean bConnection = false;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
-    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle");
+    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle");
 
     /**
      * Creates new form BungeniLogin

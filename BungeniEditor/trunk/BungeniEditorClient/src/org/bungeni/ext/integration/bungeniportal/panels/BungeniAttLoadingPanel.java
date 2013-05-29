@@ -26,8 +26,8 @@ import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.utils.BungeniDialog;
 import org.jsoup.Jsoup;
@@ -47,7 +47,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     private DisabledGlassPane glassPane = new DisabledGlassPane();
     private    File fodfDocument ; 
 
-    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/extpanels/bungeni/Bundle");
+    ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/Bundle");
 
     /**
      * Creates new form BungeniAttLoadingPanel

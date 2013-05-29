@@ -54,7 +54,7 @@ public class AttachmentUploadPanel extends javax.swing.JPanel {
     private DisabledGlassPane glassPane = new DisabledGlassPane();
 
     ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle(
-           "org/bungeni/extpanels/bungeni/Bundle"
+           "org/bungeni/ext/integration/bungeniportal/Bundle"
            );
     
     /**
