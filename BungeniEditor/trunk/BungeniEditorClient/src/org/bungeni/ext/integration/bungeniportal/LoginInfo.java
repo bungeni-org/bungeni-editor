@@ -37,9 +37,8 @@ public class LoginInfo {
                 String oauthAppSecret, 
                 String oauthAuthUri, 
                 String oauthAuthFormUri, 
-                String oauthTokenUri, 
-                String refreshCode, 
-                String refreshState
+                String oauthAccessTokenUri, 
+                String oauthRefreshTokenUri
                 ) {
             this.server = server;
             this.port = port;
@@ -49,9 +48,8 @@ public class LoginInfo {
                 oauthAppSecret,
                 oauthAuthUri,
                 oauthAuthFormUri,
-                oauthTokenUri,
-                refreshCode,
-                refreshState
+                oauthAccessTokenUri,
+                oauthRefreshTokenUri
             );
         }
 }

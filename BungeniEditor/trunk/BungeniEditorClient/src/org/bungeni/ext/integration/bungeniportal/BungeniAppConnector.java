@@ -172,6 +172,30 @@ public class BungeniAppConnector {
             return getClient();
         }
         client = getThreadSafeClient();
+       
+        // first check for the access token etc. 
+        if (this.oauthPropertiesFileExists()) {
+            // if file exists, read oauth properties
+            Properties props = getOauthProperties();
+            OAuthState oauthState = this.validateOauthProperties(props);
+            switch (oauthState) {
+                case EXPIRED:
+                    //ask for refresh token 
+                    
+                    ;
+                case INVALID:
+                    // file is invalid , authorize again
+                    ;
+                case VALID:
+                    // valid token, continue 
+                    
+                    ;
+            }
+            
+        } else {
+            // if file does not exist, we need to authorize etc.
+            
+        }
         
         // check if acess code exists !
        boolean access_code_exists = false; 
@@ -202,11 +226,13 @@ public class BungeniAppConnector {
             if (oauthAuthorizeURL != null) {
                 // now attempt to authorize, this will provide an oauth refresh token
                 OAuthToken token = oauthAuthorize(oauthAuthorizeURL);
+                // !+FIX_THIS
+                /**
                 if (token != null) {
                     this.oauthCredentials.setRefreshCode(token.getCode());
                     this.oauthCredentials.setRefreshState(token.getState());
                     oauthTokenAccess(token);
-                }
+                } **/
             }
         }
        }
@@ -462,11 +488,26 @@ public class BungeniAppConnector {
         return token;
     }
     
+    /**
+     * Returns the file handle of the Oauth properties file 
+     * @return 
+     */
     private File getOauthPropertiesFile(){
         File fOauthProps = new File(
                 BaseConfigReader.getSettingsFolder() + File.separator + "oauth.properties"
                 );
         return fOauthProps;
+    }
+    
+    /**
+     * Checks if the oauth properties file exists 
+     * @return 
+     */
+    private boolean oauthPropertiesFileExists(){
+        if (getOauthPropertiesFile().exists()) {
+            return true;
+        }
+        return false;
     }
     
     private void writeOauthProperties(HashMap<String,String> values) throws FileNotFoundException, IOException {
@@ -480,13 +521,69 @@ public class BungeniAppConnector {
         oauthProps.store(new FileOutputStream(fOauthProps), "stored on " + df.format(new Date()));
        }
     
+    /**
+     *  Returns the Contents of the oauth.properties file in a Property map
+     * @return
+     * @throws IOException 
+     */
     private Properties  getOauthProperties() throws IOException{
         File f = getOauthPropertiesFile();
         Properties props = new Properties();
         props.load(new FileInputStream(f));
         return props;
     }
-            
+
+    private enum OAuthState {
+        INVALID,
+        EXPIRED,
+        VALID
+    }
+    
+    
+    /**
+    e.g content of oauth.properties
+    authorization_code=55e9be20f3e047216c4bf6746d850fa9dad4438d
+    authorization_time=2013-05-30 11\:58\:45
+    expires_in=3600
+    refresh_token=b7e35f2a10319b739a0dd48d06c48746901b5429
+    token_type=bearer
+    authorization_state=dQLWUzRM
+    access_token=44e5f024c9ed612015e6763e6d0cc190d4cffeb2
+
+     **/
+    String[] VALID_OAUTH_PROPERTIES = {
+      "authorization_code",
+      "authorization_time",
+      "expires_in",
+      "refresh_token",
+      "token_type",
+      "access_token"
+    };
+    
+    /**
+     * Validates the OAuthProperties file and attempts to check if the 
+     * access token has expired
+     * @param props
+     * @return 
+     */
+    private OAuthState validateOauthProperties(Properties props){
+        for (String validProp : VALID_OAUTH_PROPERTIES) {
+            if (!props.containsKey(validProp)){
+                return OAuthState.INVALID;
+            }
+        }
+        String sRefreshDateTime = (String) props.get("authorization_time");
+        try {
+        if (isAccessTokenExpired(sRefreshDateTime)) {
+            return OAuthState.EXPIRED;
+        } else {
+            return OAuthState.VALID;
+        }
+        } catch(ParseException ex) {
+            log.error("Error while parsing refresh date", ex);
+        }
+        return OAuthState.EXPIRED;
+    }
             
     /**
      * Negotiate the Oauth access URL , this will forward to a login page

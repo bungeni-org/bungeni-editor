@@ -17,6 +17,7 @@
  */
 package org.bungeni.ext.integration.bungeniportal;
 
+import java.text.MessageFormat;
 import org.apache.commons.lang.RandomStringUtils;
 
 /**
@@ -28,80 +29,59 @@ public class OAuthCredentials {
     public final String oauthAppSecret ; 
     public final String oauthAuthUri;
     public final String oauthFormUri;
-    public final String oauthTokenUri;
-    public String refreshState;
-    public String refreshCode;
+    public final String oauthAccessTokenUri;
+    public String oauthRefreshTokenUri;
     
     public OAuthCredentials(
             String appId, 
             String appSecret, 
             String authUri, 
             String authFormUri, 
-            String authTokenUri, 
-            String refreshCode, 
-            String refreshState
+            String authAccessTokenUri, 
+            String refreshTokenUri
             ){
         this.oauthAppId = appId;
         this.oauthAppSecret = appSecret;
         this.oauthAuthUri = authUri;
         this.oauthFormUri = authFormUri;
-        this.oauthTokenUri = authTokenUri;
-        this.refreshCode = refreshCode;
-        this.refreshState = refreshState;
+        this.oauthAccessTokenUri = authAccessTokenUri;
+        this.oauthRefreshTokenUri = refreshTokenUri;
     }
-    
-    public void setRefreshCode(String refreshCode) {
-        this.refreshCode = refreshCode;
-    }
-    
-    public void setRefreshState(String refreshState){
-        this.refreshState = refreshState;
-    }
-    
-    public String authUri(){
-       
-        StringBuilder suri = new StringBuilder(this.oauthAuthUri);
-        suri.append("?client_id=").append(oauthAppId).
-                append("&client_secret=").append(oauthAppSecret).
-                append("&response_type=code").
-                append("&state=").append(RandomStringUtils.randomAlphabetic(8));
-        return suri.toString();
-        
-    }
-    
-    public String accessTokenUri(){
-       
-        StringBuilder suri = new StringBuilder(this.oauthTokenUri);
-        suri.append("?client_id=").append(oauthAppId).
-                append("&grant_type=authorization_code").
-                append("&code=").append(this.refreshCode);
-        return suri.toString();
-        
-    }
-    
-    public String renewAccessTokenUri(String codeRefresh){
 
-        StringBuilder suri = new StringBuilder(this.oauthTokenUri);
-        suri.append("?grant_type=refresh_token").
-                append("&code=").append(codeRefresh);
-        return suri.toString();
+    public String authUri(){
+        // "/oauth/authorize?client_id={0}&client_secret={1}&response_type=code&state={2}"
+        Object[] values = {
+            this.oauthAppId,
+            this.oauthAppSecret,
+            RandomStringUtils.randomAlphabetic(8)
+        };
+        String sUri  = MessageFormat.format(this.oauthAuthUri, values);
+        return sUri;
+    }
+    
+    public String accessTokenUri(String authorizationCode){
+        // /oauth/access-token?client_id={0}&grant_type=authorization_code&code={1}
+        Object[] values = {
+          this.oauthAppId,  
+          authorizationCode
+        };
         
+        String sUri = MessageFormat.format(this.oauthAccessTokenUri, values);
+        return sUri;
+    }
+    
+    public String renewAccessTokenUri(String refreshToken){
+        // /oauth/access-token?grant_type=refresh_token&refresh_token={0}
+        StringBuilder suri = new StringBuilder(this.oauthRefreshTokenUri);
+        Object[] values = {
+            refreshToken
+        };
+        String sUri = MessageFormat.format(this.oauthRefreshTokenUri, values);
+        return sUri;
     }
     
     
     public String authFormUri() {
         return this.oauthFormUri;
-    }
-    
-    public String authTokenUri(){
-        return this.oauthTokenUri;
-    }
-    
-    public String refreshCode(){
-        return this.refreshCode;
-    }
-    
-    public String refreshState(){
-        return this.refreshState;
     }
 }

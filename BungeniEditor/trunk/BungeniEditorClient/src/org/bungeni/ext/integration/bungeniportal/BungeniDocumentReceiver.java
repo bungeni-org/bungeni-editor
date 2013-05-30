@@ -96,8 +96,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                 oauthElem.getAttributeValue("authorize-uri"),
                 oauthElem.getAttributeValue("authorize-form-uri"),
                 oauthElem.getAttributeValue("access-token-uri"),
-                oauthElem.getAttributeValue("refreshcode"),
-                oauthElem.getAttributeValue("refreshstate")
+                oauthElem.getAttributeValue("refresh-token-uri")
               );
         return li;
     }
