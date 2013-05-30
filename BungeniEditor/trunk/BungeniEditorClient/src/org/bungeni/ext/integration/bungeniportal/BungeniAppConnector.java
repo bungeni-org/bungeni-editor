@@ -138,8 +138,35 @@ public class BungeniAppConnector {
     }
    
 
-    
-    
+    /**
+     * How OAuth Login works : 
+     * 
+     * 1) We use the client id and client secret to attempt authorization with the OAuth service. 
+     * This step provides a form where any "not yet authorized" application is allowed to authorize itself.
+     * Once authorization happens and AUTHORIZATION_KEY is returned.
+     * 
+     * 2) The Authorizaton Key is used to request an access Token. This request returns an ACCESS_TOKEN and a REFRESH_TOKEN.
+     * 
+     * 3) The ACCESS_TOKEN periodically expires and can be got again using the REFRESH_TOKEN
+     * 
+     * 4) ACCESS_TOKEN is used in the authorization header to make API requests
+     * 
+     * This has been implemented as follows : 
+     * 
+     * 1) if ACCESS_TOKEN exists
+     *  1.1) if exists - attempt to access a API page using the access token
+     *    1.1.1) if access fails, use refresh token to get new ACCESS_TOKEN
+     *    1.1.2) if access suceeeds, proceed
+     *  1.2) if does not exist - go to 2)
+     * 
+     * 2) if ACCESS_TOKEN does not exist, attempt to AUTHORIZE and get an ACCESS_TOKEN.
+     * After getting access code go to 1.1) 
+     * 
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     * @throws JDOMException 
+     */
     public DefaultHttpClient oauthLogin() throws UnsupportedEncodingException, IOException, JDOMException {
         if (getClient() != null) {
             return getClient();
