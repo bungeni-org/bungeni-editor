@@ -194,9 +194,26 @@ public class BungeniAppConnector {
             
         } else {
             // if file does not exist, we need to authorize etc.
-            
+            String oauthForwardURL = oauthNegotiate();
+            if (oauthForwardURL != null ) {
+               // now authenticate , this will return the authorize URL 
+               String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL, this.oauthLoginUrl );
+               if (oauthAuthorizeURL != null) {
+                   // now attempt to authorize, this will provide an oauth refresh token
+                   OAuthToken token = oauthAuthorize(oauthAuthorizeURL);
+                   System.out.println("Token : " + token);
+                   // !+FIX_THIS
+                   /**
+                   if (token != null) {
+                       this.oauthCredentials.setRefreshCode(token.getCode());
+                       this.oauthCredentials.setRefreshState(token.getState());
+                       oauthTokenAccess(token);
+                   } **/
+               }
+           }   
         }
         
+        /**
         // check if acess code exists !
        boolean access_code_exists = false; 
        Properties props = new Properties() ; 
@@ -217,25 +234,10 @@ public class BungeniAppConnector {
            // attempt to use the access code 
            // get the oauth properties
            Properties authProps = this.getOauthProperties();
-       } else {
+       } **/ 
+        //else {
          //negotiate to the login url
-         String oauthForwardURL = oauthNegotiate();
-         if (oauthForwardURL != null ) {
-            // now authenticate , this will return the authorize URL 
-            String oauthAuthorizeURL = oauthAuthenticate(oauthForwardURL, this.oauthLoginUrl );
-            if (oauthAuthorizeURL != null) {
-                // now attempt to authorize, this will provide an oauth refresh token
-                OAuthToken token = oauthAuthorize(oauthAuthorizeURL);
-                // !+FIX_THIS
-                /**
-                if (token != null) {
-                    this.oauthCredentials.setRefreshCode(token.getCode());
-                    this.oauthCredentials.setRefreshState(token.getState());
-                    oauthTokenAccess(token);
-                } **/
-            }
-        }
-       }
+       //}
         return getClient();
     }
     
@@ -305,7 +307,7 @@ public class BungeniAppConnector {
     private boolean oauthTokenAccess(OAuthToken token) {
         boolean bstate = false;
         try {
-            final HttpGet hget = new HttpGet(this.urlBase + this.oauthCredentials.accessTokenUri());
+            final HttpGet hget = new HttpGet(this.urlBase + this.oauthCredentials.oauthAccessTokenUri);
             HttpContext context = new BasicHttpContext(); 
             HttpResponse oauthResponse = getClient().execute(hget, context); 
             // if the OAuth page retrieval failed throw an exception
