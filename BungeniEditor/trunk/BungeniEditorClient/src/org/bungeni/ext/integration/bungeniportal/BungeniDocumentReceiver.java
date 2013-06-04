@@ -23,6 +23,7 @@ package org.bungeni.ext.integration.bungeniportal;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
@@ -150,7 +151,17 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     private String searchURL(final PluggableConfig customConfig){
         Element searchElem = customConfig.customConfigElement.getChild("search");
         String sSearchBase = searchElem.getAttributeValue("base");
-        return sSearchBase;
+        String sStates = searchElem.getChild("states").getTextTrim();
+        String sTypes = searchElem.getChild("type").getTextTrim();
+        Object[] arguments = { 
+                  sStates,
+                  sTypes
+                };
+        String sSearchUrl = MessageFormat.format(
+                sSearchBase, 
+                arguments
+                );
+        return sSearchUrl;
     }
 
     private String documentURLBase(final PluggableConfig customConfig){
