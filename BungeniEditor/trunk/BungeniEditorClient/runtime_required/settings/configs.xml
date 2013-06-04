@@ -44,7 +44,12 @@
              <key name="authorization_code" value="" />
           </props> -->
         </oauth>
-       <search base="/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
+       <test base="/api/workspace" />
+       <search base="/api/workspace/my-documents/inbox?filter_status={0}&amp;filter_type={1}" >
+          <states>reviewed</states>
+          <type>assembly_bill</type>
+       </search>
+       <search base="/api/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
        <document base="/workspace/my-documents/external/" />
     </custom> 
     </config>
