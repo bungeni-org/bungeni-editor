@@ -27,12 +27,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Set;
 import org.apache.log4j.Logger;
 import org.bungeni.editor.config.BaseConfigReader;
 
 /**
- *
+ * This class is used to manage the OAuth cache in oauth.properties
  * @author Ashok Hariharan
  */
 public class OAuthProperties {
@@ -47,7 +46,7 @@ public class OAuthProperties {
     public static final String FILE_NAME = "oauth.properties";
     public static final String REFRESH_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss" ; 
     
-        /**
+    /**
     e.g content of oauth.properties
     authorization_code=55e9be20f3e047216c4bf6746d850fa9dad4438d
     authorization_time=2013-05-30 11\:58\:45
@@ -56,9 +55,11 @@ public class OAuthProperties {
     token_type=bearer
     authorization_state=dQLWUzRM
     access_token=44e5f024c9ed612015e6763e6d0cc190d4cffeb2
-
      **/
 
+    /**
+     * List of properties cached in oauth.properties
+     */
     public static final String[] VALID_OAUTH_PROPERTIES = {
       "authorization_code",
       "authorization_time",
@@ -72,6 +73,10 @@ public class OAuthProperties {
         oauthProperties = new Properties();
     }
     
+    /**
+     * Gets access to the OAuthProperties singleton
+     * @return 
+     */
     public static OAuthProperties getInstance(){
         if (instance == null) {
             instance = new OAuthProperties();
@@ -91,7 +96,10 @@ public class OAuthProperties {
         return fOauthProps;
     }
 
-    
+    /**
+     * Reloads the oauth.properties file into memory
+     * @throws IOException 
+     */
     public void  loadOauthProperties() throws IOException{
         File f = getFile();
         Properties props = new Properties();
@@ -101,14 +109,28 @@ public class OAuthProperties {
         this.oauthProperties = props;
      }
     
+    /**
+     * Updates the list of properties in the map
+     * Does NOT replace all properties, only sets the ones provided in the 
+     * input list
+     * @param props 
+     */
     public void setProperties(Properties props){
-        this.oauthProperties = props;
+        if (this.oauthProperties.isEmpty()) {
+            this.oauthProperties = props;
+        } else {
+            this.oauthProperties.putAll(props);
+        }
     }
     
     public Properties getProperties(){
         return this.oauthProperties;
     }
     
+    /**
+     * Saves the memory oauth cache to file (oauth.properties)
+     * @throws IOException 
+     */
     public void saveToFile() throws IOException{
         File fOauthProps = getFile();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -118,13 +140,19 @@ public class OAuthProperties {
                 );
     }
 
-    
+    /**
+     * Different OAuth States
+     */
     public enum OAuthState {
-        INVALID,
-        EXPIRED,
-        VALID
+        INVALID, /** the file is invalid **/
+        EXPIRED, /** the acces token has expired **/
+        VALID /** the oauth information inthe file is valid **/
     }
     
+    /**
+     * Validates the oauth.properties file
+     * @return 
+     */
    public OAuthState validate(){
         Properties props = this.getProperties();
         for (String validProp : VALID_OAUTH_PROPERTIES) {
@@ -144,6 +172,11 @@ public class OAuthProperties {
         return OAuthState.EXPIRED;
     }
 
+   /**
+    * Checks if the access token has expired
+    * @return
+    * @throws ParseException 
+    */
     public boolean isAccessTokenExpired() throws ParseException {
         long expiryTime = 3600 ; 
         // parse the refresh date
@@ -160,6 +193,10 @@ public class OAuthProperties {
         return false;
     }
 
+    
+    public String getAccessToken(){
+        return this.oauthProperties.get("access_token").toString();
+    }
        
     private DateFormat getOauthRefreshDateFormat(){
       return new SimpleDateFormat(REFRESH_DATE_FORMAT);

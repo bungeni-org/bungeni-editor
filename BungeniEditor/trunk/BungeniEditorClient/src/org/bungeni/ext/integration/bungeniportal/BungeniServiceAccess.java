@@ -17,10 +17,6 @@
  */
 package org.bungeni.ext.integration.bungeniportal;
 
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments;
-import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -36,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.http.Header;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -43,7 +40,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector.WebResponse;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
+import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
 import org.bungeni.odfdom.document.BungeniOdfDocumentHelper;
 import org.bungeni.odfdom.document.properties.BungeniOdfPropertiesHelper;
 import org.bungeni.odfdom.section.BungeniOdfSectionHelper;
@@ -382,6 +383,8 @@ public class BungeniServiceAccess {
 
     public List<BungeniListDocument> availableDocumentsForEditing(String sSearchBungeniURL) {
         List<BungeniListDocument> bungeniDocs = new ArrayList<BungeniListDocument>(0);
+        Map<String,String> reqHeaders = new HashMap<String,String>();
+        reqHeaders.put("Authorization", "Bearer " + OAuthProperties.getInstance().getAccessToken());
         WebResponse wr = appConnector.getUrl(sSearchBungeniURL, true);
         if (wr != null) {
             if (wr.getStatusCode() == 200) {

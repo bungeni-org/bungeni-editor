@@ -21,7 +21,6 @@ package org.bungeni.ext.integration.bungeniportal;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,13 +32,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.MessageFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.commons.io.IOUtils;
@@ -73,7 +71,6 @@ import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.config.BaseConfigReader;
 import org.bungeni.ext.integration.bungeniportal.OAuthProperties.OAuthState;
 import org.bungeni.extutils.TempFileManager;
 import org.jdom.JDOMException;
@@ -174,28 +171,36 @@ public class BungeniAppConnector {
             return getClient();
         }
         client = getThreadSafeClient();
-       
+        OAuthState oauthState = OAuthState.INVALID;
         // first check for the access token etc. 
         if (OAuthProperties.getInstance().fileExists()) {
             // if file exists, read oauth properties
             OAuthProperties.getInstance().loadOauthProperties();
             //OAuthProperties.getInstance().setProperties(getOauthProperties());
-            OAuthState oauthState = OAuthProperties.getInstance().validate();
+            oauthState = OAuthProperties.getInstance().validate();
+            boolean bContinue = false;
             switch (oauthState) {
                 case EXPIRED:
                     //ask for refresh token 
                     //refreshToken()
-                    ;
+                    boolean bRenew = this.oauthNewAccessToken();
+                    if (bRenew) {
+                        bContinue = true;
+                    }
+                    break;
                 case INVALID:
                     // file is invalid , authorize again
-                    ;
+                    break ;
                 case VALID:
                     // valid token, continue 
-                    
-                    ;
+                    break ; 
             }
             
         } else {
+           oauthState = OAuthState.INVALID;
+        }
+        
+        if (oauthState == OAuthState.INVALID ) {
             // if file does not exist, we need to authorize etc.
             String oauthForwardURL = oauthNegotiate();
             if (oauthForwardURL != null ) {
@@ -212,60 +217,9 @@ public class BungeniAppConnector {
                }
            }   
         }
-        
-        /**
-        // check if acess code exists !
-       boolean access_code_exists = false; 
-       Properties props = new Properties() ; 
-       try {
-            props = this.getOauthProperties();
-            if (props.containsKey("access_token")) {
-                 // the below API checks for expiryfo the access code and 
-                 // gets a new one if it exists
-                 oauthCheckAccessCode(props);
-                 access_code_exists = true;
-            }
-           } catch(IOException ex) {
-             log.info("ACCESS_TOKEN not found, will to create a new one");  
-           }
-      
-       
-       if (access_code_exists) {
-           // attempt to use the access code 
-           // get the oauth properties
-           Properties authProps = this.getOauthProperties();
-       } **/ 
-        //else {
-         //negotiate to the login url
-       //}
         return getClient();
     }
     
-    private boolean oauthCheckAccessCode() throws FileNotFoundException, IOException{
-        try {
-            if (OAuthProperties.getInstance().isAccessTokenExpired()) {
-                // if expired get new access code
-                try {
-                    boolean bState =  oauthNewAccessToken();   
-                    return bState;
-                } catch (Exception ex) {
-                    log.error("Error while getting new access token ", ex);
-                    return false;
-                }
-            }
-        } catch(ParseException ex) {
-            try {
-                // still 
-                boolean bState =  oauthNewAccessToken();
-                return bState;
-            } catch(Exception ex2) {
-                log.error("Error while getting new access token ", ex2);
-                return false;
-            }
-        }
-        return false;
-    }
- 
     private String getCurrentDateTime(){
       DateFormat df = new SimpleDateFormat(OAuthProperties.REFRESH_DATE_FORMAT);
       Date dt = new Date();
@@ -723,8 +677,7 @@ public class BungeniAppConnector {
         return wr;
     }
     
-    
-    public WebResponse getUrl(String sPage,  boolean prefix) {
+    public WebResponse getUrl(String sPage,  boolean prefix, Map<String,String> reqHeaders) {
         WebResponse wr = null;
         
         String pageURL = (
@@ -734,6 +687,12 @@ public class BungeniAppConnector {
                 );
 
         final HttpGet           geturl          = new HttpGet(pageURL);
+        if (null != reqHeaders){
+            Set<String> keys = reqHeaders.keySet();
+            for (String key : keys) {
+                geturl.setHeader(key, reqHeaders.get(key));
+            }
+        }
         boolean bState = false;
         try {
             HttpResponse response = client.execute(geturl);
@@ -748,6 +707,12 @@ public class BungeniAppConnector {
         }
         return wr;
     
+    }   
+    
+    
+    
+    public WebResponse getUrl(String sPage,  boolean prefix) {
+        return this.getUrl(sPage, prefix, null);
     }   
        
        
