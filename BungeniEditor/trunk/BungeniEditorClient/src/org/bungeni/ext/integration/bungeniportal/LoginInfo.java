@@ -27,7 +27,7 @@ public class LoginInfo {
         public final String port ;
         public final String loginBase;
         
-        public OAuthCredentials oauthCredentials  ;
+        private OAuthCredentials oauthCredentials  ;
         
         public LoginInfo(
                 String server, 
@@ -51,5 +51,9 @@ public class LoginInfo {
                 oauthAccessTokenUri,
                 oauthRefreshTokenUri
             );
+        }
+        
+        public OAuthCredentials getCredentials(){
+            return this.oauthCredentials;
         }
 }

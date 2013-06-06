@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Africa i-Parliaments
+ * Copyright (C) 2012 UN/DESA Africa i-Parliaments Action Plan
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -107,12 +107,9 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
             try {
                 bConnection = true;
                 client = bungeniService.login(
-                        txtServer.getText(),
-                        txtServerPort.getText(),
-                        txtLoginBase.getText(),
+                        loginInfo,
                         txtUser.getText(),
-                        txtPassword.getText(),
-                        loginInfo.oauthCredentials
+                        txtPassword.getText()
                         );
                 failureMessage = "login successful";
             } catch (UnsupportedEncodingException ex) {
@@ -182,6 +179,7 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
 
         lblPassword1.setText(bundle.getString("BungeniLoginPanel.lblPassword1.text")); // NOI18N
 
+        txtLoginBase.setEditable(false);
         txtLoginBase.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         btnLogin.setText(bundle.getString("BungeniLoginPanel.btnLogin.text")); // NOI18N
@@ -193,8 +191,10 @@ public class BungeniLoginPanel extends javax.swing.JPanel {
 
         lblServerName.setText(bundle.getString("BungeniLoginPanel.lblServerName.text")); // NOI18N
 
+        txtServer.setEditable(false);
         txtServer.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
+        txtServerPort.setEditable(false);
         txtServerPort.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         lblPort.setText(bundle.getString("BungeniLoginPanel.lblPort.text")); // NOI18N

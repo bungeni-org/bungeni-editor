@@ -202,6 +202,19 @@ public class OAuthProperties {
       return new SimpleDateFormat(REFRESH_DATE_FORMAT);
     }
  
+        
+    public OAuthState queryCache() throws IOException{
+        OAuthState oauthState = OAuthState.INVALID;
+        if (fileExists()) {
+            // if file exists, read oauth properties
+            loadOauthProperties();
+            // validate the information in the cache
+            oauthState = validate();
+        }
+        return oauthState;
+    }
+    
+
    
 }
 

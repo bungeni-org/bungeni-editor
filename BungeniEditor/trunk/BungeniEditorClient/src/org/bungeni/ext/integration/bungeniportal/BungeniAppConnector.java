@@ -90,34 +90,25 @@ public class BungeniAppConnector {
     private final String loginUrl ;
     private final String oauthLoginUrl; 
     
+    private LoginInfo loginInfo ; 
     private final String user;
     private final String password;
-    private final String serverName ;
-    private final String serverPort ;
-    private final String loginPageURI ;
     private final String urlBase ; 
-    private final OAuthCredentials oauthCredentials ; 
     private DefaultHttpClient client = null;
     private final String oauthAuthFormUrl;
 
    public  BungeniAppConnector(
-            String serverName,
-            String serverPort,
-            String loginPageURI,
+            LoginInfo loginInfo,
             String user,
-            String password,
-            OAuthCredentials oauthCredentials) {
-        this.loginPageURI = loginPageURI;
-        this.serverName = serverName;
-        this.serverPort = serverPort;
+            String password
+           ) {
+        this.loginInfo = loginInfo;
         this.password = password;
         this.user = user;
-        this.urlBase = "http://" + this.serverName + ":" + this.serverPort ;
-        this.loginUrl = this.urlBase + "/" + loginPageURI;
-        this.oauthCredentials = oauthCredentials; 
-        this.oauthLoginUrl = this.urlBase + oauthCredentials.authUri();
-        this.oauthAuthFormUrl = this.urlBase + oauthCredentials.authFormUri();
-        //this.oauthTokenUrl   = this.urlBase + oauthCredentials.authTokenUri();
+        this.urlBase = "http://" + loginInfo.server + ":" + loginInfo.port ;
+        this.loginUrl = this.urlBase + "/" + loginInfo.loginBase;
+        this.oauthLoginUrl = this.urlBase + loginInfo.getCredentials().authUri();
+        this.oauthAuthFormUrl = this.urlBase + loginInfo.getCredentials().authFormUri();
         log.info("BungeniAppConnector : LOGIN:" + loginUrl + " user : " + this.user + " password :" +  this.password);
     }
    
@@ -173,6 +164,11 @@ public class BungeniAppConnector {
         client = getThreadSafeClient();
         OAuthState oauthState = OAuthState.INVALID;
         // first check for the access token etc. 
+        oauthState = OAuthProperties.getInstance().queryCache();
+        if (oauthState == OAuthState.EXPIRED) {
+            boolean bRenew = this.oauthNewAccessToken();
+        }
+        /**
         if (OAuthProperties.getInstance().fileExists()) {
             // if file exists, read oauth properties
             OAuthProperties.getInstance().loadOauthProperties();
@@ -199,7 +195,7 @@ public class BungeniAppConnector {
         } else {
            oauthState = OAuthState.INVALID;
         }
-        
+        **/
         if (oauthState == OAuthState.INVALID ) {
             // if file does not exist, we need to authorize etc.
             String oauthForwardURL = oauthNegotiate();
@@ -217,8 +213,12 @@ public class BungeniAppConnector {
                }
            }   
         }
+       
+        // if its valid we just return
+       
         return getClient();
     }
+    
     
     private String getCurrentDateTime(){
       DateFormat df = new SimpleDateFormat(OAuthProperties.REFRESH_DATE_FORMAT);
@@ -243,11 +243,11 @@ public class BungeniAppConnector {
         try {
             // /oauth/access-token?client_id={0}&amp;grant_type=authorization_code&amp;code={1}
             Object[] arguments = {
-                this.oauthCredentials.oauthAppId,
+                this.loginInfo.getCredentials().oauthAppId,
                 token.code,
             };
             String sAccessTokenUri = MessageFormat.format(
-                    this.oauthCredentials.oauthAccessTokenUri, 
+                    this.loginInfo.getCredentials().oauthAccessTokenUri, 
                     arguments
                     );
             final HttpGet hget = new HttpGet(this.urlBase + sAccessTokenUri);
@@ -331,7 +331,7 @@ public class BungeniAppConnector {
     private boolean oauthNewAccessToken() throws FileNotFoundException, IOException {
        Properties props = OAuthProperties.getInstance().getProperties();
        String sRefreshToken = (String) props.get("refresh_token");
-       String sRefreshTokenUrl = this.urlBase + this.oauthCredentials.renewAccessTokenUri(sRefreshToken);
+       String sRefreshTokenUrl = this.urlBase + this.loginInfo.getCredentials().renewAccessTokenUri(sRefreshToken);
        WebResponse wr = this.getUrl(sRefreshTokenUrl, false);
        if (wr.statusCode == 200 && 
                "application/json".equals(
@@ -728,27 +728,6 @@ public class BungeniAppConnector {
      */
     public String getPassword() {
         return password;
-    }
-
-    /**
-     * @return the serverName
-     */
-    public String getServerName() {
-        return serverName;
-    }
-
-    /**
-     * @return the serverPort
-     */
-    public String getServerPort() {
-        return serverPort;
-    }
-
-    /**
-     * @return the loginPageURI
-     */
-    public String getLoginPageURI() {
-        return loginPageURI;
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2012 Africa i-Parliaments
+ *  Copyright (C) 2012 UN/DESA Africa i-Parliaments Action Plan
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License
@@ -29,6 +29,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.input.IInputDocumentReceiver;
+import org.bungeni.ext.integration.bungeniportal.OAuthProperties.OAuthState;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
@@ -70,6 +71,17 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return null;
     }
 
+    /**
+    private boolean redirectLogin(JFrame parentFrame, PluggableConfig customConfig ){
+        LoginInfo linfo = loginInfo(customConfig);
+        OAuthState oauthState = OAuthProperties.getInstance().queryCache();
+        if (OAuthState.INVALID == oauthState) {
+            return login(parentFrame, customConfig);
+        } else if (OAuthState.EXPIRED == oauthState) {
+            return 
+        }
+    }
+    **/
     
     private boolean login(JFrame parentFrame, PluggableConfig customConfig) {
         LoginInfo linfo = loginInfo(customConfig);
