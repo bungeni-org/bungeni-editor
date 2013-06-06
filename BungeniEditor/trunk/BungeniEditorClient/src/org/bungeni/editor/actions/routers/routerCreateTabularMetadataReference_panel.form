@@ -20,7 +20,7 @@
               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Component id="btnApply" pref="69" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnCancel" pref="65" max="32767" attributes="0"/>
+              <Component id="btnCancel" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">

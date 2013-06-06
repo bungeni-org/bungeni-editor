@@ -17,8 +17,8 @@ import org.bungeni.editor.actions.toolbarAction;
 import org.bungeni.editor.metadata.TabularMetadataLoader;
 import org.bungeni.editor.metadata.TabularMetadataLoader.TabularMetadataModel;
 import org.bungeni.editor.selectors.SelectorDialogModes;
-import org.bungeni.ooo.OOComponentHelper;
 import org.bungeni.extutils.BungeniJTableMouseListener;
+import org.bungeni.ooo.OOComponentHelper;
 
 /**
  * This is a base class that implements a single abstract method which provides access to the selected metadata
