@@ -18,6 +18,7 @@
 package org.bungeni.ext.integration.bungeniportal;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -81,10 +82,57 @@ public class BungeniServiceAccess {
         return this.appConnector;
     }
 
+    /**
+     * Does the initial login when there is no oauth cache / refresh token
+     * This does the initial Oauth negotiation and authentication code retrieval
+     * @param loginInfo
+     * @param user
+     * @param password
+     * @return
+     * @throws UnsupportedEncodingException
+     * @throws IOException
+     * @throws JDOMException 
+     */
     public DefaultHttpClient login(LoginInfo loginInfo, String user, String password) throws UnsupportedEncodingException, IOException, JDOMException {
         if (null == appConnector) {
             this.appConnector = new BungeniAppConnector(loginInfo, user, password);
             this.client = appConnector.oauthLogin();
+            return this.client;
+        }
+        return null;
+    }
+    
+    
+    /**
+     * Logs in via a OAuth Access token. This is called when the cached
+     * access token has expired during 1st time login 
+     * @param loginInfo
+     * @return 
+     */
+    public DefaultHttpClient loginViaOauthToken(LoginInfo loginInfo) {
+        if (null == appConnector) {
+            this.appConnector = new BungeniAppConnector(loginInfo, null, null);
+            try {
+                this.client = appConnector.oauthAccessTokenLogin();
+                return this.client;
+            } catch (FileNotFoundException ex) {
+                log.error("OAuth properties file not found", ex);
+            } catch (IOException ex) {
+                log.error("Erorr while reading oauth.properties file", ex);
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * If the access token is valid this is used to do a blind login.
+     * @param loginInfo
+     * @return 
+     */
+    public DefaultHttpClient loginBlind(LoginInfo loginInfo) {
+        if (null == appConnector) {
+            this.appConnector = new BungeniAppConnector(loginInfo, null, null);
+            this.client = appConnector.oauthBlindLogin();
             return this.client;
         }
         return null;

@@ -100,11 +100,15 @@ public class OAuthProperties {
      * Reloads the oauth.properties file into memory
      * @throws IOException 
      */
-    public void  loadOauthProperties() throws IOException{
+    public void  loadOauthProperties(){
         File f = getFile();
         Properties props = new Properties();
         if (f.isFile()) {
-            props.load(new FileInputStream(f));
+            try {
+                props.load(new FileInputStream(f));
+            } catch(IOException ex) {
+                log.error("Error while loading oauth properties", ex);
+            }
         }
         this.oauthProperties = props;
      }
@@ -203,7 +207,7 @@ public class OAuthProperties {
     }
  
         
-    public OAuthState queryCache() throws IOException{
+    public OAuthState queryCache(){
         OAuthState oauthState = OAuthState.INVALID;
         if (fileExists()) {
             // if file exists, read oauth properties

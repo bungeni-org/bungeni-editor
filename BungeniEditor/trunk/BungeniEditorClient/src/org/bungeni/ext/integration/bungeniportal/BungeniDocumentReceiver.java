@@ -23,6 +23,7 @@ package org.bungeni.ext.integration.bungeniportal;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -71,17 +72,42 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return null;
     }
 
-    /**
-    private boolean redirectLogin(JFrame parentFrame, PluggableConfig customConfig ){
+    
+    private boolean redirectLogin(JFrame parentFrame, PluggableConfig customConfig ) {
+        // get the custom login configuration info
         LoginInfo linfo = loginInfo(customConfig);
+        // check the oauth cache
         OAuthState oauthState = OAuthProperties.getInstance().queryCache();
+        // if invalid attempt to login
         if (OAuthState.INVALID == oauthState) {
             return login(parentFrame, customConfig);
         } else if (OAuthState.EXPIRED == oauthState) {
-            return 
+            // perhaps run this in a worker thread 
+            return loginViaOauthToken(linfo);
+        } else if (OAuthState.VALID == oauthState) {
+            // just initialize the app connector and return a thread safe client
+            return loginBlind(linfo);
+        } else 
+            return false;
+    }
+    
+    private boolean loginBlind(LoginInfo linfo) {
+        Object client = BungeniServiceAccess.getInstance().loginBlind(linfo);
+        if (null != client) {
+            return true;
+        } else {
+            return false;
         }
     }
-    **/
+    
+    private boolean loginViaOauthToken(LoginInfo linfo){
+        Object client = BungeniServiceAccess.getInstance().loginViaOauthToken(linfo);
+        if (client != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     private boolean login(JFrame parentFrame, PluggableConfig customConfig) {
         LoginInfo linfo = loginInfo(customConfig);

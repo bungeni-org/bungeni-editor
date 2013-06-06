@@ -168,34 +168,6 @@ public class BungeniAppConnector {
         if (oauthState == OAuthState.EXPIRED) {
             boolean bRenew = this.oauthNewAccessToken();
         }
-        /**
-        if (OAuthProperties.getInstance().fileExists()) {
-            // if file exists, read oauth properties
-            OAuthProperties.getInstance().loadOauthProperties();
-            //OAuthProperties.getInstance().setProperties(getOauthProperties());
-            oauthState = OAuthProperties.getInstance().validate();
-            boolean bContinue = false;
-            switch (oauthState) {
-                case EXPIRED:
-                    //ask for refresh token 
-                    //refreshToken()
-                    boolean bRenew = this.oauthNewAccessToken();
-                    if (bRenew) {
-                        bContinue = true;
-                    }
-                    break;
-                case INVALID:
-                    // file is invalid , authorize again
-                    break ;
-                case VALID:
-                    // valid token, continue 
-                    break ; 
-            }
-            
-        } else {
-           oauthState = OAuthState.INVALID;
-        }
-        **/
         if (oauthState == OAuthState.INVALID ) {
             // if file does not exist, we need to authorize etc.
             String oauthForwardURL = oauthNegotiate();
@@ -219,6 +191,22 @@ public class BungeniAppConnector {
         return getClient();
     }
     
+    public DefaultHttpClient oauthAccessTokenLogin() throws FileNotFoundException, IOException{
+        if (getClient() != null ) {
+            return getClient();
+        }
+        client = this.getThreadSafeClient();
+        boolean bRenew = this.oauthNewAccessToken();
+        return client;
+    }
+    
+    public DefaultHttpClient oauthBlindLogin(){
+        if (getClient() != null ) {
+            return getClient();
+        }
+        client = this.getThreadSafeClient();
+        return client;
+    }
     
     private String getCurrentDateTime(){
       DateFormat df = new SimpleDateFormat(OAuthProperties.REFRESH_DATE_FORMAT);
