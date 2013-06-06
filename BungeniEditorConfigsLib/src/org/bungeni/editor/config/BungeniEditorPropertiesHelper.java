@@ -2,9 +2,7 @@ package org.bungeni.editor.config;
 
 //~--- JDK imports ------------------------------------------------------------
 
-import java.awt.Color;
 import java.text.SimpleDateFormat;
-import org.bungeni.editor.config.DocTypesReader;
 
 /**
  *Short hand functions to access property values

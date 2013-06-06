@@ -3,7 +3,6 @@ package org.bungeni.editor.config;
 import java.io.IOException;
 import java.util.HashMap;
 import org.apache.log4j.Logger;
-import org.bungeni.editor.config.SystemParameterReader;
 
 /**
  * Allows getting and setting of editor properties from the settings db's
