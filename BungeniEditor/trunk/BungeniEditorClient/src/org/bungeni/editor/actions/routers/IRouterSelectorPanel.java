@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bungeni.editor.actions.routers;
 
 import org.bungeni.editor.selectors.IGenericSelectorPanel;

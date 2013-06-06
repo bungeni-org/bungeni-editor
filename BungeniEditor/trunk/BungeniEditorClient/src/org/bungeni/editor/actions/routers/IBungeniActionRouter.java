@@ -1,4 +1,3 @@
-
 package org.bungeni.editor.actions.routers;
 
 import org.bungeni.editor.actions.toolbarAction;

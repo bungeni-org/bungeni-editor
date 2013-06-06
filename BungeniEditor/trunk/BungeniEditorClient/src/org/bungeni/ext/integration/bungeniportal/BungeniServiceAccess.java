@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2012 Africa i-Parliaments Action Plan
+ * Copyright (C) 2012 UN/DESA Africa i-Parliaments Action Plan
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
+ * as published by the Free Software Foundation; either version 3
  * of the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -32,7 +32,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.http.Header;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -385,7 +384,7 @@ public class BungeniServiceAccess {
         List<BungeniListDocument> bungeniDocs = new ArrayList<BungeniListDocument>(0);
         Map<String,String> reqHeaders = new HashMap<String,String>();
         reqHeaders.put("Authorization", "Bearer " + OAuthProperties.getInstance().getAccessToken());
-        WebResponse wr = appConnector.getUrl(sSearchBungeniURL, true);
+        WebResponse wr = appConnector.getUrl(sSearchBungeniURL, true, reqHeaders);
         if (wr != null) {
             if (wr.getStatusCode() == 200) {
                 String sResponseBody = wr.getResponseBody();

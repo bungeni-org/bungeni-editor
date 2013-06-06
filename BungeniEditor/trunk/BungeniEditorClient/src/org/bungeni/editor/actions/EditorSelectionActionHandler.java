@@ -2,19 +2,14 @@ package org.bungeni.editor.actions;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import java.util.ArrayList;
+import javax.swing.JFrame;
 import org.apache.log4j.Logger;
-
 import org.bungeni.editor.actions.routers.routerFactory;
 import org.bungeni.error.BungeniValidatorState;
 import org.bungeni.error.ErrorMessages;
 import org.bungeni.extutils.MessageBox;
 import org.bungeni.ooo.OOComponentHelper;
-
-//~--- JDK imports ------------------------------------------------------------
-
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
 
 /**
  *

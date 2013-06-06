@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Administrator
+ * @author Ashok Hariharan
  */
 public class EditorActionFactory  {
       private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(EditorActionFactory.class.getName());

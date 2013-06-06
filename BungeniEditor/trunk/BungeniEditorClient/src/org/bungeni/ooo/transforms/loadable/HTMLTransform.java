@@ -2,18 +2,14 @@ package org.bungeni.ooo.transforms.loadable;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import org.bungeni.ooo.OOComponentHelper;
-import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
-
-//~--- JDK imports ------------------------------------------------------------
-
 import com.sun.star.beans.PropertyValue;
 import com.sun.star.frame.XStorable;
-
 import java.io.File;
 import java.util.ArrayList;
 import org.bungeni.extutils.CommonFileFunctions;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.OOComponentHelper;
+import org.bungeni.ooo.transforms.impl.BungeniDocTransform;
 import org.bungeni.ooo.utils.CommonExceptionUtils;
 
 /**
