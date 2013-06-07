@@ -23,7 +23,6 @@ package org.bungeni.ext.integration.bungeniportal;
 //~--- non-JDK imports --------------------------------------------------------
 
 import java.io.File;
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +52,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
     public String receiveDocument(final JFrame parentFrame, final PluggableConfig customConfig, HashMap inputParams) {
         //String sDocURL = (String) JOptionPane.showInputDialog(parentFrame, "Enter the URL of the document to Import",
         //                     "Import document from Bungeni", JOptionPane.QUESTION_MESSAGE);
-        if (login(parentFrame, customConfig)) {
+        if (redirectLogin(parentFrame, customConfig)) {
             List<BungeniListDocument> listDocs = listDocuments(parentFrame, customConfig);
             if(listDocs.size() > 0 ) {
                 //show list documents

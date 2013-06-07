@@ -28,8 +28,8 @@ import java.awt.Component;
 import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import org.bungeni.ooo.ooQueryInterface;
 import org.bungeni.extutils.MessageBox;
+import org.bungeni.ooo.ooQueryInterface;
 
 /**
  *
@@ -117,8 +117,8 @@ public class routerCreateScaledSection_panel extends BaseRouterSelectorPanel {
     }
     
     protected void createSection(){
-         String newSectionName = "";
-          newSectionName = CommonRouterActions.get_newSectionNameForAction(theSubAction, ooDocument);
+         String newSectionName;
+         newSectionName = CommonRouterActions.get_newSectionNameForAction(theSubAction, ooDocument);
          if (newSectionName.length() == 0 ) {
              log.error("createSection : new section name could not be generated");
          } else {
