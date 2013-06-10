@@ -50,7 +50,7 @@
           <type>assembly_bill</type>
        </search>
        <search base="/api/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />
-       <document base="/workspace/my-documents/external/" />
+       <document base="/api/workspace/my-documents/inbox" />
     </custom> 
     </config>
 </configs>
