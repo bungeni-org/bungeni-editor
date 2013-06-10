@@ -107,7 +107,8 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                     BungeniServiceAccess.getInstance().
                         getAppConnector().getUrl(
                             urlDocument,
-                            true
+                            true,
+                            BungeniServiceAccess.getInstance().getAuthorizationHeaders()
                     );
             if (wr.getStatusCode() == 200) {
                 String responseBody = wr.getResponseBody();

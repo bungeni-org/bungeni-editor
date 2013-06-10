@@ -157,7 +157,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          BungeniDocumentAttListPanel  panelShowDocument = new BungeniDocumentAttListPanel(
                     dlgdoc, 
                     selectedDocument,
-                    docUrlBase + selectedDocument.idBase
+                    docUrlBase + "/" + selectedDocument.documentId()
                     );
          panelShowDocument.init();
          //!+CONTINUE_HERE

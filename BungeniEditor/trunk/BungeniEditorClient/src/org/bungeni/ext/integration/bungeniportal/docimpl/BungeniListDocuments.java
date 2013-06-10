@@ -72,6 +72,10 @@ public class BungeniListDocuments {
             this.status = status;
         }
         
+        public String documentId(){
+            return idBase.replace("/", "");
+        }
+        
         @Override
         public String toString(){
             return title + " - [ " +  status + " ] " ;

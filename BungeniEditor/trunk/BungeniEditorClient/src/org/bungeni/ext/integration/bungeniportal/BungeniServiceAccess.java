@@ -428,11 +428,18 @@ public class BungeniServiceAccess {
         return wr;
     }
 
+    public Map<String,String> getAuthorizationHeaders(){
+        Map<String,String> reqHeaders = new HashMap<String,String>(){
+            {
+                put("Authorization", "Bearer " + OAuthProperties.getInstance().getAccessToken());
+            }
+        };
+        return reqHeaders;
+    }
+    
     public List<BungeniListDocument> availableDocumentsForEditing(String sSearchBungeniURL) {
         List<BungeniListDocument> bungeniDocs = new ArrayList<BungeniListDocument>(0);
-        Map<String,String> reqHeaders = new HashMap<String,String>();
-        reqHeaders.put("Authorization", "Bearer " + OAuthProperties.getInstance().getAccessToken());
-        WebResponse wr = appConnector.getUrl(sSearchBungeniURL, true, reqHeaders);
+        WebResponse wr = appConnector.getUrl(sSearchBungeniURL, true, getAuthorizationHeaders());
         if (wr != null) {
             if (wr.getStatusCode() == 200) {
                 String sResponseBody = wr.getResponseBody();

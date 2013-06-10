@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
 
