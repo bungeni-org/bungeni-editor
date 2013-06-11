@@ -30,7 +30,7 @@ import javax.swing.JFrame;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.input.IInputDocumentReceiver;
 import org.bungeni.ext.integration.bungeniportal.OAuthProperties.OAuthState;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.ext.integration.bungeniportal.panels.BungeniAttLoadingPanel;
@@ -162,13 +162,14 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          panelShowDocument.init();
          //!+CONTINUE_HERE
          dlgdoc.view(panelShowDocument);
-         BungeniDocument aDoc = panelShowDocument.getDocument();
+         BungeniDoc aDoc = panelShowDocument.getDocument();
+         /** FIX_API
          if (aDoc != null ){
              BungeniAttachment attDoc = aDoc.getSelectedAttachment();
              if (attDoc != null) {
                  return aDoc;
              }
-         }
+         }**/
          return null;
     }
     

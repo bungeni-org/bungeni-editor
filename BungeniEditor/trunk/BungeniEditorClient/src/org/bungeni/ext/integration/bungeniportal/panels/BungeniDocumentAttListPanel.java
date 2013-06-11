@@ -23,8 +23,11 @@
  */
 package org.bungeni.ext.integration.bungeniportal.panels;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.StringReader;
 import java.util.HashSet;
 import java.util.concurrent.ExecutionException;
 import javax.swing.DefaultComboBoxModel;
@@ -38,6 +41,7 @@ import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
 import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
@@ -55,7 +59,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private BungeniDialog parentDialog = null;
     private String documentURL = null;
     private BungeniListDocument listDoc = null;
-    private BungeniDocument doc = null;
+    private BungeniDoc doc = null;
     private BungeniAttachment selectedAttachment = null;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
     
@@ -91,17 +95,17 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     /***
      * Parse the Document and its Attachments Here
      ***/ 
-    class LoadDocument extends SwingWorker<BungeniDocument, BungeniDocument>
+    class LoadDocument extends SwingWorker<BungeniDoc, BungeniDoc>
     {
         String urlDocument ;
-        BungeniDocument loadedDocument ; 
+        BungeniDoc loadedDocument ; 
         
         public LoadDocument(String urlDocument) {
             this.urlDocument = urlDocument;
         }
         
         @Override
-        protected BungeniDocument doInBackground() throws Exception
+        protected BungeniDoc doInBackground() throws Exception
         {
             BungeniAppConnector.WebResponse wr = 
                     BungeniServiceAccess.getInstance().
@@ -113,8 +117,14 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
             if (wr.getStatusCode() == 200) {
                 String responseBody = wr.getResponseBody();
                 if (null != responseBody) {
-                    Document doc  = Jsoup.parse(responseBody);
-                    BungeniDocument aDocument = new BungeniDocument(urlDocument, doc);
+                    StringReader sr = new StringReader(responseBody);
+                    Gson gson = new GsonBuilder().create();
+                    BungeniDoc bungeniDoc = gson.fromJson(sr, BungeniDoc.class);
+                    //** FIX_API **/
+                    //Document doc  = Jsoup.parse(responseBody);
+                    // BungeniDocument aDocument = new BungeniDocument(urlDocument, doc);
+                    
+                    /**
                     if (aDocument.hasAttachments()) {
                         for (BungeniAttachment att : aDocument.getAttachments()) {
                             BungeniAppConnector.WebResponse wrAtt = BungeniServiceAccess.getInstance().getAppConnector().getUrl(
@@ -130,8 +140,8 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                             }
 
                         }
-                    }
-                    return aDocument;
+                    }**/
+                    return bungeniDoc;
                 }
             }
             return null;
@@ -157,16 +167,18 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     
     
     private void setupFields() {
-        this.infoStatus.setText(doc.getStatus());
+        this.infoStatus.setText(doc.getStatus().getDisplayAs());
         this.infoTitle.setText(doc.getTitle());
-        this.txtDescription.setText(doc.getDescription());
+        this.txtDescription.setText(doc.getBody());
         
         DefaultListModel attModel = new DefaultListModel();
+        // FIX_API
+        /**
         for (BungeniAttachment att : doc.getAttachments()){
             if (this.mimeTypeFilter.contains(att.mimeType) ) {
                 attModel.addElement(att);
             }
-        }
+        }**/
         this.cboListAttachments.setModel(
                 attModel
                 );
@@ -179,9 +191,11 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         }
 
         DefaultListModel transitionsModel = new DefaultListModel();
+        //FIX_API
+        /**
         for (Transition t : doc.getTransitions()) {
             transitionsModel.addElement(t);
-        }
+        }**/
         this.cboTransitions.setModel(
                 transitionsModel
                 );
@@ -207,7 +221,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
     }
 
-    public BungeniDocument getDocument(){
+    public BungeniDoc getDocument(){
         return this.doc;
     }
     
