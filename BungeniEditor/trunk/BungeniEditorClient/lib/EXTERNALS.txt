@@ -42,3 +42,4 @@ json-simple http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs
 twinkle http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/twinkle
 mssql-jdbc http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/mssql-jdbc
 jmodalwindow http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/jmodalwindow
+google-gson http://bungeni-editor.googlecode.com/svn/external_imports/trunk/libs/google-gson/
