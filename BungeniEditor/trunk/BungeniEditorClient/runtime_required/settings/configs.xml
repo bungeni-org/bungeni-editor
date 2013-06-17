@@ -32,7 +32,7 @@
        <!-- authorize-uri = entry point to oauth
        authorize-form-uri = uri to authorize form to actually autorize after login  -->
        <oauth app-id="bungeni_editor" 
-         secret="2000bc6f803955e9829d01a9b13e56d1ea0e811d" 
+         secret="e18df88d08b4af773afa723f9ef177bf6652a2d6" 
          authorize-uri="/oauth/authorize?client_id={0}&amp;client_secret={1}&amp;response_type=code&amp;state={2}"
          authorize-form-uri="/oauth/authorize-form"
          refresh-token-uri="/oauth/access-token?grant_type=refresh_token&amp;refresh_token={0}"
