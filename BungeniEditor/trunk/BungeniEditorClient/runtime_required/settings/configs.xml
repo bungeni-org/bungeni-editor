@@ -46,7 +46,7 @@
         </oauth>
        <test base="/api/workspace" />
        <search base="/api/workspace/my-documents/inbox?filter_status={0}&amp;filter_type={1}" >
-          <states>reviewed</states>
+          <states>submitted</states>
           <type>assembly_bill</type>
        </search>
        <search base="/api/workspace/my-documents/external/jsonlisting?start=0&amp;limit=100" />

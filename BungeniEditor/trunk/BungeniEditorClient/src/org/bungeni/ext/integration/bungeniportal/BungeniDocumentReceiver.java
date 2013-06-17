@@ -38,6 +38,7 @@ import org.bungeni.ext.integration.bungeniportal.panels.BungeniDocumentAttListPa
 import org.bungeni.ext.integration.bungeniportal.panels.BungeniLoginPanel;
 import org.bungeni.ext.integration.bungeniportal.panels.BungeniSelectDocumentPanel;
 import org.bungeni.extutils.FrameLauncher;
+import org.bungeni.extutils.MessageBox;
 import org.bungeni.utils.BungeniDialog;
 import org.jdom.Element;
 
@@ -66,6 +67,8 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                         }
                     }
                 }
+            } else {
+                MessageBox.OK(parentFrame, "There are no documents available for editing !");
             }
         }   
         return null;
