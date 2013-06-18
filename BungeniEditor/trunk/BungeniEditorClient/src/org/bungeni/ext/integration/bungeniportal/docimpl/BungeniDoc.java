@@ -17,27 +17,22 @@
  */
 package org.bungeni.ext.integration.bungeniportal.docimpl;
 
+import java.util.List;
+
 /**
  * GSON Mapping class for Bungeni Doc types
  * @author Ashok Hariharan
  */
-public class BungeniDoc {
+public class BungeniDoc extends BungeniBaseDoc{
     private String admissible_date;
     private String body;
-    private Integer doc_id;
-    private String doc_type ; 
-    
+    private List<BungeniEvent> sa_events;
     private BungeniVocabType language;
     
     private String notice_date;
-    private Integer owner_id;
     
-    private BungeniVocabType status;
-    private String status_date;
     private String submission_date;
     private String timestamp;
-    private String title;
-    private String type;
 
     /**
      * @return the admissible_date
@@ -64,7 +59,7 @@ public class BungeniDoc {
      * @return the doc_type
      */
     public String getDocType() {
-        return doc_type;
+        return doc_type.getDisplayAs();
     }
 
     /**
