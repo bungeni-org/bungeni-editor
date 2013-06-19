@@ -17,28 +17,35 @@
  */
 package org.bungeni.ext.integration.bungeniportal.docimpl;
 
-import java.util.List;
-
 /**
- *
+ * GSON mapper class for permissions
  * @author Ashok Hariharan
  */
-public class BungeniEvent extends BungeniBaseDoc {
-    private Integer head_id;
-    private List<BungeniAtt> attachments;
+public class BungeniPermission {
+    private String permission;
+    private String role;
+    private String setting;
 
     /**
-     * @return the head_id
+     * @return the permission
      */
-    public Integer getHead_id() {
-        return head_id;
+    public String getPermission() {
+        return permission;
     }
 
     /**
-     * @return the attachments
+     * @return the role
      */
-    public List<BungeniAtt> getAttachments() {
-        return attachments;
+    public String getRole() {
+        return role;
     }
 
+    /**
+     * @return the setting
+     */
+    public String getSetting() {
+        return setting;
+    }
+    
+    
 }

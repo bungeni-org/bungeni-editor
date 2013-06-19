@@ -17,6 +17,10 @@
  */
 package org.bungeni.ext.integration.bungeniportal.docimpl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 
 /**
@@ -24,15 +28,14 @@ import java.util.List;
  * @author Ashok Hariharan
  */
 public class BungeniDoc extends BungeniBaseDoc{
+
     private String admissible_date;
-    private String body;
+    
     private List<BungeniEvent> sa_events;
-    private BungeniVocabType language;
-    
+    private List<BungeniAtt> attachments;
+
     private String notice_date;
-    
     private String submission_date;
-    private String timestamp;
 
     /**
      * @return the admissible_date
@@ -42,31 +45,17 @@ public class BungeniDoc extends BungeniBaseDoc{
     }
 
     /**
-     * @return the body
-     */
-    public String getBody() {
-        return body;
-    }
-
-    /**
      * @return the doc_id
      */
     public Integer getDocId() {
-        return doc_id;
+        return getDoc_id();
     }
 
     /**
      * @return the doc_type
      */
-    public String getDocType() {
-        return doc_type.getDisplayAs();
-    }
-
-    /**
-     * @return the language
-     */
-    public BungeniVocabType getLanguage() {
-        return language;
+    public BungeniVocabType getDocType() {
+        return getDoc_type();
     }
 
     /**
@@ -80,21 +69,14 @@ public class BungeniDoc extends BungeniBaseDoc{
      * @return the owner_id
      */
     public Integer getOwnerId() {
-        return owner_id;
-    }
-
-    /**
-     * @return the status
-     */
-    public BungeniVocabType getStatus() {
-        return status;
+        return getOwner_id();
     }
 
     /**
      * @return the status_date
      */
     public String getStatusDate() {
-        return status_date;
+        return getStatus_date();
     }
 
     /**
@@ -104,26 +86,15 @@ public class BungeniDoc extends BungeniBaseDoc{
         return submission_date;
     }
 
-    /**
-     * @return the timestamp
-     */
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
+    public List<BungeniEvent> getSaEvents(){
+        return this.sa_events;
     }
     
-
+    /**
+    public static void main(String[] args){
+        Reader reader = new InputStreamReader(BungeniDoc.class.getResourceAsStream("test.json"));
+        Gson gson = new GsonBuilder().create();
+        BungeniDoc p = gson.fromJson(reader, BungeniDoc.class);
+        System.out.println(p);
+   }**/
 }

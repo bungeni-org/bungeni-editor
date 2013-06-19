@@ -17,19 +17,118 @@
  */
 package org.bungeni.ext.integration.bungeniportal.docimpl;
 
+import java.util.List;
+
 /**
  *
  * @author Ashok
  */
 public class BungeniBaseDoc {
     
-    protected BungeniVocabType status;
-    protected String status_date;
-    protected BungeniVocabType doc_type ; 
-    protected String title;
-    protected String type;
-    protected Integer owner_id;
-    protected Integer doc_id;
+    private BungeniVocabType status;
+    private String status_date;
+    private BungeniVocabType doc_type ; 
+    private BungeniVocabType language ; 
+    private List<BungeniPermission> permissions;
+    private String title;
+    private String type;
+    private String acronym; 
+    private String body;
+    private String description;
+    private String timestamp;
+    private Integer owner_id;
+    private Integer doc_id;
+
+    /**
+     * @return the status
+     */
+    public BungeniVocabType getStatus() {
+        return status;
+    }
+
+    /**
+     * @return the status_date
+     */
+    public String getStatus_date() {
+        return status_date;
+    }
+
+    /**
+     * @return the doc_type
+     */
+    public BungeniVocabType getDoc_type() {
+        return doc_type;
+    }
+
+    /**
+     * @return the language
+     */
+    public BungeniVocabType getLanguage() {
+        return language;
+    }
+
+    /**
+     * @return the permissions
+     */
+    public List<BungeniPermission> getPermissions() {
+        return permissions;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @return the acronym
+     */
+    public String getAcronym() {
+        return acronym;
+    }
+
+    /**
+     * @return the body
+     */
+    public String getBody() {
+        return body;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return the timestamp
+     */
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * @return the owner_id
+     */
+    public Integer getOwner_id() {
+        return owner_id;
+    }
+
+    /**
+     * @return the doc_id
+     */
+    public Integer getDoc_id() {
+        return doc_id;
+    }
 
 
  

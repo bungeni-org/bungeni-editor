@@ -30,7 +30,6 @@ import java.awt.event.ActionListener;
 import java.io.StringReader;
 import java.util.HashSet;
 import java.util.concurrent.ExecutionException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
@@ -38,16 +37,14 @@ import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAtt;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
-import org.bungeni.ext.integration.bungeniportal.docimpl.Transition;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniEvent;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 /**
  *
@@ -172,6 +169,14 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.txtDescription.setText(doc.getBody());
         
         DefaultListModel attModel = new DefaultListModel();
+        for (BungeniEvent event : doc.getSaEvents()){
+            for (BungeniAtt att: event.getAttachments()) {
+                if (mimeTypeFilter.contains(att.getMimetype())) {
+                    attModel.addElement(att);
+                }
+            }
+        }
+        
         // FIX_API
         /**
         for (BungeniAttachment att : doc.getAttachments()){
