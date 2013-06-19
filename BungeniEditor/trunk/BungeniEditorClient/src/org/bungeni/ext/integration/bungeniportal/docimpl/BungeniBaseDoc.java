@@ -38,6 +38,7 @@ public class BungeniBaseDoc {
     private String timestamp;
     private Integer owner_id;
     private Integer doc_id;
+    private String documentURL;
     private List<BungeniAtt> attachments; 
     
     
@@ -150,6 +151,14 @@ public class BungeniBaseDoc {
      */
     public Integer getDoc_id() {
         return doc_id;
+    }
+    
+    public void setURL(String docURL){
+        this.documentURL = docURL;
+    }
+    
+    public String getDocumentURL(){
+        return this.documentURL;
     }
 
 

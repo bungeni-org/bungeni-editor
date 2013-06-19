@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
 import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.utils.BungeniDialog;
@@ -43,7 +44,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         org.apache.log4j.Logger.getLogger(BungeniAttLoadingPanel.class.getName());
     
     private BungeniDialog parentDialog;
-    private BungeniDocument doc;
+    private BungeniDoc doc;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
     private    File fodfDocument ; 
 
@@ -56,7 +57,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public BungeniAttLoadingPanel(BungeniDialog parentDialog, BungeniDocument doc){
+    public BungeniAttLoadingPanel(BungeniDialog parentDialog, BungeniDoc doc){
         this();
         this.parentDialog = parentDialog;
         this.doc = doc;
@@ -130,11 +131,11 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
 }
 
     public void setupFields(){
-         this.txtDescription.setText(this.doc.getSelectedAttachment().description);
-         this.txtFileName.setText(this.doc.getSelectedAttachment().fileName);
-         this.txtStatus.setText(this.doc.getSelectedAttachment().status);
-         this.txtStatusDate.setText(this.doc.getSelectedAttachment().statusDate);
-         this.txtTitle.setText(this.doc.getSelectedAttachment().title);
+         this.txtDescription.setText(this.doc.getSelectedAttachment().getDescription());
+         this.txtFileName.setText(this.doc.getSelectedAttachment().getName());
+         this.txtStatus.setText(this.doc.getSelectedAttachment().getStatus().getDisplayAs());
+         this.txtStatusDate.setText(this.doc.getSelectedAttachment().getStatus_date());
+         this.txtTitle.setText(this.doc.getSelectedAttachment().getTitle());
          
          this.btnLoadEditAttachment.addActionListener(new ActionListener() {
 
@@ -155,7 +156,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
     }
 
     
-    public BungeniDocument getBungeniDocument(){
+    public BungeniDoc getBungeniDocument(){
         return this.doc;
     }
     
@@ -300,10 +301,10 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
 
     class EditAttachment extends SwingWorker<File, BungeniDocument>
     {
-        BungeniDocument loadedDocument;
+        BungeniDoc loadedDocument;
         
         
-        public EditAttachment(BungeniDocument inputDoc) {
+        public EditAttachment(BungeniDoc inputDoc) {
             this.loadedDocument = inputDoc;
             //NotifyBox.info("Loading Document in Editor");
         }
@@ -314,7 +315,7 @@ public class BungeniAttLoadingPanel extends javax.swing.JPanel {
             File fodt = null;
             File ftempAtt = BungeniServiceAccess.getInstance().getAppConnector().
                     getDownloadUrl(
-                        this.loadedDocument.getSelectedAttachment().downloadUrl,
+                        this.loadedDocument.getSelectedAttachment().getDocumentURL(),
                         false
                     );
             

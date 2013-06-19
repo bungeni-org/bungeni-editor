@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import org.bungeni.editor.config.PluggableConfigReader.PluggableConfig;
 import org.bungeni.editor.input.IInputDocumentReceiver;
 import org.bungeni.ext.integration.bungeniportal.OAuthProperties.OAuthState;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAtt;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
@@ -59,7 +60,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
                 //show list documents
                 BungeniListDocument selectedDocument =  selectDocument(parentFrame, listDocs);
                 if (selectedDocument != null){
-                    BungeniDocument bungeniDoc = selectAttachment(parentFrame, selectedDocument, customConfig);
+                    BungeniDoc bungeniDoc = selectAttachment(parentFrame, selectedDocument, customConfig);
                     if (null != bungeniDoc) {
                         File fodf = loadAttachment(parentFrame, bungeniDoc, customConfig);
                         if (null != fodf ) {
@@ -154,7 +155,7 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return panelSelectDocument.getSelectedListDocument();
     }
     
-    private BungeniDocument selectAttachment(final JFrame parentFrame, BungeniListDocument selectedDocument, final PluggableConfig customConfig) {
+    private BungeniDoc selectAttachment(final JFrame parentFrame, BungeniListDocument selectedDocument, final PluggableConfig customConfig) {
          String docUrlBase = this.documentURLBase(customConfig);
          BungeniDialog               dlgdoc = new BungeniDialog(parentFrame, selectedDocument.title, true);
          BungeniDocumentAttListPanel  panelShowDocument = new BungeniDocumentAttListPanel(
@@ -166,6 +167,12 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          //!+CONTINUE_HERE
          dlgdoc.view(panelShowDocument);
          BungeniDoc aDoc = panelShowDocument.getDocument();
+         if (aDoc != null){
+             BungeniAtt att = aDoc.getSelectedAttachment();
+             if (att != null) {
+                 return aDoc;
+             }
+         }
          /** FIX_API
          if (aDoc != null ){
              BungeniAttachment attDoc = aDoc.getSelectedAttachment();
@@ -176,9 +183,9 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
          return null;
     }
     
-    public File loadAttachment(JFrame pFrame, BungeniDocument bungeniDocument, final PluggableConfig customConfig){
+    public File loadAttachment(JFrame pFrame, BungeniDoc bungeniDocument, final PluggableConfig customConfig){
         //first get the properties of the document 
-         BungeniDialog  dlgatt = new BungeniDialog(pFrame, bungeniDocument.getSelectedAttachment().title, true);
+         BungeniDialog  dlgatt = new BungeniDialog(pFrame, bungeniDocument.getSelectedAttachment().getTitle(), true);
          BungeniAttLoadingPanel  panelShowAtt = new BungeniAttLoadingPanel(
                  dlgatt,
                  bungeniDocument

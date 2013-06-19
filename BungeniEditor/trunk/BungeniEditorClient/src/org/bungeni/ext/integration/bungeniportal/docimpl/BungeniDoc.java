@@ -82,6 +82,4 @@ public class BungeniDoc extends BungeniBaseDoc{
     public List<BungeniEvent> getSaEvents(){
         return this.sa_events;
     }
-    
-
 }

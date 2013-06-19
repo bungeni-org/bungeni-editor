@@ -116,6 +116,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                     StringReader sr = new StringReader(responseBody);
                     Gson gson = new GsonBuilder().create();
                     BungeniDoc bungeniDoc = gson.fromJson(sr, BungeniDoc.class);
+                    bungeniDoc.setURL(this.urlDocument);
                     //** FIX_API **/
                     //Document doc  = Jsoup.parse(responseBody);
                     // BungeniDocument aDocument = new BungeniDocument(urlDocument, doc);

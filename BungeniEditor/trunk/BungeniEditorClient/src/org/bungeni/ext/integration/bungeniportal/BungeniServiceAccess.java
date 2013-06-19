@@ -40,7 +40,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector.WebResponse;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAtt;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDocument;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
@@ -458,7 +460,7 @@ public class BungeniServiceAccess {
      * @return
      * @throws Exception
      */
-    public File checkOdfDocument(File fodf, BungeniDocument aDocument) throws Exception {
+    public File checkOdfDocument(File fodf, BungeniDoc aDocument) throws Exception {
         OdfDocument odf = OdfDocument.loadDocument(fodf);
         BungeniOdfDocumentHelper odfhelper = new BungeniOdfDocumentHelper(odf);
         BungeniOdfPropertiesHelper propshelper = odfhelper.getPropertiesHelper();
@@ -482,27 +484,29 @@ public class BungeniServiceAccess {
             // TO DO 
        // } else {
             //first prepare the document
-            BungeniAttachment att = aDocument.getSelectedAttachment();
+            BungeniAtt att = aDocument.getSelectedAttachment();
             propshelper.setUserDefinedPropertyValue("BungeniDocType", BungeniEditorPropertiesHelper.getCurrentDocType());
             propshelper.setUserDefinedPropertyValue("DocSource", "BungeniPortal");
             propshelper.setUserDefinedPropertyValue("DocEditor", "BungeniEditor");
             propshelper.setUserDefinedPropertyValue("DocInit", "False");
-            propshelper.setUserDefinedPropertyValue("PortalSourceDoc", aDocument.getStatus());
+            propshelper.setUserDefinedPropertyValue("PortalSourceDoc", aDocument.getStatus().getValue());
             propshelper.setUserDefinedPropertyValue("PortalSourceTitle", aDocument.getTitle());
-            propshelper.setUserDefinedPropertyValue("PortalSourceURL", aDocument.getURL());
-            propshelper.setUserDefinedPropertyValue("PortalAttSource", att.url);
-            propshelper.setUserDefinedPropertyValue("PortalAttFileName", att.fileName);
-            propshelper.setUserDefinedPropertyValue("PortalAttTitle", att.title);
-            propshelper.setUserDefinedPropertyValue("PortalAttType", att.attType);
-            propshelper.setUserDefinedPropertyValue("PortalAttMimeType", att.mimeType);
-            propshelper.setUserDefinedPropertyValue("PortalAttLang", att.language);
-            propshelper.setUserDefinedPropertyValue("PortalAttStatus", att.status);
-            propshelper.setUserDefinedPropertyValue("PortalAttStatusDate", att.statusDate);
-            propshelper.setUserDefinedPropertyValue("PortalAttDownURL", att.downloadUrl);
-            propshelper.setUserDefinedPropertyValue("PortalAttDesc", att.description);
-            propshelper.setUserDefinedPropertyValue("PortalAttTransCount", Integer.toString(att.transitions.size()));
+            propshelper.setUserDefinedPropertyValue("PortalSourceURL", aDocument.getDocumentURL());
+            propshelper.setUserDefinedPropertyValue("PortalAttSource", att.getDocumentURL());
+            propshelper.setUserDefinedPropertyValue("PortalAttFileName", att.getName());
+            propshelper.setUserDefinedPropertyValue("PortalAttTitle", att.getTitle());
+            propshelper.setUserDefinedPropertyValue("PortalAttType", att.getType().getValue());
+            propshelper.setUserDefinedPropertyValue("PortalAttMimeType", att.getMimetype());
+            propshelper.setUserDefinedPropertyValue("PortalAttLang", att.getLanguage().getValue());
+            propshelper.setUserDefinedPropertyValue("PortalAttStatus", att.getStatus().getValue());
+            propshelper.setUserDefinedPropertyValue("PortalAttStatusDate", att.getStatus_date());
+            propshelper.setUserDefinedPropertyValue("PortalAttDownURL", att.getDocumentURL());
+            propshelper.setUserDefinedPropertyValue("PortalAttDesc", att.getDescription());
+            // !+FIX_THIS
+            //propshelper.setUserDefinedPropertyValue("PortalAttTransCount", Integer.toString(att.transitions.size()));
 
             int i = 0;
+            /* !+FIX_THIS
             for (Transition transition : att.transitions) {
                 i++;
                 //Not more than 99 transitions !!!
@@ -510,7 +514,7 @@ public class BungeniServiceAccess {
                 propshelper.setUserDefinedPropertyValue("PortalAttTransName" + snum, transition.title);
                 propshelper.setUserDefinedPropertyValue("PortalAttTransURL" + snum, transition.url);
             }
-
+            */
             odfhelper.saveDocument();
             // create the root section after opening and set initial metadata properties
         //}

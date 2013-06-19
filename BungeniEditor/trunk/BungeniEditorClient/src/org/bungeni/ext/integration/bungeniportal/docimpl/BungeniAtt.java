@@ -32,8 +32,11 @@ public class BungeniAtt {
     private String title;
     private List<BungeniPermission> permissions;
     private BungeniVocabType status;
+    private BungeniVocabType type;
     private String status_date;
     private boolean selected = false;
+    private String documentURL;
+
 
     /**
      * @return the attachment_id
@@ -111,4 +114,16 @@ public class BungeniAtt {
         return this.selected;
     }
     
+    public void setURL(String docURL){
+        this.documentURL = docURL;
+    }
+    
+    public String getDocumentURL(){
+        return this.documentURL;
+    }
+    
+    public BungeniVocabType getType(){
+        return this.type;
+    }
+
 }
