@@ -33,6 +33,7 @@ public class BungeniAtt {
     private List<BungeniPermission> permissions;
     private BungeniVocabType status;
     private String status_date;
+    private boolean selected = false;
 
     /**
      * @return the attachment_id
@@ -95,6 +96,19 @@ public class BungeniAtt {
      */
     public String getStatus_date() {
         return status_date;
+    }
+    
+    @Override
+    public String toString(){
+        return getTitle();
+    }
+    
+    public void setSelected(boolean bState){
+        this.selected = bState;
+    }
+    
+    public boolean isSelected(){
+        return this.selected;
     }
     
 }

@@ -38,6 +38,28 @@ public class BungeniBaseDoc {
     private String timestamp;
     private Integer owner_id;
     private Integer doc_id;
+    private List<BungeniAtt> attachments; 
+    
+    
+    
+    /**
+     * @return the attachments
+     */
+    public List<BungeniAtt> getAttachments() {
+        return attachments;
+    }
+
+      public BungeniAtt getSelectedAttachment(){
+        if (attachments != null) {
+            for (BungeniAtt att : attachments) {
+                if (att.isSelected()) {
+                    return att;
+                }
+            }
+        }
+        return null;
+    }
+            
 
     /**
      * @return the status

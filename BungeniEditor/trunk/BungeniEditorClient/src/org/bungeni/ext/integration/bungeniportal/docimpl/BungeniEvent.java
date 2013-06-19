@@ -25,7 +25,6 @@ import java.util.List;
  */
 public class BungeniEvent extends BungeniBaseDoc {
     private Integer head_id;
-    private List<BungeniAtt> attachments;
 
     /**
      * @return the head_id
@@ -34,11 +33,5 @@ public class BungeniEvent extends BungeniBaseDoc {
         return head_id;
     }
 
-    /**
-     * @return the attachments
-     */
-    public List<BungeniAtt> getAttachments() {
-        return attachments;
-    }
 
 }

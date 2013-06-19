@@ -17,10 +17,6 @@
  */
 package org.bungeni.ext.integration.bungeniportal.docimpl;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 
 /**
@@ -30,10 +26,7 @@ import java.util.List;
 public class BungeniDoc extends BungeniBaseDoc{
 
     private String admissible_date;
-    
     private List<BungeniEvent> sa_events;
-    private List<BungeniAtt> attachments;
-
     private String notice_date;
     private String submission_date;
 
@@ -90,11 +83,5 @@ public class BungeniDoc extends BungeniBaseDoc{
         return this.sa_events;
     }
     
-    /**
-    public static void main(String[] args){
-        Reader reader = new InputStreamReader(BungeniDoc.class.getResourceAsStream("test.json"));
-        Gson gson = new GsonBuilder().create();
-        BungeniDoc p = gson.fromJson(reader, BungeniDoc.class);
-        System.out.println(p);
-   }**/
+
 }

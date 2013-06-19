@@ -36,12 +36,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
 import org.bungeni.ext.integration.bungeniportal.BungeniAppConnector;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAttachment;
-import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniAtt;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniDoc;
 import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniEvent;
+import org.bungeni.ext.integration.bungeniportal.docimpl.BungeniListDocuments.BungeniListDocument;
 import org.bungeni.extutils.DisabledGlassPane;
 import org.bungeni.extutils.NotifyBox;
 import org.bungeni.utils.BungeniDialog;
@@ -57,7 +56,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private String documentURL = null;
     private BungeniListDocument listDoc = null;
     private BungeniDoc doc = null;
-    private BungeniAttachment selectedAttachment = null;
+    private BungeniAtt selectedAttachment = null;
     private DisabledGlassPane glassPane = new DisabledGlassPane();
     
     private HashSet<String> mimeTypeFilter = new HashSet<String>(){
@@ -208,11 +207,11 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.btnImportAttachment.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                selectedAttachment = (BungeniAttachment) cboListAttachments.getSelectedValue();
+                selectedAttachment = (BungeniAtt) cboListAttachments.getSelectedValue();
                 if (null == selectedAttachment) {
                     NotifyBox.error("You need to select an attachment to import it !");
                 } else {
-                    selectedAttachment.isSelected = true;
+                    selectedAttachment.setSelected(true);
                     parentDialog.dispose();
                 }
             }
@@ -230,7 +229,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         return this.doc;
     }
     
-    public BungeniAttachment getSelectedAttachment() {
+    public BungeniAtt getSelectedAttachment() {
         return this.selectedAttachment;
     }
 
