@@ -57,10 +57,11 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         if (redirectLogin(parentFrame, customConfig)) {
             List<BungeniListDocument> listDocs = listDocuments(parentFrame, customConfig);
             if(listDocs.size() > 0 ) {
-                //show list documents
+                //show list documents and return the selected document
                 BungeniListDocument selectedDocument =  selectDocument(parentFrame, listDocs);
                 if (selectedDocument != null){
-                    BungeniDoc bungeniDoc = selectAttachment(parentFrame, selectedDocument, customConfig);
+                    // access the event and its attachment from the selected document
+                    BungeniDoc bungeniDoc = selectAttachmentFromEvent(parentFrame, selectedDocument, customConfig);
                     if (null != bungeniDoc) {
                         File fodf = loadAttachment(parentFrame, bungeniDoc, customConfig);
                         if (null != fodf ) {
@@ -155,7 +156,14 @@ public class BungeniDocumentReceiver implements IInputDocumentReceiver {
         return panelSelectDocument.getSelectedListDocument();
     }
     
-    private BungeniDoc selectAttachment(final JFrame parentFrame, BungeniListDocument selectedDocument, final PluggableConfig customConfig) {
+    /**
+     * 
+     * @param parentFrame
+     * @param selectedDocument the bungeni document in which you want to look for the event
+     * @param customConfig
+     * @return 
+     */
+    private BungeniDoc selectAttachmentFromEvent(final JFrame parentFrame, BungeniListDocument selectedDocument, final PluggableConfig customConfig) {
          String docUrlBase = this.documentURLBase(customConfig);
          BungeniDialog               dlgdoc = new BungeniDialog(parentFrame, selectedDocument.title, true);
          BungeniDocumentAttListPanel  panelShowDocument = new BungeniDocumentAttListPanel(

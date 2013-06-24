@@ -65,7 +65,12 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         }  
     };
    
-    /** Creates new form BungeniDocumentAttListPanel */
+    /**
+     * 
+     * @param dlg
+     * @param listDocument the listing document which you want to introspect
+     * @param docURL  the URL of the document
+     */
     public BungeniDocumentAttListPanel(BungeniDialog dlg, BungeniListDocument listDocument, String docURL) {
         this.parentDialog = dlg;
         this.listDoc= listDocument;
@@ -169,8 +174,16 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.txtDescription.setText(doc.getBody());
         
         DefaultListModel attModel = new DefaultListModel();
+        /**
+         * We iterate through all the events
+         */
         for (BungeniEvent event : doc.getSaEvents()){
+            /**
+             * And the attachments of each event
+             */
             for (BungeniAtt att: event.getAttachments()) {
+                /** if the attachment is a ODT we show it in the list 
+                 */
                 if (mimeTypeFilter.contains(att.getMimetype())) {
                     attModel.addElement(att);
                 }
@@ -201,7 +214,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         for (Transition t : doc.getTransitions()) {
             transitionsModel.addElement(t);
         }**/
-        this.cboTransitions.setModel(
+        this.cboEvents.setModel(
                 transitionsModel
                 );
 
@@ -260,7 +273,7 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lblTransit = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        cboTransitions = new javax.swing.JList();
+        cboEvents = new javax.swing.JList();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/ext/integration/bungeniportal/panels/Bundle"); // NOI18N
         btnTransit.setText(bundle.getString("BungeniDocumentAttListPanel.btnTransit.text")); // NOI18N
@@ -290,10 +303,10 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
 
         jLabel1.setText(bundle.getString("BungeniDocumentAttListPanel.jLabel1.text")); // NOI18N
 
-        lblTransit.setLabelFor(cboTransitions);
+        lblTransit.setLabelFor(cboEvents);
         lblTransit.setText(bundle.getString("BungeniDocumentAttListPanel.lblTransit.text")); // NOI18N
 
-        jScrollPane3.setViewportView(cboTransitions);
+        jScrollPane3.setViewportView(cboEvents);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -371,8 +384,8 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnImportAttachment;
     private javax.swing.JButton btnTransit;
+    private javax.swing.JList cboEvents;
     private javax.swing.JList cboListAttachments;
-    private javax.swing.JList cboTransitions;
     private javax.swing.JLabel infoStatus;
     private javax.swing.JLabel infoTitle;
     private javax.swing.JLabel jLabel1;
