@@ -29,7 +29,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.bungeni.ext.integration.bungeniportal.BungeniServiceAccess;
 import org.bungeni.ext.integration.bungeniportal.LoginInfo;
 import org.bungeni.extutils.DisabledGlassPane;
-import org.bungeni.extutils.MessageBox;
 import org.bungeni.extutils.NotifyBox;
 
 /**

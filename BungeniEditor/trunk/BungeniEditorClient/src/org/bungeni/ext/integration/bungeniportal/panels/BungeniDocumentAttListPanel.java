@@ -173,32 +173,26 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
         this.infoTitle.setText(doc.getTitle());
         this.txtDescription.setText(doc.getBody());
         
-        DefaultListModel attModel = new DefaultListModel();
+        DefaultListModel eventsModel = new DefaultListModel();
+        DefaultListModel eventAttsModel = new DefaultListModel();
+        
         /**
          * We iterate through all the events
          */
         for (BungeniEvent event : doc.getSaEvents()){
-            /**
-             * And the attachments of each event
-             */
-            for (BungeniAtt att: event.getAttachments()) {
-                /** if the attachment is a ODT we show it in the list 
-                 */
-                if (mimeTypeFilter.contains(att.getMimetype())) {
-                    attModel.addElement(att);
-                }
-            }
+            eventsModel.addElement(event);
         }
-        
+        cboEvents.setModel(eventsModel);
         // FIX_API
         /**
+         * 
         for (BungeniAttachment att : doc.getAttachments()){
             if (this.mimeTypeFilter.contains(att.mimeType) ) {
                 attModel.addElement(att);
             }
         }**/
         this.cboListAttachments.setModel(
-                attModel
+                eventAttsModel
                 );
         if (cboListAttachments.getModel().getSize() == 0) {
             btnImportAttachment.setEnabled(false);
@@ -319,6 +313,9 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                         .addComponent(lblDocInfo)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTransit)
+                        .addGap(0, 438, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,13 +330,9 @@ public class BungeniDocumentAttListPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 90, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTransit)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 90, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3))
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(134, 134, 134)
                 .addComponent(btnImportAttachment)

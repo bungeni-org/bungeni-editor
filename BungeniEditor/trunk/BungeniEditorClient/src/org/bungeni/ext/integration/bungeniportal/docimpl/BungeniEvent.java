@@ -17,8 +17,6 @@
  */
 package org.bungeni.ext.integration.bungeniportal.docimpl;
 
-import java.util.List;
-
 /**
  *
  * @author Ashok Hariharan
@@ -33,5 +31,9 @@ public class BungeniEvent extends BungeniBaseDoc {
         return head_id;
     }
 
+    @Override
+    public String toString(){
+        return this.getTitle() + " [" + this.getStatus().getDisplayAs() + "]";
+    }
 
 }
