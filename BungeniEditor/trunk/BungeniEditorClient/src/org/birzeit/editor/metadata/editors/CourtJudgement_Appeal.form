@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[500, 550]"/>
+      <Dimension value="[400, 1000]"/>
     </Property>
   </Properties>
   <AuxValues>
@@ -23,12 +23,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jAppealDataPanel1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jCaseFullDataPanel" max="32767" attributes="0"/>
-                  <Component id="jCaseDataPanel" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jAppealDataPanel1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jCaseDataPanel" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jCaseFullDataPanel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="136" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,7 +43,7 @@
               <Component id="jCaseDataPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jCaseFullDataPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="212" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,10 +51,10 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jCaseDataPanel">
       <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor" postCode="jCaseDataPanel.setVisible(false);">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Case Data">
-              <ResourceString PropertyName="titleX" bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseData.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseData.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
               <Font PropertyName="font" name="DejaVu Sans" size="10" style="0"/>
             </TitledBorder>
           </Border>
@@ -238,7 +240,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Case Data">
-              <ResourceString PropertyName="titleX" bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseData.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseData.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
               <Font PropertyName="font" name="DejaVu Sans" size="10" style="0"/>
             </TitledBorder>
           </Border>
@@ -277,7 +279,7 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btnSaveAppeal1" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
+                                      <Component id="btnSaveCase" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
                                       <Component id="btnNewCase1" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -383,7 +385,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnNewCase1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnSaveAppeal1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSaveCase" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -395,7 +397,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseNo1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseNo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -442,7 +444,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblRegion1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblRegion.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -489,7 +491,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblYear1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblYear.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -499,7 +501,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCity1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCity.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -509,7 +511,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseType1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCaseType.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -519,7 +521,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblOfficialDate1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblOfficialDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -530,7 +532,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_official_date1.setFormats(&quot;dd/MM/yyyy&quot;);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_official_date1.setFormats(&quot;yyyy-MM-dd&quot;);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCaseNumber1">
@@ -546,7 +548,7 @@
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCourtType1.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.lblCourtType.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -563,13 +565,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewCase1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnSaveAppeal1">
+        <Component class="javax.swing.JButton" name="btnSaveCase">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="DejaVu Sans" size="10" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.btnSaveAppeal1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.btnSaveCase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
         </Component>
@@ -601,6 +603,19 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCaseNo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCaseNumber" alignment="0" min="-2" pref="62" max="-2" attributes="1"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="slash2" min="-2" pref="12" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtYear" alignment="0" min="-2" pref="62" max="-2" attributes="1"/>
+                              <Component id="lblYear" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="cboCourtType" alignment="0" pref="151" max="-2" attributes="0"/>
                               <Component id="cboCaseType" alignment="0" pref="151" max="-2" attributes="0"/>
                               <Component id="cboCities" alignment="0" pref="151" max="-2" attributes="0"/>
@@ -624,19 +639,6 @@
                               <Component id="lblImportance" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="chbJudgeChecked" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtImportance" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCaseNo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtCaseNumber" alignment="0" min="-2" pref="62" max="-2" attributes="1"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Component id="slash2" min="-2" pref="12" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtYear" alignment="0" min="-2" pref="62" max="-2" attributes="1"/>
-                              <Component id="lblYear" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -704,6 +706,7 @@
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblCaseNo" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lblYear" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -716,7 +719,6 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnSaveAppeal" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -873,7 +875,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_official_date1.setFormats(&quot;dd/MM/yyyy&quot;);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="dt_official_date.setFormats(&quot;yyyy-MM-dd&quot;);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblLanguage">
@@ -949,6 +951,9 @@
               <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="CourtJudgement_Appeal.btnSaveAppeal.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveAppealActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -40,6 +40,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.birzeit.editor.metadata.ActSourceModel;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.metadata.*;
@@ -208,7 +209,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
         setPreferredSize(new java.awt.Dimension(500, 400));
 
         jcbScrExcIssue.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
         jcbScrExcIssue.setText(bundle.getString("ActSource.jcbSrcExcIssue.text")); // NOI18N
 
         lblPublicationDateHijri.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -284,7 +285,7 @@ public class ActSource extends BaseEditorDocMetadataDialog {
                                 .addComponent(lblSourceType)
                                 .addComponent(jcbScrExcIssue)
                                 .addComponent(txtPublicationArea, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

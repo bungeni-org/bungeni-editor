@@ -37,7 +37,7 @@ import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
-import org.bungeni.editor.metadata.ActResponsibleAuthoritiesModel;
+import org.birzeit.editor.metadata.ActResponsibleAuthoritiesModel;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
 import org.birzeit.editor.metadata.DateHijri;
 import org.birzeit.editor.metadata.PromulagtedLeg;
@@ -260,7 +260,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
         cboActRelease = new javax.swing.JComboBox();
 
         lblActApproved.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
         lblActApproved.setText(bundle.getString("ActResponsibleAuthorities.lblActApproved.text")); // NOI18N
 
         dt_ActRelease_date.setFormats("yyyy-MM-dd");
@@ -328,7 +328,7 @@ public class ActResponsibleAuthorities extends BaseEditorDocMetadataDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblActDeveloped, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lblActApproved, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(0, 124, Short.MAX_VALUE))))
+                            .addGap(0, 138, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dt_ActRelease_dateHijri, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -8,10 +8,16 @@ package org.birzeit.editor.metadata.editors;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.config.BungeniEditorProperties;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
@@ -23,10 +29,24 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeMap;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import org.bungeni.connector.client.BungeniConnector;
 import org.bungeni.connector.element.*;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
@@ -37,11 +57,13 @@ import org.birzeit.editor.metadata.City;
 import org.birzeit.editor.metadata.CourtType;
 import org.birzeit.editor.metadata.Domains;
 import org.birzeit.editor.metadata.JudgementRegion;
-import org.bungeni.editor.metadata.JudgementMetadataModel;
+import org.birzeit.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.metadata.LanguageCode;
+import org.bungeni.editor.metadata.editors.MetadataEditorContainer;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.*;
 import org.bungeni.utils.BungeniFileSavePathFormat;
+import org.bungeni.utils.BungeniFrame;
 
 /**
  *
@@ -49,12 +71,13 @@ import org.bungeni.utils.BungeniFileSavePathFormat;
  */
 public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
 
+    private static java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CourtJudgement_Appeal.class.getName());
     JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
     private SimpleDateFormat dtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
     private SimpleDateFormat savedtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataSaveDateFormat"));
     private SimpleDateFormat dbdtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("dataBaseDateFormat"));
-    private String dbName = "CourtJudgments2007";
+    private String dbName = "CourtJudgments2007_test";
     private ArrayList<CaseType> CaseTypesList = new ArrayList<CaseType>();
     private ArrayList<Domains> DomainsList = new ArrayList<Domains>();
     private ArrayList<JudgementRegion> JudgementRegionsList = new ArrayList<JudgementRegion>();
@@ -63,18 +86,17 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
     private ArrayList<CourtType> CourtTypesListC = new ArrayList<CourtType>();
     private Connection con = ConnectorFunctions.ConnectMMSM(dbName);
     private Statement conStmt;
+    private final BungeniFrame frm = new BungeniFrame(bundle.getString("CourtJudgement_Appeal_tableData.text"));
 
     public CourtJudgement_Appeal() {
         super();
-          try {
+        try {
             conStmt = con.createStatement();
         } catch (SQLException ex) {
             Logger.getLogger(ActSource.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
         CommonUIFunctions.compOrientation(this);
-        
-       
     }
 
     @Override
@@ -129,45 +151,54 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
     }
 
     private void loadActInfo() {
-        BungeniConnector client = null;
-        try {
-            client = CommonConnectorFunctions.getDSClient();
-            List<MetadataInfo> metadata = client.getMetadataInfo();
-            if (metadata != null) {
-                for (int i = 0; i < metadata.size(); i++) {
 
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniLanguageCode")) {
-                        docMetaModel.setBungeniLanguageCode(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniFamily")) {
-                        docMetaModel.setBungeniFamily(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniDomain")) {
-                        docMetaModel.setBungeniDomain(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCaseType")) {
-                        docMetaModel.setBungeniCaseType(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCity")) {
-                        docMetaModel.setBungeniCity(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCaseNo")) {
-                        docMetaModel.setBungeniCaseNo(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniDate")) {
-                        docMetaModel.setBungeniDate(metadata.get(i).getValue());
-                    }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniYear")) {
-                        docMetaModel.setBungeniYear(metadata.get(i).getValue());
-                    }
+        String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
+        String sCourtType = docMetaModel.getItem("BungeniCourtType");
+        String sDomainType = docMetaModel.getItem("BungeniDomain");
+        String sRegion = docMetaModel.getItem("BungeniRegion");
+        String sCaseType = docMetaModel.getItem("BungeniCaseType");
+        String sCity = docMetaModel.getItem("BungeniCity");
+        String sCaseNo = docMetaModel.getItem("BungeniCaseNo");
+        String sDate = docMetaModel.getItem("BungeniDate");
+        String sYear = docMetaModel.getItem("BungeniYear");
+        String sImportance = docMetaModel.getItem("BungeniImportance");
 
-                    System.out.println(metadata.get(i).getName() + " " + metadata.get(i).getType() + " " + metadata.get(i).getValue());
-                }
-            }
-            client.closeConnector();
-        } catch (IOException ex) {
-            log.error("THe connector client could not be initialized", ex);
+        if (!CommonStringFunctions.emptyOrNull(sLanguageCode)) {
+            this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
         }
+        if (!CommonStringFunctions.emptyOrNull(sCourtType)) {
+            this.cboCourtType.setSelectedItem(sCourtType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sDomainType)) {
+            this.cboDomain.setSelectedItem(sDomainType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sRegion)) {
+            this.cboRegion.setSelectedItem(sDomainType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sCaseType)) {
+            this.cboCaseType.setSelectedItem(sCaseType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sCity)) {
+            this.cboCities.setSelectedItem(sCity);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sCaseNo)) {
+            this.txtCaseNumber.setText(sCaseNo);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sDate)) {
+            try {
+                this.dt_official_date.setDate(dtformatter.parse(sDate));
+            } catch (ParseException ex) {
+                Logger.getLogger(CourtJudgement_Appeal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (!CommonStringFunctions.emptyOrNull(sYear)) {
+            this.txtYear.setText(sYear);
+        }
+
+        if (!CommonStringFunctions.emptyOrNull(sImportance)) {
+            this.txtImportance.setText(sImportance);
+        }
+
     }
 
     public Component getPanelComponent() {
@@ -345,28 +376,84 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         return courtTypesModel;
     }
 
-    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
+    private boolean storeAppealData() {
         boolean bState = false;
         try {
             LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
-            String sFamily = (String) this.cboCaseType1.getSelectedItem();
-            String sDomain = (String) this.cboDomain1.getSelectedItem();
-            String sCaseType = (String) this.cboCourtType1.getSelectedItem();
-            String sCity = (String) this.cboCities1.getSelectedItem();
-            String sCaseNo = this.txtCaseNumber1.getText();
-            String sDate = dbdtformatter.format(dt_official_date1.getDate());
-            String sYear = this.txtYear1.getText();
+            CourtType sCourtType = CourtTypesList.get(this.cboCourtType.getSelectedIndex());
+            Domains sDomain = DomainsList.get(this.cboDomain.getSelectedIndex());
+            JudgementRegion sRegion = JudgementRegionsList.get(this.cboRegion.getSelectedIndex());
+            CaseType sCaseType = CaseTypesList.get(this.cboCaseType.getSelectedIndex());
+            City sCity = CitiesList.get(this.cboCities.getSelectedIndex());
+            String sCaseNo = this.txtCaseNumber.getText();
+            String sDate = dbdtformatter.format(dt_official_date.getDate());
+            String sYear = this.txtYear.getText();
             String sImportance = this.txtImportance.getText();
 
             docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha2());
-            docMetaModel.updateItem("BungeniFamily", sFamily);
-            docMetaModel.updateItem("BungeniDomain", sDomain);
-            docMetaModel.updateItem("BungeniCaseType", sCaseType);
-            docMetaModel.updateItem("BungeniCity", sCity);
+            docMetaModel.updateItem("BungeniCourtType", sCourtType.toString());
+            docMetaModel.updateItem("BungeniDomain", sDomain.toString());
+            docMetaModel.updateItem("BungeniRegion", sRegion.toString());
+            docMetaModel.updateItem("BungeniCaseType", sCaseType.toString());
+            docMetaModel.updateItem("BungeniCity", sCity.toString());
+
+            docMetaModel.updateItem("BungeniCourtTypeID", sCourtType.getCourtTypeID());
+            docMetaModel.updateItem("BungeniDomainID", sDomain.getDomainID());
+            docMetaModel.updateItem("BungeniRegionID", sRegion.getJudgementRegionID());
+            docMetaModel.updateItem("BungeniCaseTypeID", sCaseType.getCaseTypeID());
+            docMetaModel.updateItem("BungeniCityID", sCity.getCityID());
+
+
             docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
             docMetaModel.updateItem("BungeniIssuedOn", sDate);
             docMetaModel.updateItem("BungeniYear", sYear);
             docMetaModel.updateItem("BungeniImportance", sImportance);
+
+            docMetaModel.saveModel(ooDocument);
+            bState = true;
+
+        } catch (Exception ex) {
+            log.error("store data : " + ex.getMessage());
+            bState = false;
+        } finally {
+            return bState;
+        }
+
+    }
+
+    public boolean applySelectedMetadata(BungeniFileSavePathFormat spf) {
+        boolean bState = false;
+        try {
+            LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
+            CourtType sCourtType = CourtTypesList.get(this.cboCourtType.getSelectedIndex());
+            Domains sDomain = DomainsList.get(this.cboDomain.getSelectedIndex());
+            JudgementRegion sRegion = JudgementRegionsList.get(this.cboRegion.getSelectedIndex());
+            CaseType sCaseType = CaseTypesList.get(this.cboCaseType.getSelectedIndex());
+            City sCity = CitiesList.get(this.cboCities.getSelectedIndex());
+            String sCaseNo = this.txtCaseNumber.getText();
+            String sDate = dbdtformatter.format(dt_official_date.getDate());
+            String sYear = this.txtYear.getText();
+            String sImportance = this.txtImportance.getText();
+
+            docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha2());
+            docMetaModel.updateItem("BungeniCourtType", sCourtType.toString());
+            docMetaModel.updateItem("BungeniDomain", sDomain.toString());
+            docMetaModel.updateItem("BungeniRegion", sRegion.toString());
+            docMetaModel.updateItem("BungeniCaseType", sCaseType.toString());
+            docMetaModel.updateItem("BungeniCity", sCity.toString());
+
+            docMetaModel.updateItem("BungeniCourtTypeID", sCourtType.getCourtTypeID());
+            docMetaModel.updateItem("BungeniDomainID", sDomain.getDomainID());
+            docMetaModel.updateItem("BungeniRegionID", sRegion.getJudgementRegionID());
+            docMetaModel.updateItem("BungeniCaseTypeID", sCaseType.getCaseTypeID());
+            docMetaModel.updateItem("BungeniCityID", sCity.getCityID());
+
+
+            docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
+            docMetaModel.updateItem("BungeniIssuedOn", sDate);
+            docMetaModel.updateItem("BungeniYear", sYear);
+            docMetaModel.updateItem("BungeniImportance", sImportance);
+
 
             spf.setSaveComponent("DocumentType", BungeniEditorPropertiesHelper.getCurrentDocType());
             spf.setSaveComponent("LanguageCode", Locale.getDefault().getLanguage());
@@ -470,7 +557,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         txtCaseNumber1 = new javax.swing.JTextField();
         lblCourtType1 = new javax.swing.JLabel();
         btnNewCase1 = new javax.swing.JButton();
-        btnSaveAppeal1 = new javax.swing.JButton();
+        btnSaveCase = new javax.swing.JButton();
         jAppealDataPanel1 = new javax.swing.JPanel();
         lblCaseNo = new javax.swing.JLabel();
         slash2 = new javax.swing.JLabel();
@@ -496,35 +583,35 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         txtImportance = new javax.swing.JTextField();
         btnSaveAppeal = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(500, 550));
+        setPreferredSize(new java.awt.Dimension(400, 1000));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
         jCaseDataPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("CourtJudgement_Appeal.lblCaseData.text"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 10))); // NOI18N
+        jCaseDataPanel.setVisible(false);
         jCaseDataPanel.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
-        slash1.setText(bundle1.getString("CourtJudgement_Appeal.slash1.text")); // NOI18N
+        slash1.setText(bundle.getString("CourtJudgement_Appeal.slash1.text")); // NOI18N
 
         lblNoC.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblNoC.setText(bundle1.getString("CourtJudgement_Appeal.lblNoC.text")); // NOI18N
+        lblNoC.setText(bundle.getString("CourtJudgement_Appeal.lblNoC.text")); // NOI18N
 
         lblCourtTypeC.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCourtTypeC.setText(bundle1.getString("CourtJudgement_Appeal.lblCourtTypeC.text")); // NOI18N
+        lblCourtTypeC.setText(bundle.getString("CourtJudgement_Appeal.lblCourtTypeC.text")); // NOI18N
 
         txtYearC.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        txtYearC.setText(bundle1.getString("CourtJudgement_Appeal.txtYearC.text")); // NOI18N
+        txtYearC.setText(bundle.getString("CourtJudgement_Appeal.txtYearC.text")); // NOI18N
 
         txtNoC.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        txtNoC.setText(bundle1.getString("CourtJudgement_Appeal.txtNoC.text")); // NOI18N
+        txtNoC.setText(bundle.getString("CourtJudgement_Appeal.txtNoC.text")); // NOI18N
 
         lblYearC.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblYearC.setText(bundle1.getString("CourtJudgement_Appeal.lblYearC.text")); // NOI18N
+        lblYearC.setText(bundle.getString("CourtJudgement_Appeal.lblYearC.text")); // NOI18N
 
         cboCourtTypeC.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboCourtTypeC.setModel(setCourtTypesModel());
 
         btnNewCase.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnNewCase.setText(bundle1.getString("CourtJudgement_Appeal.btnNewCase.text")); // NOI18N
+        btnNewCase.setText(bundle.getString("CourtJudgement_Appeal.btnNewCase.text")); // NOI18N
         btnNewCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewCaseActionPerformed(evt);
@@ -532,7 +619,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         });
 
         btnSearch.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnSearch.setText(bundle1.getString("CourtJudgement_Appeal.btnSearch.text")); // NOI18N
+        btnSearch.setText(bundle.getString("CourtJudgement_Appeal.btnSearch.text")); // NOI18N
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -599,9 +686,9 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         jCaseFullDataPanel.setVisible(false);
 
         lblCaseNo1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCaseNo1.setText(bundle1.getString("CourtJudgement_Appeal.lblCaseNo1.text_1")); // NOI18N
+        lblCaseNo1.setText(bundle.getString("CourtJudgement_Appeal.lblCaseNo.text")); // NOI18N
 
-        slash.setText(bundle1.getString("CourtJudgement_Appeal.slash.text_1")); // NOI18N
+        slash.setText(bundle.getString("CourtJudgement_Appeal.slash.text_1")); // NOI18N
 
         cboCaseType1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboCaseType1.setModel(setCaseTypesModel());
@@ -613,7 +700,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         cboCities1.setModel(setCitiesModel());
 
         lblRegion1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblRegion1.setText(bundle1.getString("CourtJudgement_Appeal.lblRegion1.text_1")); // NOI18N
+        lblRegion1.setText(bundle.getString("CourtJudgement_Appeal.lblRegion.text")); // NOI18N
 
         cboRegion1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboRegion1.setModel(setRegionsModel());
@@ -624,38 +711,38 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         txtYear1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblDomain1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblDomain1.setText(bundle1.getString("CourtJudgement_Appeal.lblDomain1.text")); // NOI18N
+        lblDomain1.setText(bundle.getString("CourtJudgement_Appeal.lblDomain1.text")); // NOI18N
 
         lblYear1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblYear1.setText(bundle1.getString("CourtJudgement_Appeal.lblYear1.text_1")); // NOI18N
+        lblYear1.setText(bundle.getString("CourtJudgement_Appeal.lblYear.text")); // NOI18N
 
         lblCity1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCity1.setText(bundle1.getString("CourtJudgement_Appeal.lblCity1.text_1")); // NOI18N
+        lblCity1.setText(bundle.getString("CourtJudgement_Appeal.lblCity.text")); // NOI18N
 
         lblCaseType1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCaseType1.setText(bundle1.getString("CourtJudgement_Appeal.lblCaseType1.text_1")); // NOI18N
+        lblCaseType1.setText(bundle.getString("CourtJudgement_Appeal.lblCaseType.text")); // NOI18N
 
         lblOfficialDate1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblOfficialDate1.setText(bundle1.getString("CourtJudgement_Appeal.lblOfficialDate1.text_1")); // NOI18N
+        lblOfficialDate1.setText(bundle.getString("CourtJudgement_Appeal.lblOfficialDate.text")); // NOI18N
 
-        dt_official_date1.setFormats("dd/MM/yyyy");
+        dt_official_date1.setFormats("yyyy-MM-dd");
         dt_official_date1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         txtCaseNumber1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblCourtType1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCourtType1.setText(bundle1.getString("CourtJudgement_Appeal.lblCourtType1.text_1")); // NOI18N
+        lblCourtType1.setText(bundle.getString("CourtJudgement_Appeal.lblCourtType.text")); // NOI18N
 
         btnNewCase1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnNewCase1.setText(bundle1.getString("CourtJudgement_Appeal.btnNewCase1.text")); // NOI18N
+        btnNewCase1.setText(bundle.getString("CourtJudgement_Appeal.btnNewCase1.text")); // NOI18N
         btnNewCase1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewCase1ActionPerformed(evt);
             }
         });
 
-        btnSaveAppeal1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnSaveAppeal1.setText(bundle1.getString("CourtJudgement_Appeal.btnSaveAppeal1.text")); // NOI18N
+        btnSaveCase.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+        btnSaveCase.setText(bundle.getString("CourtJudgement_Appeal.btnSaveCase.text")); // NOI18N
 
         javax.swing.GroupLayout jCaseFullDataPanelLayout = new javax.swing.GroupLayout(jCaseFullDataPanel);
         jCaseFullDataPanel.setLayout(jCaseFullDataPanelLayout);
@@ -680,7 +767,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jCaseFullDataPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jCaseFullDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSaveAppeal1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSaveCase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnNewCase1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jCaseFullDataPanelLayout.createSequentialGroup()
                         .addGroup(jCaseFullDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -757,10 +844,10 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnNewCase1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSaveAppeal1))
+                .addComponent(btnSaveCase))
         );
 
-        jAppealDataPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle1.getString("CourtJudgement_Appeal.jAppealDataPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 10))); // NOI18N
+        jAppealDataPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("CourtJudgement_Appeal.jAppealDataPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 10))); // NOI18N
         jAppealDataPanel1.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         jAppealDataPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -769,9 +856,9 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         });
 
         lblCaseNo.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCaseNo.setText(bundle1.getString("CourtJudgement_Appeal.lblCaseNo.text")); // NOI18N
+        lblCaseNo.setText(bundle.getString("CourtJudgement_Appeal.lblCaseNo.text")); // NOI18N
 
-        slash2.setText(bundle1.getString("CourtJudgement_Appeal.slash2.text")); // NOI18N
+        slash2.setText(bundle.getString("CourtJudgement_Appeal.slash2.text")); // NOI18N
 
         cboCaseType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboCaseType.setModel(setCaseTypesModel());
@@ -783,7 +870,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         cboCities.setModel(setCitiesModel());
 
         lblRegion.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblRegion.setText(bundle1.getString("CourtJudgement_Appeal.lblRegion.text")); // NOI18N
+        lblRegion.setText(bundle.getString("CourtJudgement_Appeal.lblRegion.text")); // NOI18N
 
         cboRegion.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboRegion.setModel(setRegionsModel());
@@ -794,47 +881,52 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         txtYear.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblDomain.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblDomain.setText(bundle1.getString("CourtJudgement_Appeal.lblDomain.text")); // NOI18N
+        lblDomain.setText(bundle.getString("CourtJudgement_Appeal.lblDomain.text")); // NOI18N
 
         lblYear.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblYear.setText(bundle1.getString("CourtJudgement_Appeal.lblYear.text")); // NOI18N
+        lblYear.setText(bundle.getString("CourtJudgement_Appeal.lblYear.text")); // NOI18N
 
         chbJudgeChecked.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        chbJudgeChecked.setText(bundle1.getString("CourtJudgement_Appeal.chbJudgeChecked.text")); // NOI18N
+        chbJudgeChecked.setText(bundle.getString("CourtJudgement_Appeal.chbJudgeChecked.text")); // NOI18N
 
         lblCity.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCity.setText(bundle1.getString("CourtJudgement_Appeal.lblCity.text")); // NOI18N
+        lblCity.setText(bundle.getString("CourtJudgement_Appeal.lblCity.text")); // NOI18N
 
         lblCaseType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCaseType.setText(bundle1.getString("CourtJudgement_Appeal.lblCaseType.text")); // NOI18N
+        lblCaseType.setText(bundle.getString("CourtJudgement_Appeal.lblCaseType.text")); // NOI18N
 
         lblOfficialDate.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblOfficialDate.setText(bundle1.getString("CourtJudgement_Appeal.lblOfficialDate.text")); // NOI18N
+        lblOfficialDate.setText(bundle.getString("CourtJudgement_Appeal.lblOfficialDate.text")); // NOI18N
 
-        dt_official_date1.setFormats("dd/MM/yyyy");
+        dt_official_date.setFormats("yyyy-MM-dd");
         dt_official_date.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblLanguage.setText(bundle1.getString("CourtJudgement_Appeal.lblLanguage.text")); // NOI18N
+        lblLanguage.setText(bundle.getString("CourtJudgement_Appeal.lblLanguage.text")); // NOI18N
         lblLanguage.setName("lbl.BungeniLanguageID"); // NOI18N
 
         txtCaseNumber.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
 
         lblCourtType.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblCourtType.setText(bundle1.getString("CourtJudgement_Appeal.lblCourtType.text")); // NOI18N
+        lblCourtType.setText(bundle.getString("CourtJudgement_Appeal.lblCourtType.text")); // NOI18N
 
         cboLanguage.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
         cboLanguage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboLanguage.setName("fld.BungeniLanguageID"); // NOI18N
 
         lblImportance.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        lblImportance.setText(bundle1.getString("CourtJudgement_Appeal.lblImportance.text")); // NOI18N
+        lblImportance.setText(bundle.getString("CourtJudgement_Appeal.lblImportance.text")); // NOI18N
 
         txtImportance.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        txtImportance.setText(bundle1.getString("CourtJudgement_Appeal.txtImportance.text")); // NOI18N
+        txtImportance.setText(bundle.getString("CourtJudgement_Appeal.txtImportance.text")); // NOI18N
 
         btnSaveAppeal.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        btnSaveAppeal.setText(bundle1.getString("CourtJudgement_Appeal.btnSaveAppeal.text")); // NOI18N
+        btnSaveAppeal.setText(bundle.getString("CourtJudgement_Appeal.btnSaveAppeal.text")); // NOI18N
+        btnSaveAppeal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveAppealActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jAppealDataPanel1Layout = new javax.swing.GroupLayout(jAppealDataPanel1);
         jAppealDataPanel1.setLayout(jAppealDataPanel1Layout);
@@ -843,6 +935,16 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
             .addGroup(jAppealDataPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAppealDataPanel1Layout.createSequentialGroup()
+                        .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCaseNo)
+                            .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addComponent(slash2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblYear)))
                     .addGroup(jAppealDataPanel1Layout.createSequentialGroup()
                         .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboCourtType, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -865,17 +967,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
                                 .addComponent(lblDomain))
                             .addComponent(lblImportance)
                             .addComponent(chbJudgeChecked)
-                            .addComponent(txtImportance)))
-                    .addGroup(jAppealDataPanel1Layout.createSequentialGroup()
-                        .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCaseNo)
-                            .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addComponent(slash2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblYear))))
+                            .addComponent(txtImportance))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jAppealDataPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -926,6 +1018,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
                     .addGroup(jAppealDataPanel1Layout.createSequentialGroup()
                         .addComponent(lblImportance)
                         .addGap(26, 26, 26)))
+                .addGap(11, 11, 11)
                 .addGroup(jAppealDataPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCaseNo)
                     .addComponent(lblYear))
@@ -935,8 +1028,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
                     .addComponent(slash2)
                     .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSaveAppeal)
-                .addContainerGap())
+                .addComponent(btnSaveAppeal))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -945,11 +1037,12 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jAppealDataPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCaseFullDataPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCaseDataPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jAppealDataPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCaseDataPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jCaseFullDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -960,7 +1053,7 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
                 .addComponent(jCaseDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCaseFullDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -972,42 +1065,260 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
         CJ_Main mainObj = null;
 
         try {
-            String sqlStm = "SELECT [CJ_Main_ID] FROM [CJ_Main] WHERE [CJ_Main_NumNo]=" + txtNoC.getText()
+            String sqlStm = "SELECT CJ_Main_ID, CJ_CaseTypes.CJ_CaseTypes_Name, CJ_Regions.CJ_Regions_Name, CJ_Domains.CJ_Domains_Name, CJ_CourtTypes.CJ_CourtTypes_Name, CJ_Cities.CJ_Cities_Name, [CJ_Main_NumNo], "
+                    + " [CJ_Main_DecDate] , [CJ_Main_NumYr], [CJ_Main_Importance] FROM [CJ_Main]"
+                    + "INNER JOIN CJ_CaseTypes ON [CJ_Main].CJ_Main_CJ_CaseTypes_ID=CJ_CaseTypes.CJ_CaseTypes_ID "
+                    + "INNER JOIN CJ_Cities ON CJ_Main.CJ_Main_CJ_Cities_ID=CJ_Cities.CJ_Cities_ID "
+                    + "INNER JOIN CJ_Regions ON CJ_Main.CJ_Main_CJ_Regions_ID=CJ_Regions.CJ_Regions_ID "
+                    + "INNER JOIN CJ_Domains ON CJ_Main.CJ_Main_CJ_Domains_ID = CJ_Domains.CJ_Domains_ID "
+                    + "INNER JOIN CJ_CourtTypes ON CJ_Main.CJ_Main_CJ_CourtTypes_ID = CJ_CourtTypes.CJ_CourtTypes_ID"
+                    + " WHERE [CJ_Main_NumNo]=" + txtNoC.getText()
                     + " and [CJ_Main_NumYr]=" + txtYearC.getText()
                     + " and [CJ_Main_CJ_CourtTypes_ID]=" + courtTypeObj.getCourtTypeID()
                     + "";
 
             rs = conStmt.executeQuery(sqlStm);
-            if (rs.next()) {
-                try {
-                    String queryMain = "SELECT [CJ_Main_NumNo], [CJ_Main_NumYr], [CJ_Main_DecDate], [CJ_Main_CJ_CourtTypes_ID], [CJ_Main_CJ_Cities_ID] FROM [CJ_Main] WHERE [CJ_Main_ID]=" + rs.getString(1) + "";
-                    ResultSet resMain = conStmt.executeQuery(queryMain);
+            launchTableFrame(rs);
 
-
-                    while (resMain.next()) {
-                        mainObj = new CJ_Main(rs.getString(1), resMain.getString(1), resMain.getString(2), new SimpleDateFormat("yyyy-MM-dd").parse(resMain.getString(3)), resMain.getString(4), resMain.getString(5));
-                    }
-                } catch (ParseException ex) {
-                    Logger.getLogger(CourtJudgement_Appeal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                cboCourtType1.setSelectedItem(courtTypeObj);
-
-                int i = Integer.parseInt(mainObj.getCJ_Main_CJ_Cities_ID());
-                cboCities1.setSelectedIndex(i - 1);
-                dt_official_date1.setDate(mainObj.getCJ_Main_DecDate());
-                txtCaseNumber1.setText(mainObj.getCJ_Main_NumNo());
-                txtYear1.setText(mainObj.getCJ_Main_NumYr());
-                jCaseDataPanel.setVisible(false);
-                jCaseFullDataPanel.setVisible(true);
-            } else {
-                MessageBox.OK("Recodr not found");
-            }
+//            if (rs.next()) {
+//                try {
+//                    String queryMain = "SELECT [CJ_Main_NumNo], [CJ_Main_NumYr], [CJ_Main_DecDate], [CJ_Main_CJ_CourtTypes_ID], [CJ_Main_CJ_Cities_ID] FROM [CJ_Main] WHERE [CJ_Main_ID]=" + rs.getString(1) + "";
+//                    ResultSet resMain = conStmt.executeQuery(queryMain);
+//
+//
+//                    while (resMain.next()) {
+//                        mainObj = new CJ_Main(rs.getString(1), resMain.getString(1), resMain.getString(2), new SimpleDateFormat("yyyy-MM-dd").parse(resMain.getString(3)), resMain.getString(4), resMain.getString(5));
+//                    }
+//                } catch (ParseException ex) {
+//                    Logger.getLogger(CourtJudgement_Appeal.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//
+//                cboCourtType1.setSelectedItem(courtTypeObj);
+//
+//                int i = Integer.parseInt(mainObj.getCJ_Main_CJ_Cities_ID());
+//                cboCities1.setSelectedIndex(i - 1);
+//                dt_official_date1.setDate(mainObj.getCJ_Main_DecDate());
+//                txtCaseNumber1.setText(mainObj.getCJ_Main_NumNo());
+//                txtYear1.setText(mainObj.getCJ_Main_NumYr());
+//                jCaseDataPanel.setVisible(false);
+//                jCaseFullDataPanel.setVisible(true);
+//            } else {
+//                MessageBox.OK("Recodr not found");
+//            }
 
         } catch (SQLException ex) {
             Logger.getLogger(CourtJudgement_Appeal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+    private void launchTableFrame(ResultSet rs) throws SQLException {
+
+        if (rs.next()) {
+            ResultSetMetaData meta = rs.getMetaData();
+            int numberOfColumns = meta.getColumnCount();
+
+            //  String[] COLUMN_NAMES = new String[]{
+            Vector cols = new Vector(numberOfColumns + 1);
+            cols.add(" ");
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblCaseTypet.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblRegiont.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblDomaint.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblCourtTypet.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblCityt.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblCaseNot.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblOfficialDatet.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblYeart.text"));
+            cols.add(bundle.getString("CourtJudgement_Appeal.lblImportancet.text"));
+            cols.add(" ___ ");
+
+            Vector data = new Vector();
+
+            Vector row = new Vector(numberOfColumns);
+            for (int i = 0; i < numberOfColumns; ++i) {
+                Object o = rs.getObject(i + 1);
+                if (o instanceof Date) {
+                    row.add(dtformatter.format((Date) o));
+                } else {
+                    row.add(o);
+                }
+            }
+            data.add(row);
+
+            while (rs.next()) {
+                row = new Vector(numberOfColumns);
+                for (int i = 0; i < numberOfColumns; ++i) {
+                    Object o = rs.getObject(i + 1);
+                    if (o instanceof Date) {
+                        row.add(dtformatter.format((Date) o));
+                    } else {
+                        row.add(o);
+                    }
+                }
+                data.add(row);
+            }
+
+            JTable jtblCaseData = new JTable(data, cols);
+            hide(jtblCaseData, 0);
+
+            Action delete = new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    JTable table = (JTable) e.getSource();
+                    int modelRow = Integer.valueOf(e.getActionCommand());
+                    Object rsCJ_Main_ID = ((DefaultTableModel) table.getModel()).getValueAt(modelRow, 0);
+                    int CJ_Main_ID = (Integer) rsCJ_Main_ID;
+
+                    if (linkDoc(CJ_Main_ID)) {
+                        frm.setVisible(false);
+                        JOptionPane.showMessageDialog(frm, bundle.getString("CourtJudgement_Appeal.docLinked.text"));
+
+                        try {
+                            setCaseData(CJ_Main_ID);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(CourtJudgement_Cassation.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        jCaseDataPanel.setVisible(false);
+                        jCaseFullDataPanel.setVisible(true);
+                    }
+                }
+            };
+            ButtonColumn buttonColumn = new ButtonColumn(jtblCaseData, delete, 10);
+            buttonColumn.setMnemonic(KeyEvent.VK_D);
+
+            jtblCaseData.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            JScrollPane scrollPane = new JScrollPane(jtblCaseData);
+            frm.add(scrollPane);
+            frm.initFrame();
+            frm.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frm.setSize(800, 100);
+            frm.setVisible(true);
+            FrameLauncher.CenterFrame(frm);
+            frm.setAlwaysOnTop(true);
+        } else {
+            JOptionPane.showMessageDialog(frm, bundle.getString("CourtJudgement_Appeal.NoResult.text"));
+        }
+    }
+
+   private void setCaseData(int CJ_Main_ID) throws ParseException {
+
+        ResultSet rs;
+        CJ_Main mainObj = null;
+
+        try {
+            String sqlStm = "SELECT CJ_Main_CJ_CaseTypes_ID, CJ_Main_CJ_Cities_ID, CJ_Main_CJ_Regions_ID, CJ_Main_CJ_Domains_ID, CJ_Main_CJ_CourtTypes_ID, CJ_Main_DecDate, CJ_Main_NumNo"
+                    + ", CJ_Main_NumYr, CJ_Main_Importance FROM CJ_Main WHERE CJ_Main_ID = " + CJ_Main_ID;
+
+            rs = conStmt.executeQuery(sqlStm);
+
+            while (rs.next()) {
+                mainObj = new CJ_Main(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), dbdtformatter.parse(rs.getString(6)), rs.getString(7), rs.getString(8), rs.getString(9));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourtJudgement_Cassation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        docMetaModel.updateItem("BungeniMainDocID", Integer.toString(CJ_Main_ID));
+        String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
+        String sCourtType = mainObj.getCJ_Main_CJ_CourtTypes_ID();
+        docMetaModel.updateItem("BungeniCourtType", sCourtType);
+        String sDomainType = mainObj.getCJ_Main_CJ_Domains_ID();
+        docMetaModel.updateItem("BungeniDomain", sDomainType);
+        String sRegion = mainObj.getCJ_Main_CJ_Regions_ID();
+        docMetaModel.updateItem("BungeniRegion", sRegion);
+        String sCaseType = mainObj.getCJ_Main_CJ_CaseTypes_ID();
+        docMetaModel.updateItem("BungeniCaseType", sCaseType);
+        String sCity = mainObj.getCJ_Main_CJ_Cities_ID();
+        docMetaModel.updateItem("BungeniCity", sCity);
+        String sCaseNo = mainObj.getCJ_Main_NumNo();
+        docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
+        Date sDate = mainObj.getCJ_Main_DecDate();
+        docMetaModel.updateItem("BungeniDate", sDate.toString());
+        String sYear = mainObj.getCJ_Main_NumYr();
+        docMetaModel.updateItem("BungeniYear", sYear);
+        String sImportance = mainObj.getCJ_Main_Importance();
+        docMetaModel.updateItem("BungeniImportance", sImportance);
+
+
+        if (!CommonStringFunctions.emptyOrNull(sCourtType)) {
+            this.cboCourtType1.setSelectedItem(sCourtType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sDomainType)) {
+            this.cboDomain1.setSelectedItem(sDomainType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sRegion)) {
+            this.cboRegion1.setSelectedItem(sDomainType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sCaseType)) {
+            this.cboCaseType1.setSelectedItem(sCaseType);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sCity)) {
+            this.cboCities1.setSelectedItem(sCity);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sCaseNo)) {
+            this.txtCaseNumber1.setText(sCaseNo);
+        }
+        if (!CommonStringFunctions.emptyOrNull(sDate.toString())) {      
+            this.dt_official_date1.setDate(sDate);    
+        }
+        if (!CommonStringFunctions.emptyOrNull(sYear)) {
+            this.txtYear1.setText(sYear);
+        }
+
+    }
+    private void hide(JTable jtbl, int index) {
+        TableColumn column = jtbl.getColumnModel().getColumn(index);
+        column.setMinWidth(0);
+        column.setMaxWidth(0);
+        column.setWidth(0);
+        column.setPreferredWidth(0);
+        doLayout();
+    }
+
+    private boolean linkDoc(int CJ_Main_ID) {
+        boolean bState = false;
+
+        int update_CJ_Main = 0;
+
+        try {
+            conStmt = con.createStatement();
+
+            con.setAutoCommit(false);
+            String sqlStm = "UPDATE [CJ_Main] SET [CJ_Main_CJ_Main_ID] = " + CJ_Main_ID
+                    + ", [CJ_Main_CJ_CaseTypes_ID] = " + docMetaModel.getItem("BungeniCaseTypeID")
+                    + ", [CJ_Main_CJ_Regions_ID] = " + docMetaModel.getItem("BungeniRegionID")
+                    + ", [CJ_Main_CJ_Domains_ID] = " + docMetaModel.getItem("BungeniDomainID")
+                    + ", [CJ_Main_CJ_CourtTypes_ID] = " + docMetaModel.getItem("BungeniCourtTypeID")
+                    + ", [CJ_Main_CJ_Cities_ID] = " + docMetaModel.getItem("BungeniCityID")
+                    + ", [CJ_Main_NumNo] = " + docMetaModel.getItem("BungeniCaseNo")
+                    + ", [CJ_Main_DecDate] = " + docMetaModel.getItem("BungeniIssuedOn")
+                    + ", [CJ_Main_NumYr] = " + docMetaModel.getItem("BungeniYear")
+                    + ", [CJ_Main_Importance] = " + docMetaModel.getItem("BungeniImportance")
+                    + " WHERE [CJ_Main_ID] = " + docMetaModel.getItem("BungeniMainDocID");
+
+            update_CJ_Main = conStmt.executeUpdate(sqlStm);
+            bState = true;
+
+        } catch (SQLException e) {
+            if (conStmt != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    con.rollback();
+                    bState = false;
+                } catch (SQLException excep) {
+                }
+            }
+        } finally {
+            if (update_CJ_Main != 0) {
+                try {
+                    con.commit();
+                    con.setAutoCommit(true);
+                    return bState;
+                } catch (SQLException ex) {
+                    Logger.getLogger(CourtJudgement_Appeal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return bState;
+
+    }
 
     private void btnNewCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCaseActionPerformed
         // TODO add your handling code here:
@@ -1030,11 +1341,74 @@ public class CourtJudgement_Appeal extends BaseEditorDocMetadataDialog {
     private void jAppealDataPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jAppealDataPanel1ComponentHidden
         // TODO add your handling code here:
     }//GEN-LAST:event_jAppealDataPanel1ComponentHidden
+
+    private void btnSaveAppealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAppealActionPerformed
+        // TODO add your handling code here:
+        ResultSet rsMainID = null;
+        int insert_CJ_Main = 0;
+
+        try {
+            conStmt = con.createStatement();
+
+            if (storeAppealData()) {
+                con.setAutoCommit(false);
+                String sqlStm = "INSERT INTO [CJ_Main] ([CJ_Main_CJ_CaseTypes_ID], [CJ_Main_CJ_Regions_ID], [CJ_Main_CJ_Domains_ID], [CJ_Main_CJ_CourtTypes_ID], [CJ_Main_CJ_Cities_ID], [CJ_Main_NumNo], "
+                        + " [CJ_Main_DecDate] , [CJ_Main_NumYr], [CJ_Main_Importance])"
+                        + " VALUES(" + docMetaModel.getItem("BungeniCaseTypeID") + "," + docMetaModel.getItem("BungeniRegionID")
+                        + "," + docMetaModel.getItem("BungeniDomainID") + "," + docMetaModel.getItem("BungeniCourtTypeID")
+                        + "," + docMetaModel.getItem("BungeniCityID") + "," + docMetaModel.getItem("BungeniCaseNo")
+                        + ",'" + docMetaModel.getItem("BungeniIssuedOn")
+                        + "','" + docMetaModel.getItem("BungeniYear") + "'," + docMetaModel.getItem("BungeniImportance")
+                        + ")";
+
+                insert_CJ_Main = conStmt.executeUpdate(sqlStm);
+
+                sqlStm = "SELECT max([CJ_Main_ID]) FROM [CJ_Main] ";
+                rsMainID = conStmt.executeQuery(sqlStm);
+
+                if (rsMainID.next()) {
+                    String CJ_Main_ID = rsMainID.getString(1);
+
+                    docMetaModel.updateItem("BungeniMainDocID", CJ_Main_ID);
+                    docMetaModel.saveModel(ooDocument);
+
+                } else {
+                    MessageBox.OK("Record not found");
+                }
+            }
+
+        } catch (SQLException e) {
+            if (conStmt != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    con.rollback();
+                } catch (SQLException excep) {
+                }
+            }
+        } finally {
+            if (insert_CJ_Main != 0) {
+                if (rsMainID != null) {
+                    try {
+                        rsMainID.close();
+                        con.commit();
+                        con.setAutoCommit(true);
+                        JOptionPane.showMessageDialog(frm, bundle.getString("CourtJudgement_Appeal.ResultSaved.text"));
+                        jCaseDataPanel.setVisible(true);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CourtJudgement_Appeal.class
+                                .getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnSaveAppealActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNewCase;
     private javax.swing.JButton btnNewCase1;
     private javax.swing.JButton btnSaveAppeal;
-    private javax.swing.JButton btnSaveAppeal1;
+    private javax.swing.JButton btnSaveCase;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox cboCaseType;
     private javax.swing.JComboBox cboCaseType1;

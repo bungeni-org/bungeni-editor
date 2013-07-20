@@ -22,6 +22,7 @@ import java.util.Locale;
 import java.util.TreeMap;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import org.birzeit.editor.metadata.ActSourceModel;
 import org.birzeit.editor.metadata.CaseType;
 import org.birzeit.editor.metadata.City;
 import org.birzeit.editor.metadata.CourtType;
@@ -33,7 +34,7 @@ import org.bungeni.editor.config.BungeniEditorProperties;
 import org.bungeni.editor.config.BungeniEditorPropertiesHelper;
 import org.bungeni.editor.connectorutils.CommonConnectorFunctions;
 import org.bungeni.editor.metadata.BaseEditorDocMetadataDialog;
-import org.bungeni.editor.metadata.JudgementMetadataModel;
+import org.birzeit.editor.metadata.JudgementMetadataModel;
 import org.bungeni.editor.metadata.LanguageCode;
 import org.bungeni.editor.selectors.SelectorDialogModes;
 import org.bungeni.extutils.CommonStringFunctions;
@@ -47,11 +48,11 @@ import org.bungeni.utils.BungeniFileSavePathFormat;
 public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption extends BaseEditorDocMetadataDialog {
 
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption.class.getName());
-    JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
+    private static JudgementMetadataModel docMetaModel = new JudgementMetadataModel();
     private SimpleDateFormat dtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataDateFormat"));
     private SimpleDateFormat savedtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("metadataSaveDateFormat"));
     private SimpleDateFormat dbdtformatter = new SimpleDateFormat(BungeniEditorProperties.getEditorProperty("dataBaseDateFormat"));
-    private String dbName = "CourtJudgments2007";
+    private String dbName = "CourtJudgments2007_test";
     private ArrayList<CaseType> CaseTypesList = new ArrayList<CaseType>();
     private ArrayList<CourtType> CourtTypesList = new ArrayList<CourtType>();
     private ArrayList<Domains> DomainsList = new ArrayList<Domains>();
@@ -88,22 +89,27 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
         try {
 
             String sLanguageCode = docMetaModel.getItem("BungeniLanguageCode");
-            String sFamily = docMetaModel.getItem("BungeniFamily");
+            String sCourtType = docMetaModel.getItem("BungeniCourtType");
             String sDomainType = docMetaModel.getItem("BungeniDomain");
+            String sRegion = docMetaModel.getItem("BungeniRegion");
             String sCaseType = docMetaModel.getItem("BungeniCaseType");
             String sCity = docMetaModel.getItem("BungeniCity");
             String sCaseNo = docMetaModel.getItem("BungeniCaseNo");
             String sDate = docMetaModel.getItem("BungeniDate");
             String sYear = docMetaModel.getItem("BungeniYear");
+            String sImportance = docMetaModel.getItem("BungeniImportance");
 
             if (!CommonStringFunctions.emptyOrNull(sLanguageCode)) {
                 this.cboLanguage.setSelectedItem(findLanguageCodeAlpha2(sLanguageCode));
             }
-            if (!CommonStringFunctions.emptyOrNull(sFamily)) {
-                this.cboCourtType.setSelectedItem(sFamily);
+            if (!CommonStringFunctions.emptyOrNull(sCourtType)) {
+                this.cboCourtType.setSelectedItem(sCourtType);
             }
             if (!CommonStringFunctions.emptyOrNull(sDomainType)) {
                 this.cboDomain.setSelectedItem(sDomainType);
+            }
+            if (!CommonStringFunctions.emptyOrNull(sRegion)) {
+                this.cboRegion.setSelectedItem(sDomainType);
             }
             if (!CommonStringFunctions.emptyOrNull(sCaseType)) {
                 this.cboCaseType.setSelectedItem(sCaseType);
@@ -119,6 +125,10 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
             }
             if (!CommonStringFunctions.emptyOrNull(sYear)) {
                 this.txtYear.setText(sYear);
+            }
+            
+            if (!CommonStringFunctions.emptyOrNull(sImportance)) {
+                this.txtImportance.setText(sImportance);
             }
         } catch (Exception ex) {
             log.error("initalize()  =  " + ex.getMessage());
@@ -136,8 +146,8 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
                     if (metadata.get(i).getName().equalsIgnoreCase("BungeniLanguageCode")) {
                         docMetaModel.setBungeniLanguageCode(metadata.get(i).getValue());
                     }
-                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniFamily")) {
-                        docMetaModel.setBungeniFamily(metadata.get(i).getValue());
+                    if (metadata.get(i).getName().equalsIgnoreCase("BungeniCourtType")) {
+                        docMetaModel.setBungeniCourtType(metadata.get(i).getValue());
                     }
                     if (metadata.get(i).getName().equalsIgnoreCase("BungeniDomain")) {
                         docMetaModel.setBungeniDomain(metadata.get(i).getValue());
@@ -210,6 +220,10 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
         return judgementCaseTypesModel;
     }
 
+       public static JudgementMetadataModel getDocMetaModel() {
+        return docMetaModel;
+    }
+       
     private ComboBoxModel setDomainsModel() {
         DefaultComboBoxModel judgementDomainsModel = null;
 
@@ -234,41 +248,13 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
         judgementDomainsModel = new DefaultComboBoxModel(judgementDomains);
 
         return judgementDomainsModel;
-//        DefaultComboBoxModel judgementDomainsNamesModel = null;
-//        String[] judgementDomainsNames = null; // stores all the bill Names
-//
-//        // initialise the Bungeni Connector Client
-//        BungeniConnector client = null;
-//        try {
-//            // initialize the data store client
-//            client = CommonConnectorFunctions.getDSClient();
-//
-//            // get the bills from the registry H2 db
-//            List<JudgementDomain> judgementDomainsList = client.getJudgementDomains();
-//            judgementDomainsNames = new String[judgementDomainsList.size()];
-//
-//            // loop through extracting the bills
-//            for (int i = 0; i < judgementDomainsList.size(); i++) {
-//                // get the current bill & extract the bill Name
-//                JudgementDomain currJudgementDomain = judgementDomainsList.get(i);
-//                judgementDomainsNames[i] = currJudgementDomain.getNameByLang(Locale.getDefault().getLanguage());
-//            }
-//
-//            // create the default bills Names model
-//            judgementDomainsNamesModel = new DefaultComboBoxModel(judgementDomainsNames);
-//
-//        } catch (IOException ex) {
-//            log.error(ex);
-//        }
-//
-//        return judgementDomainsNamesModel;
     }
 
     private ComboBoxModel setCourtTypesModel() {
         DefaultComboBoxModel courtTypesModel = null;
 
         try {
-            String sqlStm = "SELECT DISTINCT [CJ_CourtTypes_ID], [CJ_CourtTypes_Name], [CJ_CourtTypes_Name_E] FROM [CJ_CourtTypes] WHERE [CJ_CourtTypes_Degree]=5 and [CJ_CourtTypes_IsCourtName]=1";
+            String sqlStm = "SELECT DISTINCT [CJ_CourtTypes_ID], [CJ_CourtTypes_Name], [CJ_CourtTypes_Name_E] FROM [CJ_CourtTypes] WHERE [CJ_CourtTypes_Degree]=4 and [CJ_CourtTypes_IsCourtName]=1";
             ResultSet rs = conStmt.executeQuery(sqlStm);
 
             while (rs.next()) {
@@ -348,20 +334,30 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
         boolean bState = false;
         try {
             LanguageCode selLanguage = (LanguageCode) this.cboLanguage.getSelectedItem();
-            String sFamily = (String) this.cboCourtType.getSelectedItem();
-            String sDomain = (String) this.cboDomain.getSelectedItem();
-            String sCaseType = (String) this.cboCaseType.getSelectedItem();
-            String sCity = (String) this.cboCities.getSelectedItem();
+            CourtType sCourtType = CourtTypesList.get(this.cboCourtType.getSelectedIndex());
+            Domains sDomain = DomainsList.get(this.cboDomain.getSelectedIndex());
+            JudgementRegion sRegion = JudgementRegionsList.get(this.cboRegion.getSelectedIndex());
+            CaseType sCaseType = CaseTypesList.get(this.cboCaseType.getSelectedIndex());
+            City sCity = CitiesList.get(this.cboCities.getSelectedIndex());
             String sCaseNo = this.txtCaseNumber.getText();
             String sDate = dbdtformatter.format(dt_official_date.getDate());
             String sYear = this.txtYear.getText();
             String sImportance = this.txtImportance.getText();
 
             docMetaModel.updateItem("BungeniLanguageCode", selLanguage.getLanguageCodeAlpha2());
-            docMetaModel.updateItem("BungeniFamily", sFamily);
-            docMetaModel.updateItem("BungeniDomain", sDomain);
-            docMetaModel.updateItem("BungeniCaseType", sCaseType);
-            docMetaModel.updateItem("BungeniCity", sCity);
+            docMetaModel.updateItem("BungeniCourtType", sCourtType.toString());
+            docMetaModel.updateItem("BungeniDomain", sDomain.toString());
+            docMetaModel.updateItem("BungeniRegion", sRegion.toString());
+            docMetaModel.updateItem("BungeniCaseType", sCaseType.toString());
+            docMetaModel.updateItem("BungeniCity", sCity.toString());
+            
+            docMetaModel.updateItem("BungeniCourtTypeID", sCourtType.getCourtTypeID());
+            docMetaModel.updateItem("BungeniDomainID", sDomain.getDomainID());
+            docMetaModel.updateItem("BungeniRegionID", sRegion.getJudgementRegionID());
+            docMetaModel.updateItem("BungeniCaseTypeID", sCaseType.getCaseTypeID());
+            docMetaModel.updateItem("BungeniCityID", sCity.getCityID());
+            
+            
             docMetaModel.updateItem("BungeniCaseNo", sCaseNo);
             docMetaModel.updateItem("BungeniIssuedOn", sDate);
             docMetaModel.updateItem("BungeniYear", sYear);
@@ -465,9 +461,9 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
         lblCaseNo = new javax.swing.JLabel();
         txtImportance = new javax.swing.JTextField();
 
-        setPreferredSize(new java.awt.Dimension(500, 550));
+        setPreferredSize(new java.awt.Dimension(400, 550));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/bungeni/editor/metadata/editors/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("CourtJudgementMetadata.CourtJudgement.text"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DejaVu Sans", 0, 10))); // NOI18N
 
         lblDomain2.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
@@ -558,8 +554,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
         lblCaseNo.setText(bundle.getString("CourtJudgement_Appeal.lblCaseNo.text")); // NOI18N
 
         txtImportance.setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
-        java.util.ResourceBundle bundle1 = java.util.ResourceBundle.getBundle("org/birzeit/editor/metadata/editors/Bundle"); // NOI18N
-        txtImportance.setText(bundle1.getString("CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption.txtImportance.text")); // NOI18N
+        txtImportance.setText(bundle.getString("CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption.txtImportance.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -568,12 +563,32 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboCaseType, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCourtType, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboCourtType, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboCities, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboCaseType, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCourtType, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboCourtType, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboCities, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dt_official_date, javax.swing.GroupLayout.DEFAULT_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblOfficialDate)
+                            .addComponent(lblLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCaseType))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboDomain, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboRegion, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(lblDomain2))
+                                    .addComponent(lblImportance)
+                                    .addComponent(chbJudgeChecked))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtImportance)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCaseNo)
@@ -583,31 +598,14 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblYear)))
-                    .addComponent(dt_official_date, javax.swing.GroupLayout.DEFAULT_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOfficialDate)
-                    .addComponent(lblLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCaseType))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboDomain, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboRegion, 0, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(lblDomain2))
-                            .addComponent(lblImportance)
-                            .addComponent(chbJudgeChecked))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtImportance))
+                            .addComponent(lblYear))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(lblLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(cboLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -646,6 +644,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblImportance)
                         .addGap(26, 26, 26)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCaseNo)
                     .addComponent(lblYear))
@@ -653,8 +652,7 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCaseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(slash)
-                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -664,14 +662,14 @@ public class CourtJudgement_HighCourtofJustice_Constitutional_AntiCorruption ext
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

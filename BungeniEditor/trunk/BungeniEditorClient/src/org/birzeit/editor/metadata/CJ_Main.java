@@ -17,6 +17,7 @@
  */
 package org.birzeit.editor.metadata;
 
+import com.sun.star.beans.Optional;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -90,13 +91,16 @@ public class CJ_Main {
         CJ_Main_ID = cjID;
     }
     
-     public CJ_Main(String cjID, String cjMain_NumNo, String cjMain_NumYr, Date cjMain_DecDate, String cjMain_CJ_CourtTypes_ID, String cjMain_CJ_Cities_ID) {
-        CJ_Main_ID = cjID;
-        CJ_Main_NumNo = cjMain_NumNo;
-        CJ_Main_NumYr = cjMain_NumYr;
-        CJ_Main_DecDate = cjMain_DecDate;
-        CJ_Main_CJ_CourtTypes_ID = cjMain_CJ_CourtTypes_ID;
-        CJ_Main_CJ_Cities_ID = cjMain_CJ_Cities_ID;
+     public CJ_Main(String cjmain_CJ_CaseTypes_ID, String cjmain_CJ_Cities_ID, String cjmain_CJ_Regions_ID, String cjmain_CJ_Domains_ID, String cjmain_CJ_CourtTypes_ID, Date cjmain_DecDate, String cjmain_NumNo, String cjmain_NumYr, String cjmain_Importance) {
+        CJ_Main_NumNo = cjmain_NumNo;
+        CJ_Main_NumYr = cjmain_NumYr;
+        CJ_Main_DecDate = cjmain_DecDate;
+        CJ_Main_CJ_CourtTypes_ID = cjmain_CJ_CourtTypes_ID;
+        CJ_Main_CJ_Cities_ID = cjmain_CJ_Cities_ID;
+        CJ_Main_CJ_CaseTypes_ID = cjmain_CJ_CaseTypes_ID;
+        CJ_Main_CJ_Regions_ID = cjmain_CJ_Regions_ID;
+        CJ_Main_CJ_Domains_ID = cjmain_CJ_Domains_ID;
+        CJ_Main_Importance = cjmain_Importance;     
     }
 
     public String getCJ_Main_ID() {

@@ -29,7 +29,7 @@
                               <Component id="lblActDeveloped" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblActApproved" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="124" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="138" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -98,7 +98,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActApproved.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActApproved.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -122,7 +122,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActDevelopedDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActDevelopedDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -132,7 +132,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActReleased.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActReleased.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -162,7 +162,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActReleasedDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActReleasedDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -172,7 +172,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActDeveloped.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActDeveloped.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -182,7 +182,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActApprovedDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActApprovedDate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -206,7 +206,7 @@
           <Font name="DejaVu Sans" size="10" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/bungeni/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActReleasedDateHijri.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/birzeit/editor/metadata/editors/Bundle.properties" key="ActResponsibleAuthorities.lblActReleasedDateHijri.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
