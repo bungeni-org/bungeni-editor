@@ -27,8 +27,10 @@ public class BungeniBaseDoc {
     
     private BungeniVocabType status;
     private String status_date;
-    private BungeniVocabType doc_type ; 
-    private BungeniVocabType language ; 
+    //private BungeniVocabType doc_type ; 
+    private String doc_type;
+    private String language ; 
+    private String tags;
     private List<BungeniPermission> permissions;
     private String title;
     private String type;
@@ -65,9 +67,9 @@ public class BungeniBaseDoc {
     /**
      * @return the status
      */
-    public BungeniVocabType getStatus() {
+   public BungeniVocabType getStatus() {
         return status;
-    }
+   }
 
     /**
      * @return the status_date
@@ -79,21 +81,21 @@ public class BungeniBaseDoc {
     /**
      * @return the doc_type
      */
-    public BungeniVocabType getDoc_type() {
+    public String getDoc_type() {
         return doc_type;
     }
 
     /**
      * @return the language
      */
-    public BungeniVocabType getLanguage() {
-        return language;
+    public String getLanguage() {
+        return this.language;
     }
 
     /**
      * @return the permissions
      */
-    public List<BungeniPermission> getPermissions() {
+   public List<BungeniPermission> getPermissions() {
         return permissions;
     }
 

@@ -29,7 +29,7 @@ public class BungeniDoc extends BungeniBaseDoc{
     private List<BungeniEvent> sa_events;
     private String notice_date;
     private String submission_date;
-
+    
     /**
      * @return the admissible_date
      */
@@ -47,7 +47,7 @@ public class BungeniDoc extends BungeniBaseDoc{
     /**
      * @return the doc_type
      */
-    public BungeniVocabType getDocType() {
+    public String getDocType() {
         return getDoc_type();
     }
 
@@ -82,4 +82,6 @@ public class BungeniDoc extends BungeniBaseDoc{
     public List<BungeniEvent> getSaEvents(){
         return this.sa_events;
     }
+    
+
 }

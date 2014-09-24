@@ -26,13 +26,14 @@ import java.util.List;
 public class BungeniAtt {
     private Integer attachment_id;
     private String description;
-    private BungeniVocabType language;
-    private String mimetype;
+    private String language;
+    //private BungeniVocabType language;
+    public String mimetype;
     private String name;
     private String title;
     private List<BungeniPermission> permissions;
     private BungeniVocabType status;
-    private BungeniVocabType type;
+    private String type;
     private String status_date;
     private boolean selected = false;
     private String documentURL;
@@ -55,7 +56,7 @@ public class BungeniAtt {
     /**
      * @return the language
      */
-    public BungeniVocabType getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
@@ -122,7 +123,7 @@ public class BungeniAtt {
         return this.documentURL;
     }
     
-    public BungeniVocabType getType(){
+    public String getType(){
         return this.type;
     }
 
