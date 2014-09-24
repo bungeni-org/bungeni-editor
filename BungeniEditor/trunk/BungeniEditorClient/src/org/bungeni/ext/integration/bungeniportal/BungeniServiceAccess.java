@@ -495,9 +495,9 @@ public class BungeniServiceAccess {
             propshelper.setUserDefinedPropertyValue("PortalAttSource", att.getDocumentURL());
             propshelper.setUserDefinedPropertyValue("PortalAttFileName", att.getName());
             propshelper.setUserDefinedPropertyValue("PortalAttTitle", att.getTitle());
-            propshelper.setUserDefinedPropertyValue("PortalAttType", att.getType().getValue());
+            propshelper.setUserDefinedPropertyValue("PortalAttType", att.getType());
             propshelper.setUserDefinedPropertyValue("PortalAttMimeType", att.getMimetype());
-            propshelper.setUserDefinedPropertyValue("PortalAttLang", att.getLanguage().getValue());
+            propshelper.setUserDefinedPropertyValue("PortalAttLang", att.getLanguage());
             propshelper.setUserDefinedPropertyValue("PortalAttStatus", att.getStatus().getValue());
             propshelper.setUserDefinedPropertyValue("PortalAttStatusDate", att.getStatus_date());
             propshelper.setUserDefinedPropertyValue("PortalAttDownURL", att.getDocumentURL());
